@@ -55,4 +55,10 @@ export const menuItems = [
     icon: "ri-book-line",
     link: "/admin/report",
   },
+  {
+    id: 10,
+    label: "Advertism",
+    icon: "ri-book-line",
+    link: "/admin/adv",
+  },
 ];

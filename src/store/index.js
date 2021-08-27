@@ -35,6 +35,14 @@ export default new Vuex.Store({
         perfix_glos: "",
       },
     ],
+
+    adv: [
+      {
+        title: "",
+        image: "",
+        detail: "",
+      },
+    ],
   },
 
   getters: {

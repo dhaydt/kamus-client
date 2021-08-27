@@ -65,6 +65,9 @@
 						:filter-included-fields="filterOn"
 						@filtered="onFiltered"
 					>
+						<template v-slot:cell(created_at)="data">
+							<td>{{ data.item.created_at | moment }}</td>
+						</template>
 						<template v-slot:cell(action)>
 							<a
 								href="javascript:void(0);"
@@ -108,6 +111,7 @@
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
 import axios from "axios";
+import moment from "moment";
 import PageHeader from "../../components/page-header.vue";
 
 export default {
@@ -182,6 +186,11 @@ export default {
 			// Trigger pagination to upkata the number of buttons/pages due to filtering
 			this.totalRows = filteredItems.length;
 			this.currentPage = 1;
+		},
+	},
+	filters: {
+		moment: function (date) {
+			return moment(date).format("Do MMMM YYYY");
 		},
 	},
 };

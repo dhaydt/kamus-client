@@ -102,6 +102,10 @@ const routes = [
         path: "/admin/report",
         component: () => import("../admin/view/report/Report.vue"),
       },
+      {
+        path: "/admin/adv",
+        component: () => import("../admin/view/adsvertism/index.vue"),
+      },
 
       // ...other sub routes
     ],
