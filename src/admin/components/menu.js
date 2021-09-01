@@ -15,6 +15,12 @@ export const menuItems = [
     link: "/admin",
   },
   {
+    id: 11,
+    label: "Administrator",
+    icon: "ri-dashboard-line",
+    link: "/admin/user",
+  },
+  {
     id: 3,
     label: "KBBI",
     icon: "ri-book-line",

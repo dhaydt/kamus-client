@@ -1,9 +1,15 @@
 <template>
 	<div id="app">
 		<div id="nav" v-if="!$route.meta.hideNavbar">
-			<div>
-				<b-navbar toggleable="lg" type="light" fixed="top">
-					<b-navbar-brand to="/">Kamus KBBI</b-navbar-brand>
+			<b-container>
+				<b-navbar class="pl-5 pr-5" toggleable="lg" type="light" fixed="top">
+					<b-navbar-brand to="/"
+						><img
+							src="../assets/imgClient/logo-kbbi.png"
+							class="d-inline-block align-top"
+							alt="Kamus KBBI"
+							style="height: 35px"
+					/></b-navbar-brand>
 
 					<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -12,9 +18,9 @@
 							<b-nav-item to="/">Home</b-nav-item>
 							<b-nav-item to="/kbbi">Kamus</b-nav-item>
 							<b-nav-item to="/artinama">Arti Nama</b-nav-item>
-							<b-nav-item to="/glossarium">Glossarium</b-nav-item>
-							<b-nav-item-dropdown right>
-								<!-- Using 'button-content' slot -->
+							<b-nav-item to="/glossarium">Istilah</b-nav-item>
+							<b-nav-item to="/terjemahan">Terjemahan</b-nav-item>
+							<!-- <b-nav-item-dropdown right>
 								<template #button-content>
 									<em>Translate</em>
 									<span class="fas fa-caret-down ml-2"></span>
@@ -25,7 +31,7 @@
 								<b-dropdown-item to="/ineng"
 									>Indonesia - Ingris</b-dropdown-item
 								>
-							</b-nav-item-dropdown>
+							</b-nav-item-dropdown> -->
 						</b-navbar-nav>
 
 						<!-- Right aligned nav items -->
@@ -43,15 +49,21 @@
 						</b-navbar-nav>
 					</b-collapse>
 				</b-navbar>
-			</div>
+			</b-container>
 			<!-- <router-link to="/">Home</router-link> | -->
 		</div>
 		<router-view />
+		<Footer></Footer>
 	</div>
 </template>
 
 <script>
-export default {};
+import Footer from "../components/partials/Footer.vue";
+export default {
+	components: {
+		Footer,
+	},
+};
 </script>
 
 <style lang="scss" scoped>

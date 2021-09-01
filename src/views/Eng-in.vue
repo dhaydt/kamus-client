@@ -1,18 +1,20 @@
 <template>
-	<div class="eng-in text-center container">
-		<h3 class="mt-5">Terjemahan Bahasa Inggris</h3>
-		<Engmain></Engmain>
+	<div class="eng-in">
+		<Translate></Translate>
 	</div>
 </template>
 
 <script>
-import Engmain from "../components/translate/Engmain.vue";
+import Translate from "../components/translate/mainTranslate.vue";
 export default {
 	components: {
-		Engmain,
+		Translate,
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+.eng-in {
+	background-color: #eef1f8 !important;
+}
 </style>

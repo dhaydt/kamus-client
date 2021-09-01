@@ -21,7 +21,7 @@ const routes = [
         component: () => import("../views/Home.vue"),
       },
       {
-        path: `/detailKata/:bidang/:kata`,
+        path: `/cari/:bidang/:kata`,
         name: "KataDetail",
         component: () => import("../views/detailKata/detailKata.vue"),
       },
@@ -36,6 +36,11 @@ const routes = [
         component: () => import("../views/Gloss.vue"),
       },
       {
+        path: "/terjemahan",
+        name: "terjemahan",
+        component: () => import("../views/Terjemahan.vue"),
+      },
+      {
         path: "/engin",
         name: "EngIn",
         component: () => import("../views/Eng-in.vue"),
@@ -47,6 +52,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Auth/Login.vue"),
+  },
 
   {
     path: "/admin",
@@ -54,6 +64,7 @@ const routes = [
     component: () => import("../admin/Dashboard.vue"),
     meta: {
       hideNavbar: true,
+      requiresAuth: true,
     },
     children: [
       // UserHome will be rendered inside User's <router-view>
@@ -61,6 +72,14 @@ const routes = [
       {
         path: "/admin",
         component: () => import("../admin/view/Dash.vue"),
+      },
+      {
+        path: "/admin/user",
+        component: () => import("../admin/view/users/index.vue"),
+      },
+      {
+        path: "/admin/addUser",
+        component: () => import("../admin/view/users/addUser.vue"),
       },
       {
         path: "/admin/addword",
@@ -106,6 +125,10 @@ const routes = [
         path: "/admin/adv",
         component: () => import("../admin/view/adsvertism/index.vue"),
       },
+      {
+        path: "/admin/addAdv",
+        component: () => import("../admin/view/adsvertism/addImage.vue"),
+      },
 
       // ...other sub routes
     ],
@@ -116,6 +139,36 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/login",
+        params: { nextUrl: to.fullPath },
+      });
+    } else {
+      let user = JSON.parse(localStorage.getItem("user"));
+      if (to.matched.some((record) => record.meta.isAdmin)) {
+        if (user.isAdmin == 1) {
+          next();
+        } else {
+          next({ name: "Admin" });
+        }
+      } else {
+        next();
+      }
+    }
+  } else if (to.matched.some((record) => record.meta.guest)) {
+    if (localStorage.getItem("jwt") == null) {
+      next();
+    } else {
+      next({ name: "userboard" });
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

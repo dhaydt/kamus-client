@@ -211,7 +211,9 @@
 							src="@/assets/images/users/avatar-2.jpg"
 							alt="Header Avatar"
 						/>
-						<span class="d-none d-xl-inline-block ml-1">Administrator</span>
+						<span class="d-none d-xl-inline-block ml-1 mx-2">{{
+							user.username
+						}}</span>
 						<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 					</template>
 					<!-- item-->
@@ -233,7 +235,7 @@
 						Lock Screen
 					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item text-danger" href="/logout">
+					<a type="button" class="dropdown-item text-danger" @click="logout">
 						<i class="ri-shut-down-line align-middle mr-1 text-danger"></i>
 						Logout
 					</a>
@@ -249,10 +251,21 @@ import simplebar from "simplebar-vue";
 
 export default {
 	data() {
-		return {};
+		return {
+			user: {},
+		};
 	},
 	components: { simplebar },
+
+	created() {
+		this.user = JSON.parse(localStorage.getItem("user"));
+		console.log(this.user.username);
+	},
 	methods: {
+		logout() {
+			localStorage.clear();
+			this.$router.push("/");
+		},
 		toggleMenu() {
 			this.$parent.toggleMenu();
 		},

@@ -7,7 +7,7 @@
 						<!-- kolom main -->
 						<Main></Main>
 					</b-col>
-					<b-col lg="4" class="">
+					<b-col lg="4">
 						<!-- sidepage -->
 						<Side></Side>
 					</b-col>

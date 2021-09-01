@@ -1,11 +1,22 @@
 <template>
 	<div class="kbbiDetail">
 		<b-container>
-			<b-row>
-				<b-col>
+			<b-row class="justify-content-center">
+				<b-col lg="8" md="8" sm="12">
+					<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
+						<b-card class="text-left"> banner iklan </b-card>
+					</b-card-group>
+
 					<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
 						<b-card class="text-left">
-							<h6 class="mb-0 text-left section-label">
+							<h6
+								class="
+									mb-0
+									text-left
+									section-label
+									d-none d-lg-block d-xl-block
+								"
+							>
 								Hasil pencarian Kamus untuk kata <em>{{ kata }}</em>
 							</h6>
 							<div class="practical-alert">
@@ -74,7 +85,7 @@
 					<b-card-group deck class="mt-4" v-if="bidang === 'engInd'">
 						<b-card class="text-left">
 							<h6 class="mb-0 text-left section-label">
-								Hasil pencarian Arti Nama untuk kata <em>{{ kata }}</em>
+								Hasil Terjemahan untuk kata <em>{{ kata }}</em>
 							</h6>
 							<div class="practical-alert">
 								{{ "Makna nama " + kata }}
@@ -95,7 +106,7 @@
 					<b-card-group deck class="mt-4" v-if="bidang === 'indEng'">
 						<b-card class="text-left">
 							<h6 class="mb-0 text-left section-label">
-								Hasil pencarian Arti Nama untuk kata <em>{{ kata }}</em>
+								Hasil pencarian Terjemahan untuk kata <em>{{ kata }}</em>
 							</h6>
 							<div class="practical-alert">
 								{{ "Makna nama " + kata }}
@@ -113,6 +124,9 @@
 						</b-card>
 					</b-card-group>
 				</b-col>
+				<b-col lg="4" md="4" sm="8">
+					<Side></Side>
+				</b-col>
 			</b-row>
 		</b-container>
 		<div id="mainBody" class="container text-center">
@@ -124,6 +138,7 @@
 </template>
 
 <script>
+import Side from "./sideDetail.vue";
 import axios from "axios";
 export default {
 	data() {
@@ -140,11 +155,16 @@ export default {
 			},
 		};
 	},
+
 	created() {
 		console.log(this.$route.params.kata);
 		this.kata = this.$route.params.kata;
 		this.bidang = this.$route.params.bidang;
 		this.cariKata();
+	},
+
+	components: {
+		Side,
 	},
 
 	methods: {

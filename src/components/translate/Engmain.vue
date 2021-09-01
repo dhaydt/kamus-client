@@ -10,7 +10,7 @@
 				/>
 				<select class="form-control" v-model="language">
 					<option value="ru">Indonesia</option>
-					<!-- <option value="es">Spanish</option> -->
+					<option value="es">Spanish</option>
 					<!-- <option value="fr">French</option> -->
 					<!-- <option value="zh">Chinese</option> -->
 				</select>

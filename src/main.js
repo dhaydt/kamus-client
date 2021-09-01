@@ -11,6 +11,13 @@ import vco from "v-click-outside";
 import store from "./store";
 import router from "./router";
 import axios from "axios";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(faUserSecret);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 import "@/assets/scss/app.scss";
 
@@ -20,9 +27,6 @@ global.jQuery = require("jquery");
 var $ = global.jQuery;
 window.$ = $;
 
-// require("jquery.easing")(jQuery);
-
-// Vue.use(VueSpinner);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(vco);

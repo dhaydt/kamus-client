@@ -6,33 +6,32 @@
 					<!-- Custom rounded search bars with input group -->
 					<!-- <form action=""> -->
 					<p>Cari di Database nama kami</p>
-					<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-						<div class="input-group">
-							<input
-								type="search"
-								id="searchBar"
-								v-model="cari"
-								placeholder="Masukkan istilah yang anda cari..."
-								aria-describedby="button-addon1"
-								class="form-control border-0 bg-light"
-							/>
-							<div class="input-group-append">
-								<button
-									id="button-addon1"
-									class="btn btn-link text-primary mt-1"
-									@click="findName"
+					<b-form @submit="onSubmit">
+						<b-input-group id="searchBar" class="search mt-4">
+							<template #prepend> </template>
+
+							<b-form-input
+								v-model="keyword"
+								id="keyword"
+								placeholder="Kata kunci"
+								required
+							></b-form-input>
+
+							<template #append>
+								<b-button variant="danger" id="searchButton" type="submit"
+									>Cari</b-button
 								>
-									<i class="fa fa-search"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-					<!-- </form> -->
-					<!-- End -->
-					<div id="mainBody" class="container text-center">
-						<ul id="results"></ul>
-					</div>
-					<footer class="text-center"></footer>
+							</template>
+						</b-input-group>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-2"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
+					</b-form>
 				</div>
 			</div>
 		</div>
@@ -108,15 +107,7 @@
 
 <script>
 import axios from "axios";
-import jQuery from "jquery";
 
-global.jQuery = require("jquery");
-var $ = global.jQuery;
-window.$ = $;
-
-/**
- * Advanced table component
- */
 export default {
 	page: {
 		title: "Advanced Table",
@@ -126,11 +117,14 @@ export default {
 	data() {
 		return {
 			tableData: [],
-			cari: "",
+			keyword: "",
+			error: "",
 			loading: "",
 			hasil: "",
+			showDismissibleAlert: false,
 			title: "Advanced Table",
-			url: "http://localhost:3002/findNama/",
+			urlFind: "http://localhost:3002/findNama/",
+			urlReport: "http://localhost:3002/report",
 			items: [
 				{
 					text: "Tables",
@@ -188,50 +182,23 @@ export default {
 			this.currentPage = 1;
 		},
 
-		async findName() {
-			this.loading == true;
+		async onSubmit(e) {
+			e.preventDefault();
+			const resp = await axios.get(this.urlFind + this.keyword);
+			const data = resp.data;
+			const row = data.length;
 
-			const resp = await axios.get(this.url + this.cari);
+			if (row === 0) {
+				this.showDismissibleAlert = true;
+				this.error = "Nama tidak ditemukan";
 
-			this.hasil = resp.data;
-
-			const data = this.hasil;
-
-			$(document).ready(function () {
-				$("#results").empty();
-				loadData();
-
-				function loadData() {
-					$.map(data, function (data) {
-						var elem1 = $("<a>");
-						elem1.attr("target", "_blank");
-						var elem2 = $("<li>");
-						elem2.append(
-							$(`<h3>`).text(data ? data.judul_nama : "Word Not Found")
-						);
-
-						elem2.append($(`<p>`).html(`<em> Makna : </em>` + data.isi_nama));
-						elem2.append($(`<p>`).html(`<em> Asal : </em>` + data.asal_nama));
-						elem2.append(
-							$(`<p>`).html(`<em> Kelamin : </em>` + data.kelamin_nama)
-						);
-						elem2.append(
-							$(`<p>`).html(`<em> Prefix : </em>` + data.perfix_nama)
-						);
-						elem1.append(elem2);
-						$("#results").append(elem1);
-						console.log("cari artinama", data);
-					});
-
-					var check = jQuery.isEmptyObject(data);
-					if (check === true) {
-						$("footer").append("Data tidak ditemukan!!!");
-					} else {
-						$("footer").append("|----- End data -----|");
-					}
-				}
-			});
-			this.loading = "";
+				await axios.post(this.urlReport, {
+					kata: this.keyword,
+					bidang: "Nama",
+				});
+			} else {
+				window.location.href = "/cari/artiNama/" + this.keyword;
+			}
 		},
 	},
 };

@@ -34,16 +34,15 @@
 			<div class="adv w-100 mt-4 pt-4">
 				<b-container>
 					<b-card
-						title="Kolom iklan"
-						img-src="https://image.shutterstock.com/image-photo/online-advertising-600w-256946860.jpg"
+						:title="dataImg.title"
+						:img-src="urlGetImage + dataImg.images"
 						img-alt="Image"
 						img-top
 						tag="article"
 						class="m-1 w-100"
 					>
 						<b-card-text>
-							Some quick example text to build on the card title and make up the
-							bulk of the card's content.
+							{{ dataImg.details }}
 						</b-card-text>
 
 						<b-button href="#" variant="primary">Pesan Sekarang</b-button>
@@ -55,9 +54,26 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	data() {
-		return {};
+		return {
+			urlThirdId: "http://localhost:3002/getThirdAdv",
+			urlGetImage: "http://localhost:3002/images/client/",
+			dataImg: [],
+		};
+	},
+
+	created() {
+		this.getThird();
+	},
+
+	methods: {
+		async getThird() {
+			const resp = await axios.get(this.urlThirdId);
+			console.log(resp.data[0]);
+			this.dataImg = resp.data[0];
+		},
 	},
 };
 </script>

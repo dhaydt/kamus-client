@@ -32,18 +32,17 @@
 			</div>
 
 			<div class="adv w-100 mt-4 pt-4">
-				<b-container>
+				<b-container v-if="dataImage">
 					<b-card
-						title="Kolom iklan"
-						img-src="https://image.shutterstock.com/image-photo/online-advertising-600w-256946860.jpg"
+						:title="dataImage.title"
+						:img-src="urlImg + dataImage.images"
 						img-alt="Image"
 						img-top
 						tag="article"
 						class="m-1 w-100"
 					>
 						<b-card-text>
-							Some quick example text to build on the card title and make up the
-							bulk of the card's content.
+							{{ dataImage.details }}
 						</b-card-text>
 
 						<b-button href="#" variant="primary">Pesan Sekarang</b-button>
@@ -55,9 +54,26 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	data() {
-		return {};
+		return {
+			urlSecondId: "http://localhost:3002/getSecondAdv",
+			urlImg: "http://localhost:3002/images/client/",
+			dataImage: [],
+		};
+	},
+
+	created() {
+		this.getSecond();
+	},
+
+	methods: {
+		async getSecond() {
+			const resp = await axios.get(this.urlSecondId);
+			console.log(resp.data[0]);
+			this.dataImage = resp.data[0];
+		},
 	},
 };
 </script>
