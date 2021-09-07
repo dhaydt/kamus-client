@@ -1,131 +1,61 @@
 <template>
-	<div class="kbbiDetail">
+	<div class="mainMenu kbbiDetail">
 		<b-container>
 			<b-row class="justify-content-center">
 				<b-col lg="8" md="8" sm="12">
-					<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
-						<b-card class="text-left"> banner iklan </b-card>
+					<b-card-group deck class="mt-4">
+						<b-card class="text-left cardIklan">
+							<img
+								v-if="iklan"
+								:src="iklan"
+								class="iklanLandscape"
+								alt="Slot Iklan"
+							/>
+						</b-card>
 					</b-card-group>
 
 					<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
-						<b-card class="text-left">
-							<h6
-								class="
-									mb-0
-									text-left
-									section-label
-									d-none d-lg-block d-xl-block
-								"
-							>
-								Hasil pencarian Kamus untuk kata <em>{{ kata }}</em>
-							</h6>
-							<div class="practical-alert">
-								{{ "Makna kata " + kata }}
-							</div>
-							<div class="text-left" v-for="kata in dataKata" :key="kata._id">
-								<b-card class="capital">
-									<h1 class="card-title">{{ kata.kata }}</h1>
-									<b-card-text>
-										<p class="makna" v-html="kata.keterangan"></p>
-									</b-card-text>
-								</b-card>
-							</div>
-						</b-card>
+						<Kbbi
+							:dataKata="dataKata"
+							:kata="kata"
+							:dataIklan="dataIklan"
+						></Kbbi>
 					</b-card-group>
 
 					<b-card-group deck class="mt-4" v-if="bidang === 'glosarium'">
-						<b-card class="text-left">
-							<h6 class="mb-0 text-left section-label">
-								Hasil pencarian Glosarium untuk kata <em>{{ kata }}</em>
-							</h6>
-							<div class="practical-alert">
-								{{ "Makna kata " + kata }}
-							</div>
-							<div
-								class="text-left"
-								v-for="kata in dataKata"
-								:key="kata.id_glos"
-							>
-								<b-card class="capital">
-									<h1 class="card-title">{{ kata.judul_glos }}</h1>
-									<b-card-text>
-										<p class="makna ml-4">
-											Bidang : <em>{{ kata.bid_glos }}</em>
-										</p>
-									</b-card-text>
-									<p class="pl-4 ml-4">Makna : {{ kata.isi_glos }}</p>
-								</b-card>
-							</div>
-						</b-card>
+						<Istilah
+							:dataIklan="dataIklan"
+							:dataKata="dataKata"
+							:kata="kata"
+						></Istilah>
 					</b-card-group>
 
 					<b-card-group deck class="mt-4" v-if="bidang === 'artiNama'">
-						<b-card class="text-left">
-							<h6 class="mb-0 text-left section-label">
-								Hasil pencarian Arti Nama untuk kata <em>{{ kata }}</em>
-							</h6>
-							<div class="practical-alert">
-								{{ "Makna nama " + kata }}
-							</div>
-							<div class="text-left" v-for="kata in dataKata" :key="kata.id">
-								<b-card class="capital">
-									<h1 class="card-title">{{ kata.judul_nama }}</h1>
-									<b-card-text>
-										<p class="makna ml-4">
-											Asal : <em>{{ kata.asal_nama }}</em>
-										</p>
-									</b-card-text>
-									<p class="pl-4 ml-4">Makna : {{ kata.isi_nama }}</p>
-									<p class="pl-4 ml-4">Kelamin : {{ kata.kelamin_nama }}</p>
-								</b-card>
-							</div>
-						</b-card>
+						<ArtiNama
+							:dataIklan="dataIklan"
+							:dataKata="dataKata"
+							:kata="kata"
+						></ArtiNama>
 					</b-card-group>
 
 					<b-card-group deck class="mt-4" v-if="bidang === 'engInd'">
-						<b-card class="text-left">
-							<h6 class="mb-0 text-left section-label">
-								Hasil Terjemahan untuk kata <em>{{ kata }}</em>
-							</h6>
-							<div class="practical-alert">
-								{{ "Makna nama " + kata }}
-							</div>
-							<div class="text-left" v-for="kata in dataKata" :key="kata.id">
-								<b-card class="capital">
-									<h1 class="card-title">{{ kata.judul_artikel }}</h1>
-									<b-card-text>
-										<p class="makna ml-4">
-											<em>{{ kata.isi_artikel }}</em>
-										</p>
-									</b-card-text>
-								</b-card>
-							</div>
-						</b-card>
+						<EngIn
+							:dataIklan="dataIklan"
+							:dataKata="dataKata"
+							:kata="kata"
+						></EngIn>
 					</b-card-group>
 
 					<b-card-group deck class="mt-4" v-if="bidang === 'indEng'">
-						<b-card class="text-left">
-							<h6 class="mb-0 text-left section-label">
-								Hasil pencarian Terjemahan untuk kata <em>{{ kata }}</em>
-							</h6>
-							<div class="practical-alert">
-								{{ "Makna nama " + kata }}
-							</div>
-							<div class="text-left" v-for="kata in dataKata" :key="kata.id">
-								<b-card class="capital">
-									<h1 class="card-title">{{ kata.judul_artikel }}</h1>
-									<b-card-text>
-										<p class="makna ml-4">
-											<em>{{ kata.isi_artikel }}</em>
-										</p>
-									</b-card-text>
-								</b-card>
-							</div>
-						</b-card>
+						<InEng
+							:dataIklan="dataIklan"
+							:dataKata="dataKata"
+							:kata="kata"
+						></InEng>
 					</b-card-group>
 				</b-col>
 				<b-col lg="4" md="4" sm="8">
-					<Side></Side>
+					<Side :dataIklan="dataIklan"></Side>
 				</b-col>
 			</b-row>
 		</b-container>
@@ -140,23 +70,35 @@
 <script>
 import Side from "./sideDetail.vue";
 import axios from "axios";
+import Kbbi from "./kbbi.vue";
+import Istilah from "./istilah.vue";
+import ArtiNama from "./artiNama.vue";
+import EngIn from "./engIn.vue";
+import InEng from "./inEng.vue";
 export default {
 	data() {
 		return {
 			kata: "",
 			bidang: "",
 			dataKata: [],
+			dataIklan: [],
+			mainUrl: "",
+			iklan: "",
 			findUrl: {
-				kbbi: "http://localhost:3002/find/",
-				glos: "http://localhost:3002/findGlos/",
-				nama: "http://localhost:3002/findNama/",
-				eng: "http://localhost:3002/translateEng/",
-				ind: "http://localhost:3002/translateInd/",
+				kbbi: "/find/",
+				glos: "/findGlos/",
+				nama: "/findNama/",
+				eng: "/translateEng/",
+				ind: "/translateInd/",
 			},
 		};
 	},
 
 	created() {
+		this.dataIklan = JSON.parse(localStorage.dataIklan);
+		this.mainUrl = localStorage.mainUrl;
+		const getImg = this.mainUrl + "/images/client/";
+		this.iklan = getImg + this.dataIklan[1].images;
 		console.log(this.$route.params.kata);
 		this.kata = this.$route.params.kata;
 		this.bidang = this.$route.params.bidang;
@@ -165,13 +107,20 @@ export default {
 
 	components: {
 		Side,
+		Kbbi,
+		Istilah,
+		ArtiNama,
+		EngIn,
+		InEng,
 	},
 
 	methods: {
 		async cariKata() {
 			try {
 				if (this.bidang === "kbbi") {
-					const res = await axios.get(this.findUrl.kbbi + this.kata);
+					const res = await axios.get(
+						this.mainUrl + this.findUrl.kbbi + this.kata
+					);
 					const data = res.data;
 
 					String.prototype.jsonEncode = function () {
@@ -192,17 +141,25 @@ export default {
 					var transform = getString.jsonEncode();
 					this.dataKata = JSON.parse(transform);
 				} else if (this.bidang === "glosarium") {
-					const res = await axios.get(this.findUrl.glos + this.kata);
+					const res = await axios.get(
+						this.mainUrl + this.findUrl.glos + this.kata
+					);
 					this.dataKata = res.data;
 					// console.log(this.dataKata);
 				} else if (this.bidang === "artiNama") {
-					const res = await axios.get(this.findUrl.nama + this.kata);
+					const res = await axios.get(
+						this.mainUrl + this.findUrl.nama + this.kata
+					);
 					this.dataKata = res.data;
 				} else if (this.bidang === "engInd") {
-					const res = await axios.get(this.findUrl.eng + this.kata);
+					const res = await axios.get(
+						this.mainUrl + this.findUrl.eng + this.kata
+					);
 					this.dataKata = res.data;
 				} else if (this.bidang === "indEng") {
-					const res = await axios.get(this.findUrl.ind + this.kata);
+					const res = await axios.get(
+						this.mainUrl + this.findUrl.ind + this.kata
+					);
 					this.dataKata = res.data;
 					console.log(this.dataKata);
 				}
@@ -221,46 +178,10 @@ export default {
 }
 
 .section-label {
-	clear: both;
-	font-size: 12px;
-	font-weight: 700;
-	line-height: 1;
-	text-transform: uppercase;
-	font-family: Arial, sans-serif;
-	letter-spacing: 0.1em;
-	margin: 18px 0 18px;
-	margin-left: -6px;
-	display: inline-block;
-	color: #fff;
-	background-color: #07c;
-	padding: 6px 10px;
-	position: relative;
-}
-
-.section-label:after {
-	content: "";
-	display: block;
-	width: 0;
-	height: 0;
-	border: 0 solid transparent;
-	border-top-color: #004a80;
-	border-width: 7px 0 0 9px;
-	position: absolute;
-	top: 100%;
-	left: 0;
-}
-
-body.languages .section-label:after {
-	border-top-color: #004a80;
-}
-
-@media (min-width: 975px) {
-	.section-label {
-		left: -29px;
-		padding-left: 29px;
-		padding-right: 15px;
-		border-bottom: 0 none;
-		margin-left: 0;
+	font-weight: 600;
+	em {
+		text-transform: capitalize;
+		font-weight: 900;
 	}
 }
 

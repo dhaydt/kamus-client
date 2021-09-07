@@ -73,6 +73,10 @@
 						<td v-html="data.item.keterangan"></td>
 					</template>
 
+					<template v-slot:cell(view)="data">
+						<td v-html="data.item.view / 2"></td>
+					</template>
+
 					<template v-slot:cell(action)="data">
 						<a
 							href="javascript:void(0);"
@@ -158,6 +162,7 @@ export default {
 				{ key: "_id", sortable: true, label: "ID" },
 				{ key: "kata", sortable: true, label: "Kata" },
 				{ key: "keterangan", sortable: true, label: "Makna" },
+				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
 			],
 		};

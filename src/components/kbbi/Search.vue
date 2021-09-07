@@ -1,30 +1,126 @@
 <template>
-	<div class="kbbi-search">
-		<b-container class="p-4">
-			<b-row>
-				<b-col sm="12" lg="8" class="main-col mt-2">
-					<!-- kolom main -->
-					<Main></Main>
-				</b-col>
-				<b-col lg="4" class="">
-					<!-- sidepage -->
-					<Side></Side>
-				</b-col>
-			</b-row>
-		</b-container>
+	<div class="kbbi-search mainMenu">
+		<!-- ============================ Page Title Start================================== -->
+		<div class="page-title search-form" style="padding: 4rem 0">
+			<div class="container">
+				<div class="row m-0 justify-content-left">
+					<div class="col-lg-8 col-md-8">
+						<div class="col-12">
+							<div class="guide">
+								Halaman ini khusus mencari arti kata di kamus KBBI. Jika ingin
+								mencari makna di kamus lain, silahkan pindah halaman terlebih
+								dahulu melalui menu di atas
+							</div>
+						</div>
+						<form class="search-big-form shadows" @submit="onSubmit">
+							<div class="row m-0">
+								<div class="col-lg-9 col-md-9 col-sm-9 p-0">
+									<div class="form-group">
+										<input
+											type="text"
+											class="form-control l-radius b-0 b-r"
+											placeholder="Kata"
+											v-model="keyword"
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-3 p-0">
+									<button
+										type="submit"
+										class="btn theme-bg r-radius full-width"
+									>
+										<div v-if="loading">
+											<b-spinner small type="grow"></b-spinner>
+										</div>
+										<span v-if="!loading">Cari</span>
+									</button>
+								</div>
+							</div>
+						</form>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-4"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ============================ Page Title End ================================== -->
+		<section class="gray-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 col-md-12 col-sm-12">
+						<Main :dataIklan="dataIklan"></Main>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12">
+						<Side :dataIklan="dataIklan"></Side>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
 import Main from "./kbbiMain.vue";
 import Side from "./kbbiSide.vue";
 export default {
 	data() {
-		return {};
+		return {
+			keyword: "",
+			error: "",
+			loading: false,
+			dataIklan: [],
+			showDismissibleAlert: false,
+			mainUrl: "",
+			urlReport: "",
+			urlFind: "",
+		};
 	},
 	components: {
 		Main,
 		Side,
+	},
+
+	created() {
+		this.mainUrl = localStorage.mainUrl;
+		this.urlReport = this.mainUrl + "/report";
+		this.urlFind = this.mainUrl + "/find/";
+		this.dataIklan = JSON.parse(localStorage.dataIklan);
+	},
+
+	methods: {
+		async onSubmit(e) {
+			e.preventDefault();
+			this.showDismissibleAlert = false;
+			try {
+				this.loading = true;
+				const resp = await axios.get(this.urlFind + this.keyword);
+				const data = resp.data;
+				const row = data.kbbi.length;
+
+				if (row === 0) {
+					this.error = "Data tidak ditemukan!";
+					this.showDismissibleAlert = true;
+					this.loading = false;
+
+					await axios.post(this.urlReport, {
+						kata: this.keyword,
+						bidang: "KBBI",
+					});
+				} else {
+					window.location.href = "/cari/kbbi/" + this.keyword;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
 	},
 };
 </script>

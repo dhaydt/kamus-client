@@ -1,58 +1,151 @@
 <template>
-	<div class="landing mt-4 pt-4">
-		<b-container>
-			<b-row class="w-100 justify-content-center">
-				<b-col lg="12" md="9">
-					<div class="header">
+	<!-- ============================ Landing Perkategori Section Start ==================================== -->
+	<section class="min-sec">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-7 col-md-9">
+					<div class="sec-heading">
 						<h2>
-							<span class="titleLanding">KamusKBBI.id</span> 5 Kamus Dalam 1
-							Website
+							<span class="theme-cl-2">KamusKBBI.id</span> 5 kamus dalam 1
+							website
 						</h2>
 						<p>Kamus KBBI, Eng-Ind, Ind-Eng, Istilah dan Arti Nama.</p>
 					</div>
-					<div class="content mt-4 pt-4">
-						<b-container>
-							<b-card-group deck>
-								<b-row class="w-100 justify-content-center">
-									<b-col
-										md="6"
-										lg="4"
-										sm="12"
-										class="mb-4"
-										v-for="menu in menus"
-										:key="menu.id"
-									>
-										<b-card
-											:img-src="menu.img"
-											style="max-height: 60vh; min-height: 60vh"
-										>
-											<!-- footer="Card Footer"
-											footer-tag="footer" -->
-											<div class="title">
-												<h4 class="text-left title-card">{{ menu.title }}</h4>
-											</div>
-											<div class="content-card mt-4">
-												<b-card-text class="text-left">{{
-													menu.content
-												}}</b-card-text>
-											</div>
-											<b-button
-												style="bottom: 10px; position: absolute; width: 90%"
-												class="d-block ml-auto"
-												href="#"
-												variant="primary"
-												>Detail</b-button
-											>
-										</b-card>
-									</b-col>
-								</b-row>
-							</b-card-group>
-						</b-container>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<h4>Kamus KBBI</h4>
+								<p>
+									There are many variations of passages of Lorem Ipsum
+									available, but the majority have suffered alteration in some
+									form, by injected humour, or randomised words which don't look
+									even slightly believable. If you are going to use a passage of
+									Lorem Ipsum, you need to be sure there isn't anything
+									embarrassing hidden in the middle of text.
+								</p>
+							</div>
+							<div class="mx-4 mt-5">
+								<router-link to="/kbbi" class="btn btn-theme blue dark"
+									>Detail</router-link
+								>
+							</div>
+						</div>
 					</div>
-				</b-col>
-			</b-row>
-		</b-container>
-	</div>
+				</div>
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<h4>Kamus Eng-Ind</h4>
+								<p>
+									Lorem Ipsum is simply dummy text of the printing and
+									typesetting industry. Lorem Ipsum has been the industry's
+									standard dummy text ever since the 1500s, when an unknown
+									printer took a galley of type and scrambled it to make a type
+									specimen book. It has survived not only five centuries, but
+									also the leap into electronic typesetting, remaining
+									essentially unchanged.
+								</p>
+							</div>
+							<div class="mx-4 mt-5">
+								<router-link to="/terjemahan" class="btn btn-theme blue dark"
+									>Detail</router-link
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<h4>Kamus Ind-Eng</h4>
+								<p>
+									It is a long established fact that a reader will be distracted
+									by the readable content of a page when looking at its layout.
+									The point of using Lorem Ipsum is that it has a more-or-less
+									normal distribution of letters, as opposed to using 'Content
+									here, content here', making it look like readable English.
+									Many desktop publishing packages and web page editors now use
+									...
+								</p>
+							</div>
+							<div class="mx-4 mt-5">
+								<router-link to="/terjemahan" class="btn btn-theme blue dark"
+									>Detail</router-link
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<h4>Kamus Istilah</h4>
+								<p>
+									There are many variations of passages of Lorem Ipsum
+									available, but the majority have suffered alteration in some
+									form, by injected humour, or randomised words which don't look
+									even slightly believable. If you are going to use a passage of
+									Lorem Ipsum, you need to be sure there isn't anything
+									embarrassing hidden in the middle of text.
+								</p>
+							</div>
+							<div class="mx-4 mt-5">
+								<router-link to="/glossarium" class="btn btn-theme blue dark"
+									>Detail</router-link
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<img :src="iklanImage" alt="Slot Iklan" class="iklanBox" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Single Item -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="box-kamus">
+						<div class="">
+							<div class="mx-4">
+								<h4>Kamus Artinama</h4>
+								<p>
+									It is a long established fact that a reader will be distracted
+									by the readable content of a page when looking at its layout.
+									The point of using Lorem Ipsum is that it has a more-or-less
+									normal distribution of letters, as opposed to using 'Content
+									here, content here', making it look like readable English.
+									Many desktop publishing packages and web page editors now use
+									...
+								</p>
+							</div>
+							<div class="mx-4 mt-5">
+								<router-link to="/artinama" class="btn btn-theme blue dark"
+									>Detail</router-link
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ============================ Landing PerKategori Section End ==================================== -->
 </template>
 
 <script>
@@ -60,96 +153,49 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			getAdUrl: "http://localhost:3002/getLastAdv",
-			urlImageData: "http://localhost:3002/getAdv/",
-			urlImg: "http://localhost:3002/images/client/",
-			iklanTitle: "1weqwwewe",
-			iklanDetail: "",
+			backendUrl: "",
+			getAdUrl: "/getSecondAdv",
+			urlImageData: "/getAdv/",
+			urlImg: "/images/client/",
 			iklanImage: "",
-			menus: [
-				{
-					id: 1,
-					title: "Kamus KBBI",
-					content:
-						"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. ",
-				},
-				{
-					id: 2,
-					title: "Kamus Eng - Ind",
-					content:
-						"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry`s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-				},
-				{
-					id: 3,
-					title: "Kamus Ind - Eng",
-					content:
-						"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use ...",
-				},
-				{
-					id: 4,
-					title: "",
-					content: "",
-					img: "",
-				},
-				{
-					id: 5,
-					title: "Istilah",
-					content:
-						"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn`t anything embarrassing hidden in the middle of text.",
-				},
-				{
-					id: 6,
-					title: "Arti Nama",
-					content:
-						"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use ...",
-				},
-			],
-			idImg: "",
 		};
 	},
-
 	created() {
-		this.getIdLast();
+		this.backendUrl = localStorage.mainUrl;
+		this.getIklan();
+		this.randomKata();
 	},
 
 	methods: {
-		async getIdLast() {
-			const resp = await axios.get(this.getAdUrl);
-			this.idImg = resp.data.data[0].lastId;
-			this.getImageData();
+		async getIklan() {
+			const resp = await axios.get(this.backendUrl + this.getAdUrl);
+			const data = resp.data[1].images;
+			const share = JSON.stringify(resp.data);
+			localStorage.setItem("dataIklan", share);
+			this.iklanImage = this.backendUrl + this.urlImg + data;
+			// this.getImageData();
 		},
 
 		async getImageData() {
-			const resp = await axios.get(this.urlImageData + this.idImg);
+			const resp = await axios.get(
+				this.backendUrl + this.urlImageData + this.idImg
+			);
 			const data = resp.data.data[0];
 			console.log(data.title);
-			this.menus[3].title = data.title;
-			this.menus[3].content = data.details;
-			this.menus[3].img = this.urlImg + data.images;
+			this.iklanImage = this.backendUrl + this.urlImg + data.images;
+		},
+
+		async randomKata() {
+			const resp = await axios.get(this.backendUrl + "/random");
+			localStorage.setItem("randomKata", JSON.stringify(resp.data));
 		},
 	},
 };
 </script>
 
-<style lang="scss" scoped>
-.titleLanding {
-	color: #0b85ec;
-	font-weight: 900;
-}
-
-.card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.title-card {
-	font-weight: 700;
-	text-transform: capitalize;
-}
-
-.content-card {
-	white-space: normal;
-	overflow-y: hidden;
-	text-overflow: ellipsis;
-	max-height: 200px;
+<style lang="scss">
+.iklanBox {
+	max-width: 100%;
+	height: auto;
 }
 </style>

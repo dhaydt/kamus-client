@@ -40,16 +40,16 @@ const routes = [
         name: "terjemahan",
         component: () => import("../views/Terjemahan.vue"),
       },
-      {
-        path: "/engin",
-        name: "EngIn",
-        component: () => import("../views/Eng-in.vue"),
-      },
-      {
-        path: "/ineng",
-        name: "InEng",
-        component: () => import("../views/In-eng.vue"),
-      },
+      // {
+      //   path: "/engin",
+      //   name: "EngIn",
+      //   component: () => import("../views/Eng-in.vue"),
+      // },
+      // {
+      //   path: "/ineng",
+      //   name: "InEng",
+      //   component: () => import("../views/In-eng.vue"),
+      // },
     ],
   },
   {

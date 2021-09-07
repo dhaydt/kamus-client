@@ -65,6 +65,9 @@
 						:filter-included-fields="filterOn"
 						@filtered="onFiltered"
 					>
+						<template v-slot:cell(view)="data">
+							<td v-html="data.item.view / 2"></td>
+						</template>
 						<template v-slot:cell(action)>
 							<a
 								href="javascript:void(0);"
@@ -140,7 +143,7 @@ export default {
 				{ key: "kelamin_nama", label: "Kelamin", sortable: true },
 				{ key: "asal_nama", label: "Asal", sortable: true },
 				{ key: "isi_nama", label: "Arti", sortable: true },
-				{ key: "perfix_nama", label: "Prefix", sortable: true },
+				{ key: "view", label: "View", sortable: true },
 			],
 		};
 	},

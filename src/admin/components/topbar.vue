@@ -18,7 +18,7 @@
 							<img src="@/assets/images/logo-sm-light.png" alt height="22" />
 						</span>
 						<span class="logo-lg">
-							<img src="@/assets/images/logo-light.png" alt height="20" />
+							<img src="@/assets/assets/img/logo-kbbi.png" alt height="28" />
 						</span>
 					</router-link>
 				</div>
@@ -33,12 +33,12 @@
 				</button>
 
 				<!-- App Search-->
-				<form class="app-search d-none d-lg-block">
+				<!-- <form class="app-search d-none d-lg-block">
 					<div class="position-relative">
 						<input type="text" class="form-control" placeholder="Search" />
 						<span class="ri-search-line"></span>
 					</div>
-				</form>
+				</form> -->
 			</div>
 
 			<div class="d-flex">

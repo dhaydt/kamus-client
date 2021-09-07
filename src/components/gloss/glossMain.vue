@@ -1,86 +1,161 @@
 <template>
-	<div class="mainCol">
-		<b-row class="mb-5 justify-content-center">
-			<b-col lg="12">
-				<div class="bg-white p-5">
-					<b-card>
-						<div class="title">Cari dikamus istilah kami</div>
-						<b-form @submit="onSubmit">
-							<b-input-group id="searchBar" class="search mt-4">
-								<template #prepend> </template>
+	<div class="box-detail">
+		<div class="cardIklan box-slice p-0">
+			<img
+				:src="iklan1"
+				class="iklanLandscape"
+				v-if="iklan1"
+				alt="Slot Iklan"
+			/>
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h2>Kamus Istilah</h2>
 
-								<b-form-input
-									v-model="keyword"
-									id="keyword"
-									placeholder="Kata kunci"
-									required
-								></b-form-input>
+				<p>
+					Aplikasi Kamus Besar Bahasa Indonesia (KBBI) ini merupakan KBBI Daring
+					(Dalam Jaringan / Online tidak resmi) yang dibuat untuk memudahkan
+					pencarian, penggunaan dan pembacaan arti kata (lema/sub lema). Berbeda
+					dengan beberapa situs web (website) sejenis, kami berusaha memberikan
+					berbagai fitur lebih, seperti kecepatan akses, tampilan dengan
+					berbagai warna pembeda untuk jenis kata, tampilan yang pas untuk
+					segala perambah web baik komputer desktop, laptop maupun telepon
+					pintar dan sebagainya. Fitur-fitur selengkapnya bisa dibaca dibagian
+					Fitur KBBI Daring.
+				</p>
 
-								<template #append>
-									<b-button variant="danger" id="searchButton" type="submit"
-										>Cari</b-button
-									>
-								</template>
-							</b-input-group>
-							<b-alert
-								v-model="showDismissibleAlert"
-								class="mt-2"
-								variant="danger"
-								dismissible
-							>
-								{{ error }}
-							</b-alert>
-						</b-form>
-					</b-card>
+				<p>
+					Database Utama KBBI Daring ini masih mengacu pada KBBI Daring Edisi
+					III, sehingga isi (kata dan arti) tersebut merupakan Hak Cipta Badan
+					Pengembangan dan Pembinaan Bahasa, Kemdikbud (dahulu Pusat Bahasa).
+					Diluar data utama, kami berusaha menambah kata-kata baru yang akan
+					diberi keterangan tambahan dibagian akhir arti atau definisi dengan
+					"Definisi Eksternal". Semoga semakin menambah khazanah referensi
+					pendidikan di Indonesia dan bisa memberikan manfaat yang luas.
+					Aplikasi ini lebih bersifat sebagai arsip saja, agar pranala/tautan
+					(link) yang mengarah ke situs ini tetap tersedia. Untuk mencari kata
+					dari KBBI edisi V (terbaru), silakan merujuk ke website resmi di
+					<a href="kbbi.kemdikbud.go.id">kbbi.kemdikbud.go.id</a>
+				</p>
+
+				<h3>Fitur KBBI Daring</h3>
+				<ul>
+					<li>Pencarian satu kata atau banyak kata sekaligus</li>
+					<li>Tampilan yang sederhana dan ringan untuk kemudahan penggunaan</li>
+					<li>
+						Proses pengambilan data yang sangat cepat, pengguna tidak perlu
+						memuat ulang (reload/refresh) jendela atau laman web (website) untuk
+						mencari kata berikutnya
+					</li>
+					<li>
+						Arti kata ditampilkan dengan warna yang memudahkan mencari lema
+						maupun sub lema. Berikut beberapa penjelasannya:
+					</li>
+					<ol>
+						<li>
+							Jenis kata atau keterangan istilah semisal n (nomina), v (verba)
+							dengan warna merah muda (pink) dengan garis bawah titik-titik.
+							Arahkan mouse untuk melihat keterangannya (belum semua ada
+							keterangannya)
+						</li>
+						<li>
+							Arti ke-1, 2, 3 dan seterusnya ditandai dengan huruf tebal dengan
+							latar lingkaran
+						</li>
+						<li>Contoh penggunaan lema/sub-lema ditandai dengan warna biru</li>
+						<li>Contoh dalam peribahasa ditandai dengan warna oranye</li>
+						<li>
+							Ketika diklik hasil dari daftar kata "Memuat", hasil yang sesuai
+							dengan kata pencarian akan ditandai dengan latar warna kuning
+						</li>
+					</ol>
+					<li>
+						Pranala (Pretty Permalink/Link) yang indah dan mudah diingat untuk
+						definisi kata, misalnya :
+					</li>
+					<ol>
+						<li>
+							Kata 'rumah' akan mempunyai pranala (link) di
+							https://kbbi.web.id/rumah
+						</li>
+						<li>
+							Kata 'pintar' akan mempunyai pranala (link) di
+							https://kbbi.web.id/pintar
+						</li>
+						<li>
+							Kata 'komputer' akan mempunyai pranala (link) di
+							https://kbbi.web.id/komputer
+						</li>
+					</ol>
+
+					<li>
+						Sehingga diharapkan pranala (link) tersebut dapat digunakan sebagai
+						referensi dalam penulisan, baik di dalam jaringan maupun di luar
+						jaringan.
+					</li>
+					<li>
+						Aplikasi dikembangkan dengan konsep Responsive Design, artinya
+						tampilan situs web (website) KBBI ini akan cocok di berbagai media,
+						misalnya smartphone ( Tablet pc, iPad, iPhone, Tab), termasuk
+						komputer dan netbook/laptop. Tampilan web akan menyesuaikan dengan
+						ukuran layar yang digunakan.
+					</li>
+					<li>Tambahan kata-kata baru diluar KBBI edisi III</li>
+					<li>
+						Penulisan singkatan di bagian definisi seperti misalnya: yg, dng,
+						dl, tt, dp, dr dan lainnya ditulis lengkap, tidak seperti yang
+						terdapat di KBBI PusatBahasa.
+					</li>
+				</ul>
+			</div>
+
+			<div class="box-detail-single">
+				<div class="cardIklan">
+					<img
+						class="iklanLandscape"
+						:src="iklan2"
+						v-if="iklan2"
+						alt="Slot Iklan"
+					/>
 				</div>
-			</b-col>
-		</b-row>
+			</div>
+
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
 	name: "HelloWorld",
-	props: {
-		msg: String,
-	},
+	props: ["dataIklan"],
 	data() {
 		return {
-			keyword: "",
-			error: "",
-			showDismissibleAlert: false,
-			urlReport: "http://localhost:3002/report",
-			urlFind: "http://localhost:3002/findGlos/",
+			iklan1: "",
+			iklan2: "",
 		};
 	},
 
-	components: {},
-
-	methods: {
-		async onSubmit(e) {
-			e.preventDefault();
-			try {
-				const resp = await axios.get(this.urlFind + this.keyword);
-				const data = resp.data;
-				const row = data.length;
-
-				if (row === 0) {
-					this.error = "Data tidak ditemukan!";
-					this.showDismissibleAlert = true;
-
-					await axios.post(this.urlReport, {
-						kata: this.keyword,
-						bidang: "Istilah",
-					});
-				} else {
-					window.location.href = "/cari/glosarium/" + this.keyword;
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		},
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		const getImg = mainUrl + "/images/client/";
+		this.iklan1 = getImg + this.dataIklan[3].images;
+		this.iklan2 = getImg + this.dataIklan[4].images;
 	},
 };
 </script>

@@ -1,104 +1,177 @@
 <template>
-	<div class="mainNama">
-		<div class="row mb-5">
-			<div class="col-lg-12 mx-auto">
-				<div class="bg-white p-5 rounded shadow">
-					<!-- Custom rounded search bars with input group -->
-					<!-- <form action=""> -->
-					<p>Cari di Database nama kami</p>
-					<b-form @submit="onSubmit">
-						<b-input-group id="searchBar" class="search mt-4">
-							<template #prepend> </template>
+	<div class="box-detail">
+		<div class="cardIklan box-slice p-0">
+			<img
+				:src="iklan1"
+				class="iklanLandscape"
+				v-if="iklan1"
+				alt="Slot Iklan"
+			/>
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h2>Tentang Arti Nama</h2>
 
-							<b-form-input
-								v-model="keyword"
-								id="keyword"
-								placeholder="Kata kunci"
-								required
-							></b-form-input>
+				<p>
+					Aplikasi Kamus Besar Bahasa Indonesia (KBBI) ini merupakan KBBI Daring
+					(Dalam Jaringan / Online tidak resmi) yang dibuat untuk memudahkan
+					pencarian, penggunaan dan pembacaan arti kata (lema/sub lema). Berbeda
+					dengan beberapa situs web (website) sejenis, kami berusaha memberikan
+					berbagai fitur lebih, seperti kecepatan akses, tampilan dengan
+					berbagai warna pembeda untuk jenis kata, tampilan yang pas untuk
+					segala perambah web baik komputer desktop, laptop maupun telepon
+					pintar dan sebagainya. Fitur-fitur selengkapnya bisa dibaca dibagian
+					Fitur KBBI Daring.
+				</p>
 
-							<template #append>
-								<b-button variant="danger" id="searchButton" type="submit"
-									>Cari</b-button
-								>
-							</template>
-						</b-input-group>
-						<b-alert
-							v-model="showDismissibleAlert"
-							class="mt-2"
-							variant="danger"
-							dismissible
-						>
-							{{ error }}
-						</b-alert>
-					</b-form>
+				<p>
+					Database Utama KBBI Daring ini masih mengacu pada KBBI Daring Edisi
+					III, sehingga isi (kata dan arti) tersebut merupakan Hak Cipta Badan
+					Pengembangan dan Pembinaan Bahasa, Kemdikbud (dahulu Pusat Bahasa).
+					Diluar data utama, kami berusaha menambah kata-kata baru yang akan
+					diberi keterangan tambahan dibagian akhir arti atau definisi dengan
+					"Definisi Eksternal". Semoga semakin menambah khazanah referensi
+					pendidikan di Indonesia dan bisa memberikan manfaat yang luas.
+					Aplikasi ini lebih bersifat sebagai arsip saja, agar pranala/tautan
+					(link) yang mengarah ke situs ini tetap tersedia. Untuk mencari kata
+					dari KBBI edisi V (terbaru), silakan merujuk ke website resmi di
+					<a href="kbbi.kemdikbud.go.id">kbbi.kemdikbud.go.id</a>
+				</p>
+
+				<h3>Fitur Arti Nama</h3>
+				<ul>
+					<li>Pencarian satu kata atau banyak kata sekaligus</li>
+					<li>Tampilan yang sederhana dan ringan untuk kemudahan penggunaan</li>
+					<li>
+						Proses pengambilan data yang sangat cepat, pengguna tidak perlu
+						memuat ulang (reload/refresh) jendela atau laman web (website) untuk
+						mencari kata berikutnya
+					</li>
+					<li>
+						Arti kata ditampilkan dengan warna yang memudahkan mencari lema
+						maupun sub lema. Berikut beberapa penjelasannya:
+					</li>
+					<ol>
+						<li>
+							Jenis kata atau keterangan istilah semisal n (nomina), v (verba)
+							dengan warna merah muda (pink) dengan garis bawah titik-titik.
+							Arahkan mouse untuk melihat keterangannya (belum semua ada
+							keterangannya)
+						</li>
+						<li>
+							Arti ke-1, 2, 3 dan seterusnya ditandai dengan huruf tebal dengan
+							latar lingkaran
+						</li>
+						<li>Contoh penggunaan lema/sub-lema ditandai dengan warna biru</li>
+						<li>Contoh dalam peribahasa ditandai dengan warna oranye</li>
+						<li>
+							Ketika diklik hasil dari daftar kata "Memuat", hasil yang sesuai
+							dengan kata pencarian akan ditandai dengan latar warna kuning
+						</li>
+					</ol>
+					<li>
+						Pranala (Pretty Permalink/Link) yang indah dan mudah diingat untuk
+						definisi kata, misalnya :
+					</li>
+					<ol>
+						<li>
+							Kata 'rumah' akan mempunyai pranala (link) di
+							https://kbbi.web.id/rumah
+						</li>
+						<li>
+							Kata 'pintar' akan mempunyai pranala (link) di
+							https://kbbi.web.id/pintar
+						</li>
+						<li>
+							Kata 'komputer' akan mempunyai pranala (link) di
+							https://kbbi.web.id/komputer
+						</li>
+					</ol>
+
+					<li>
+						Sehingga diharapkan pranala (link) tersebut dapat digunakan sebagai
+						referensi dalam penulisan, baik di dalam jaringan maupun di luar
+						jaringan.
+					</li>
+					<li>
+						Aplikasi dikembangkan dengan konsep Responsive Design, artinya
+						tampilan situs web (website) KBBI ini akan cocok di berbagai media,
+						misalnya smartphone ( Tablet pc, iPad, iPhone, Tab), termasuk
+						komputer dan netbook/laptop. Tampilan web akan menyesuaikan dengan
+						ukuran layar yang digunakan.
+					</li>
+					<li>Tambahan kata-kata baru diluar KBBI edisi III</li>
+					<li>
+						Penulisan singkatan di bagian definisi seperti misalnya: yg, dng,
+						dl, tt, dp, dr dan lainnya ditulis lengkap, tidak seperti yang
+						terdapat di KBBI PusatBahasa.
+					</li>
+				</ul>
+				<h3>Informasi Tambahan</h3>
+
+				<p>
+					Tidak semua hasil pencarian, terutama jika kata yang dicari terdisi
+					dari 2 atau 3 huruf, akan ditampilkan semua. Jika hasil pencarian dari
+					daftar kata "Memuat" sangat banyak, maka hasil yang dapat langsung di
+					klik akan dibatasi jumlahnya. Selain itu, untuk pencarian banyak kata
+					sekaligus, sistem hanya akan mencari kata yang terdiri dari 4 huruf
+					atau lebih. Misalnya yang dicari adalah "air, minyak, larut", maka
+					hasil pencarian yang akan ditampilkan adalah minyak dan larut saja.
+				</p>
+
+				<p>
+					Untuk pencarian banyak kata sekaligus, bisa dilakukan dengan
+					memisahkan masing-masing kata dengan tanda koma, misalnya:
+					ajar,program,komputer (untuk mencari kata ajar, program dan komputer).
+					Jika ditemukan, hasil utama akan ditampilkan dalam kolom "kata dasar"
+					dan hasil yang berupa kata turunan akan ditampilkan dalam kolom
+					"Memuat". Pencarian banyak kata ini hanya akan mencari kata dengan
+					minimal panjang 4 huruf, jika kata yang panjangnya 2 atau 3 huruf maka
+					kata tersebut akan diabaikan.
+				</p>
+
+				<p>
+					Edisi online/daring ini merupakan alternatif versi KBBI Offline yang
+					sudah dibuat sebelumnya (dengan kosakata yang lebih banyak). Bagi yang
+					ingin mendapatkan KBBI Offline (tidak memerlukan koneksi internet),
+					silakan mengunjungi halaman web ini KBBI Offline. Jika ada masukan,
+					saran dan perbaikan terhadap kbbi daring ini, silakan mengirimkan ke
+					alamat email: ebta.setiawan || gmail || com
+				</p>
+
+				<p>
+					Kami sebagai pengelola website berusaha untuk terus menyaring iklan
+					yang tampil agar tetap menampilkan iklan yang pantas. Tetapi jika anda
+					melihat iklan yang tidak sesuai atau tidak pantas di website
+					kbbi.web.id, ini silakan klik Laporkan Iklan
+				</p>
+			</div>
+
+			<div class="box-detail-single">
+				<div class="cardIklan">
+					<img
+						class="iklanLandscape"
+						:src="iklan2"
+						v-if="iklan2"
+						alt="Slot Iklan"
+					/>
 				</div>
 			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title">Random Nama</h4>
-				<div class="row">
-					<div class="col-sm-12 col-md-6">
-						<div id="tickets-table_length" class="dataTables_length">
-							<label class="d-inline-flex align-items-center">
-								Show&nbsp;
-								<b-form-select
-									v-model="perPage"
-									size="sm"
-									:options="pageOptions"
-								></b-form-select
-								>&nbsp;entries
-							</label>
-						</div>
-					</div>
-					<!-- Search -->
-					<div class="col-sm-12 col-md-6">
-						<div
-							id="tickets-table_filter"
-							class="dataTables_filter text-md-right"
-						>
-							<label class="d-inline-flex align-items-center">
-								Search:
-								<b-form-input
-									v-model="filter"
-									type="search"
-									placeholder="Search..."
-									class="form-control form-control-sm ml-2"
-								></b-form-input>
-							</label>
-						</div>
-					</div>
-					<!-- End search -->
-				</div>
-				<!-- Table -->
-				<div class="table-responsive mb-0">
-					<b-table
-						:items="tableData"
-						:fields="fields"
-						responsive="sm"
-						:per-page="perPage"
-						:current-page="currentPage"
-						:sort-by.sync="sortBy"
-						:sort-desc.sync="sortDesc"
-						:filter="filter"
-						:filter-included-fields="filterOn"
-						@filtered="onFiltered"
-					></b-table>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="dataTables_paginate paging_simple_numbers float-right">
-							<ul class="pagination pagination-rounded mb-0">
-								<!-- pagination -->
-								<b-pagination
-									v-model="currentPage"
-									:total-rows="rows"
-									:per-page="perPage"
-								></b-pagination>
-							</ul>
-						</div>
-					</div>
+
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -106,100 +179,20 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-	page: {
-		title: "Advanced Table",
-		meta: [{ name: "description", content: "ariNamw" }],
-	},
-	components: {},
+	props: ["dataIklan"],
 	data() {
 		return {
-			tableData: [],
-			keyword: "",
-			error: "",
-			loading: "",
-			hasil: "",
-			showDismissibleAlert: false,
-			title: "Advanced Table",
-			urlFind: "http://localhost:3002/findNama/",
-			urlReport: "http://localhost:3002/report",
-			items: [
-				{
-					text: "Tables",
-					href: "/",
-				},
-				{
-					text: "Advanced",
-					active: true,
-				},
-			],
-			totalRows: 1,
-			currentPage: 1,
-			perPage: 10,
-			pageOptions: [10, 25, 50, 100],
-			filter: null,
-			filterOn: [],
-			sortBy: "age",
-			sortDesc: false,
-			fields: [
-				{ key: "judul_nama", label: "Nama", sortable: true },
-				{ key: "kelamin_nama", label: "Kelamin", sortable: true },
-				{ key: "asal_nama", label: "Asal", sortable: true },
-				{ key: "isi_nama", label: "Arti Nama", sortable: true },
-				{ key: "perfix_nama", label: "Prefix Nama", sortable: true },
-			],
+			iklan1: "",
+			iklan2: "",
 		};
 	},
+
 	created() {
-		this.getNama();
-	},
-	computed: {
-		/**
-		 * Total no. of records
-		 */
-		rows() {
-			return this.tableData.length;
-		},
-	},
-	mounted() {
-		// Set the initial number of items
-		this.totalRows = this.items.length;
-	},
-	methods: {
-		async getNama() {
-			const response = await axios.get("http://localhost:3002/nama");
-			// console.log("name", response);
-			this.tableData = response.data;
-		},
-		/**
-		 * Search the table data with search input
-		 */
-		onFiltered(filteredItems) {
-			// Trigger pagination to update the number of buttons/pages due to filtering
-			this.totalRows = filteredItems.length;
-			this.currentPage = 1;
-		},
-
-		async onSubmit(e) {
-			e.preventDefault();
-			const resp = await axios.get(this.urlFind + this.keyword);
-			const data = resp.data;
-			const row = data.length;
-
-			if (row === 0) {
-				this.showDismissibleAlert = true;
-				this.error = "Nama tidak ditemukan";
-
-				await axios.post(this.urlReport, {
-					kata: this.keyword,
-					bidang: "Nama",
-				});
-			} else {
-				window.location.href = "/cari/artiNama/" + this.keyword;
-			}
-		},
+		const mainUrl = localStorage.mainUrl;
+		const getImg = mainUrl + "/images/client/";
+		this.iklan1 = getImg + this.dataIklan[4].images;
+		this.iklan2 = getImg + this.dataIklan[5].images;
 	},
 };
 </script>

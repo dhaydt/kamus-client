@@ -1,79 +1,50 @@
 <template>
 	<div class="sidePage">
-		<div class="row">
-			<div class="card w-100 m-2">
-				<div class="card-body">
-					<h4 class="card-title">Istilah populer</h4>
-					<p class="card-title-desc">Istilah populer berdasarkan pencarian</p>
-
-					<b-list-group>
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Cras justo odio
-							<b-badge variant="primary" pill>14</b-badge>
-						</b-list-group-item>
-
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Dapibus ac facilisis in
-							<b-badge variant="primary" pill>2</b-badge>
-						</b-list-group-item>
-
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Morbi leo risus
-							<b-badge variant="primary" pill>1</b-badge>
-						</b-list-group-item>
-					</b-list-group>
-				</div>
+		<div class="kartu-kata light-box p-4">
+			<h4>Kamus KBBI</h4>
+			<ul v-for="kata in randomKata.kbbi" :key="kata._id">
+				<li>
+					<a href="#">{{ kata.kata }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<div class="cardIklan">
+				<img
+					class="iklanLandscape"
+					:src="iklan1"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
 			</div>
-
-			<div class="adv w-100 mt-4 pt-4">
-				<b-container>
-					<b-card
-						:title="dataImg.title"
-						:img-src="urlGetImage + dataImg.images"
-						img-alt="Image"
-						img-top
-						tag="article"
-						class="m-1 w-100"
-					>
-						<b-card-text>
-							{{ dataImg.details }}
-						</b-card-text>
-
-						<b-button href="#" variant="primary">Pesan Sekarang</b-button>
-					</b-card>
-				</b-container>
-			</div>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<h4>Kamus Eng-Ind</h4>
+			<ul v-for="kata in randomKata.engIn" :key="kata.id">
+				<li>
+					<a href="#">{{ kata.judul_artikel }}</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
+	props: ["dataIklan"],
 	data() {
 		return {
-			urlThirdId: "http://localhost:3002/getThirdAdv",
-			urlGetImage: "http://localhost:3002/images/client/",
-			dataImg: [],
+			iklan1: "",
+			imgData: [],
+			randomKata: [],
 		};
 	},
 
 	created() {
-		this.getThird();
-	},
-
-	methods: {
-		async getThird() {
-			const resp = await axios.get(this.urlThirdId);
-			console.log(resp.data[0]);
-			this.dataImg = resp.data[0];
-		},
+		const mainUrl = localStorage.mainUrl;
+		const getImg = mainUrl + "/images/client/";
+		this.iklan1 = getImg + this.dataIklan[7].images;
+		this.randomKata = JSON.parse(localStorage.randomKata);
 	},
 };
 </script>

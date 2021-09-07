@@ -17,7 +17,7 @@ export const menuItems = [
   {
     id: 11,
     label: "Administrator",
-    icon: "ri-dashboard-line",
+    icon: "ri-user-settings-fill",
     link: "/admin/user",
   },
   {
@@ -29,7 +29,7 @@ export const menuItems = [
   {
     id: 4,
     label: "Translate",
-    icon: "ri-store-2-line",
+    icon: "ri-translate",
     subItems: [
       {
         id: 5,
@@ -46,25 +46,25 @@ export const menuItems = [
   {
     id: 7,
     label: "Arti Nama",
-    icon: "ri-book-line",
+    icon: "ri-price-tag-3-fill",
     link: "/admin/artinama",
   },
   {
     id: 8,
     label: "Glossary",
-    icon: "ri-book-line",
+    icon: "ri-double-quotes-l",
     link: "/admin/glossary",
   },
   {
     id: 9,
     label: "Report",
-    icon: "ri-book-line",
+    icon: "ri-error-warning-fill",
     link: "/admin/report",
   },
   {
     id: 10,
     label: "Advertism",
-    icon: "ri-book-line",
+    icon: "ri-advertisement-fill",
     link: "/admin/adv",
   },
 ];

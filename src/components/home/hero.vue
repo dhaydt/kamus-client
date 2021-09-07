@@ -1,159 +1,185 @@
 <template>
-	<div class="hero">
-		<div
-			class="hero-banner full jumbo-banner row"
-			style="background: #f4f9fd; height: 90vh"
-		>
-			<div class="container">
-				<div class="row h-100 align-items-center">
-					<div class="col-lg-7 col-md-8 mt-4 text-left">
-						<!--<a href="#" class="header-promo light w-inline-block"><div class="label bg-success">NEW</div><div class="header-promo-text">Klioeo is now UK-Wide</div></a>-->
-						<h1 class="banner-title">
-							Temukan <span class="text-info">arti kata</span> & makna kata
-							disini!
-						</h1>
-						<p class="lead">Masukkan kata yang kamu cari disini.</p>
-						<b-form @submit="onSubmit">
-							<b-input-group id="searchBar" class="search mt-4">
-								<template #prepend> </template>
+	<!-- ============================ Hero Banner  Start================================== -->
+	<div class="hero-banner full jumbo-banner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7 col-md-8">
+					<!--<router-link to="#" class="header-promo light w-inline-block"><div class="label bg-success">NEW</div><div class="header-promo-text">Klioeo is now UK-Wide</div></router-link>-->
+					<h1>
+						Temukan <span class="text-info">arti kata</span> & makna kata
+						disini!
+					</h1>
+					<p class="lead">Masukkan kata yang kamu cari disini.</p>
 
-								<b-form-input
+					<form @submit="onSubmit">
+						<div class="row m-0">
+							<div class="col-lg-5 col-md-5 col-sm-12 p-0">
+								<input
 									v-model="keyword"
 									id="keyword"
-									placeholder="Kata kunci"
 									required
-								></b-form-input>
-
-								<template #append>
-									<b-form-select
-										v-model="selected"
-										:options="options"
-										required
-									></b-form-select>
-									<b-button variant="danger" id="searchButton" type="submit"
-										>Cari</b-button
-									>
-								</template>
-							</b-input-group>
-						</b-form>
-						<b-alert
-							v-model="showDismissibleAlert"
-							class="mt-2"
-							variant="danger"
-							dismissible
-						>
-							{{ error }}
-						</b-alert>
-						<div class="featured-category dark d-flex mt-4">
-							<p style="width: fit-content">Browse Category:</p>
-							<ul class="p-0 ml-4">
-								<b-button
-									class="mr-2 sm-link"
-									variant="success"
-									href="#"
-									size="sm"
-									to="/kbbi"
-									>Kbbi</b-button
+									type="text"
+									class="form-control search-slt"
+									placeholder="Kata"
+								/>
+							</div>
+							<div class="col-lg-5 col-md-5 col-sm-12 p-0">
+								<select
+									v-model="selected"
+									required
+									class="form-control search-slt"
+									id="kategori-kamus"
 								>
-								<b-button
-									class="mr-2 sm-link"
-									variant="success"
-									href="#"
-									size="sm"
-									to="/kbbi"
-									>Eng - Ind</b-button
-								>
-								<b-button
-									class="mr-2 sm-link"
-									variant="success"
-									href="#"
-									size="sm"
-									to="/kbbi"
-									>Ind - Eng</b-button
-								>
-								<b-button
-									class="mr-2 sm-link"
-									variant="success"
-									href="#"
-									size="sm"
-									to="/kbbi"
-									>Arti Nama</b-button
-								>
-								<b-button
-									class="mr-2 sm-link"
-									variant="success"
-									href="#"
-									size="sm"
-									to="/kbbi"
-									>Istilah</b-button
-								>
-							</ul>
+									<option value="">Pilih Kategori</option>
+									<option value="kbbi">KBBI</option>
+									<option value="engin">Eng-Ind</option>
+									<option value="ineng">Ind-Eng</option>
+									<option value="istilah">Istilah</option>
+									<option value="artiNama">Arti Nama</option>
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-12 p-0">
+								<button type="submit" class="btn btn-danger wrn-btn">
+									<div v-if="loading">
+										<b-spinner small type="grow"></b-spinner>
+									</div>
+									<span v-if="!loading">Cari</span>
+								</button>
+							</div>
 						</div>
+					</form>
+					<b-alert
+						v-model="showDismissibleAlert"
+						class="mt-2"
+						variant="danger"
+						dismissible
+					>
+						{{ error }}
+					</b-alert>
+					<div class="featured-category dark">
+						<ul>
+							<li>Browse Category:</li>
+							<li>
+								<router-link
+									to="/kbbi"
+									data-toggle="tooltip"
+									data-original-title="KBBI"
+									>KBBI</router-link
+								>
+							</li>
+							<li>
+								<router-link
+									to="/terjemahan"
+									data-toggle="tooltip"
+									data-original-title="Eng-Ind"
+									>Eng-Ind</router-link
+								>
+							</li>
+							<li>
+								<router-link
+									to="/terjemahan"
+									data-toggle="tooltip"
+									data-original-title="Ind-Eng"
+									>Ind-Eng</router-link
+								>
+							</li>
+							<li>
+								<router-link
+									to="/glossarium"
+									data-toggle="tooltip"
+									data-original-title="Istilah"
+									>Istilah</router-link
+								>
+							</li>
+							<li>
+								<router-link
+									to="/artinama"
+									data-toggle="tooltip"
+									data-original-title="Arti Nama"
+									>Arti Nama</router-link
+								>
+							</li>
+						</ul>
 					</div>
-					<div class="col-lg-5 col-md-4">
-						<img
-							src="assets/img/a-2.png"
-							alt="kamus-kbbi-eng-ind"
-							class="img-fluid"
-						/>
-					</div>
+				</div>
+				<div class="col-lg-5 col-md-4">
+					<img
+						src="assets/img/a-2.png"
+						alt="kamus-kbbi-eng-ind"
+						class="img-fluid"
+					/>
 				</div>
 			</div>
 		</div>
-		<!-- ============================ Hero Banner End ================================== -->
 	</div>
+	<!-- ============================ Hero Banner End ================================== -->
 </template>
 
 <script>
+import { BSpinner } from "bootstrap-vue";
 import axios from "axios";
 export default {
 	data() {
 		return {
+			backendUrl: "",
+			reportUrl: "/report",
 			selected: "",
+			loading: false,
 			keyword: "",
 			error: "",
 			showDismissibleAlert: false,
-			reportUrl: "http://localhost:3002/report",
 			findUrl: {
-				kbbi: "http://localhost:3002/find/",
-				glos: "http://localhost:3002/findGlos/",
-				nama: "http://localhost:3002/findNama/",
-				eng: "http://localhost:3002/translateEng/",
-				ind: "http://localhost:3002/translateInd/",
+				kbbi: "/find/",
+				glos: "/findGlos/",
+				nama: "/findNama/",
+				eng: "/translateEng/",
+				ind: "/translateInd/",
 			},
-			options: [
-				{ value: "", text: "Pilih pencarian :" },
-				{ value: "kbbi", text: "KBBI" },
-				{ value: "engin", text: "ENG - IND" },
-				{ value: "ineng", text: "IND - ENG" },
-				{ value: "artiNama", text: "Arti nama" },
-				{ value: "istilah", text: "Istilah" },
-			],
 		};
+	},
+
+	created() {
+		// localStorage.popIstilah.clear();
+		// localStorage.popKbbi.clear();
+		this.mainUrl = localStorage.mainUrl;
+		console.log(this.mainUrl);
+	},
+
+	components: {
+		BSpinner,
 	},
 
 	methods: {
 		async onSubmit(e) {
 			e.preventDefault();
 			var kamus = this.selected;
+			this.showDismissibleAlert = false;
+			this.loading = true;
+			const backend = this.mainUrl;
 
 			if (kamus === "kbbi") {
 				console.log("cari di kbbi");
 				try {
-					const resp = await axios.get(this.findUrl.kbbi + this.keyword);
+					const resp = await axios.get(
+						backend + this.findUrl.kbbi + this.keyword
+					);
 					const kbbi = resp.data;
-					const row = kbbi.length;
+					// console.log("data", kbbi);
+
+					const row = kbbi.kbbi.length;
 
 					if (row === 0) {
 						this.error = "Data tidak ada di kamus kami!";
 						this.showDismissibleAlert = true;
+						this.loading = false;
 
-						console.log(this.error);
-						await axios.post(this.reportUrl, {
+						console.log("row", row);
+						await axios.post(backend + this.reportUrl, {
 							kata: this.keyword,
 							bidang: "KBBI",
 						});
 					} else {
+						// console.log("data found");
 						window.location.href = "/cari/kbbi/" + this.keyword;
 					}
 				} catch (err) {
@@ -161,15 +187,18 @@ export default {
 				}
 			} else if (kamus === "istilah") {
 				try {
-					const resp = await axios.get(this.findUrl.glos + this.keyword);
+					const resp = await axios.get(
+						backend + this.findUrl.glos + this.keyword
+					);
 					const glos = resp.data;
-					const row = glos.length;
+					const row = glos.istilah.length;
 
 					if (row === 0) {
 						this.error = "Data Istilah tidak ditemukan";
 						this.showDismissibleAlert = true;
+						this.loading = false;
 
-						await axios.post(this.reportUrl, {
+						await axios.post(backend + this.reportUrl, {
 							kata: this.keyword,
 							bidang: "Istilah",
 						});
@@ -180,16 +209,20 @@ export default {
 					console.log("istilah", err);
 				}
 			} else if (kamus === "artiNama") {
+				console.log("cari di nama");
 				try {
-					const resp = await axios.get(this.findUrl.nama + this.keyword);
+					const resp = await axios.get(
+						backend + this.findUrl.nama + this.keyword
+					);
 					const nama = resp.data;
-					const row = nama.length;
+					const row = nama.nama.length;
 
 					if (row === 0) {
 						this.error = "Data Nama tidak ditemukan";
 						this.showDismissibleAlert = true;
+						this.loading = false;
 
-						await axios.post(this.reportUrl, {
+						await axios.post(backend + this.reportUrl, {
 							kata: this.keyword,
 							bidang: "Arti Nama",
 						});
@@ -201,15 +234,18 @@ export default {
 				}
 			} else if (kamus === "engin") {
 				try {
-					const resp = await axios.get(this.findUrl.eng + this.keyword);
+					const resp = await axios.get(
+						backend + this.findUrl.eng + this.keyword
+					);
 					const nama = resp.data;
-					const row = nama.length;
+					const row = nama.engin.length;
 
 					if (row === 0) {
 						this.error = "Data Terjemahan tidak ditemukan";
 						this.showDismissibleAlert = true;
+						this.loading = false;
 
-						await axios.post(this.reportUrl, {
+						await axios.post(backend + this.reportUrl, {
 							kata: this.keyword,
 							bidang: "ENG - IND",
 						});
@@ -221,15 +257,18 @@ export default {
 				}
 			} else {
 				try {
-					const resp = await axios.get(this.findUrl.ind + this.keyword);
+					const resp = await axios.get(
+						backend + this.findUrl.ind + this.keyword
+					);
 					const nama = resp.data;
-					const row = nama.length;
+					const row = nama.idEng.length;
 
 					if (row === 0) {
 						this.error = "Data Terjemahan tidak ditemukan";
 						this.showDismissibleAlert = true;
+						this.loading = false;
 
-						await axios.post(this.reportUrl, {
+						await axios.post(backend + this.reportUrl, {
 							kata: this.keyword,
 							bidang: "IND - ENG",
 						});
@@ -246,7 +285,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.banner-title {
-	font-weight: 900;
+.hero-banner {
+	background: #f4f9fd;
+}
+h1 {
+	font-family: Mulish, "sans-serif" !important;
 }
 </style>

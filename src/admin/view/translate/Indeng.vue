@@ -65,6 +65,9 @@
 						:filter-included-fields="filterOn"
 						@filtered="onFiltered"
 					>
+						<template v-slot:cell(view)="data">
+							<td v-html="data.item.view / 2"></td>
+						</template>
 						<template v-slot:cell(action)>
 							<a
 								href="javascript:void(0);"
@@ -141,6 +144,7 @@ export default {
 				{ key: "id", sortable: true, label: "ID" },
 				{ key: "judul_artikel", sortable: true, label: "Indonesia" },
 				{ key: "isi_artikel", sortable: true, label: "Inggris" },
+				{ key: "view", sortable: true, label: "View" },
 				{ key: "action" },
 			],
 		};
@@ -173,7 +177,7 @@ export default {
 				const response = await axios.get(this.getIndUrl);
 				this.dataKata = response.data;
 				this.jumlahData = response.data.length;
-				console.log("kata", this.dataKata);
+				// console.log("kata", this.dataKata);
 			} catch (err) {
 				console.log(err);
 			}

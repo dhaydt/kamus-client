@@ -1,79 +1,82 @@
 <template>
 	<div class="sidePage">
-		<div class="row">
-			<div class="card w-100 m-2">
-				<div class="card-body">
-					<h4 class="card-title">Nama Populer</h4>
-					<p class="card-title-desc">Nama populer berdasarkan pencarian</p>
-
-					<b-list-group>
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Cras justo odio
-							<b-badge variant="primary" pill>14</b-badge>
-						</b-list-group-item>
-
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Dapibus ac facilisis in
-							<b-badge variant="primary" pill>2</b-badge>
-						</b-list-group-item>
-
-						<b-list-group-item
-							class="d-flex justify-content-between align-items-center"
-						>
-							Morbi leo risus
-							<b-badge variant="primary" pill>1</b-badge>
-						</b-list-group-item>
-					</b-list-group>
-				</div>
+		<div class="kartu-kata light-box p-4">
+			<h4>Kamus Istilah</h4>
+			<ul v-for="kata in randomKata.istilah" :key="kata.id_glos">
+				<li>
+					<a href="#">{{ kata.judul_glos }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<div class="cardIklan">
+				<img
+					class="iklanLandscape"
+					:src="iklan1"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
 			</div>
-
-			<div class="adv w-100 mt-4 pt-4">
-				<b-container v-if="dataImage">
-					<b-card
-						:title="dataImage.title"
-						:img-src="urlImg + dataImage.images"
-						img-alt="Image"
-						img-top
-						tag="article"
-						class="m-1 w-100"
-					>
-						<b-card-text>
-							{{ dataImage.details }}
-						</b-card-text>
-
-						<b-button href="#" variant="primary">Pesan Sekarang</b-button>
-					</b-card>
-				</b-container>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<h4>Kamus Arti Nama</h4>
+			<ul v-for="kata in randomKata.nama" :key="kata.id">
+				<li>
+					<a href="#">{{ kata.judul_nama }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<div class="cardIklan">
+				<img
+					class="iklanLandscape"
+					:src="iklan2"
+					v-if="iklan2"
+					alt="Slot Iklan"
+				/>
+			</div>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<h4>Kamus Ind-Eng</h4>
+			<ul v-for="kata in randomKata.inEng" :key="kata.id">
+				<li>
+					<a href="#">{{ kata.judul_artikel }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="kartu-kata light-box p-4">
+			<div class="cardIklan">
+				<img
+					class="iklanLandscape"
+					:src="iklan3"
+					v-if="iklan3"
+					alt="Slot Iklan"
+				/>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
+	props: ["dataIklan"],
 	data() {
 		return {
-			urlSecondId: "http://localhost:3002/getSecondAdv",
-			urlImg: "http://localhost:3002/images/client/",
-			dataImage: [],
+			iklan1: "",
+			iklan2: "",
+			iklan3: "",
+			imgData: [],
+			randomKata: [],
 		};
 	},
 
 	created() {
-		this.getSecond();
-	},
-
-	methods: {
-		async getSecond() {
-			const resp = await axios.get(this.urlSecondId);
-			console.log(resp.data[0]);
-			this.dataImage = resp.data[0];
-		},
+		const mainUrl = localStorage.mainUrl;
+		const getImg = mainUrl + "/images/client/";
+		this.iklan1 = getImg + this.dataIklan[7].images;
+		this.iklan2 = getImg + this.dataIklan[8].images;
+		this.iklan3 = getImg + this.dataIklan[5].images;
+		this.randomKata = JSON.parse(localStorage.randomKata);
 	},
 };
 </script>

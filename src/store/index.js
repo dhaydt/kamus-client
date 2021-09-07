@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    mainUrl: "",
     records: [
       {
         _id: "",
@@ -41,6 +42,14 @@ export default new Vuex.Store({
         title: "",
         image: "",
         detail: "",
+      },
+    ],
+
+    popKbbi: [
+      {
+        _id: "",
+        kata: "",
+        view: "",
       },
     ],
   },
