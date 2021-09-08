@@ -1,13 +1,13 @@
 <template>
-	<div class="sideCol">
+	<div class="sideKata">
 		<div class="kartu-kata light-box p-4">
-			<h4>Kamus Istilah</h4>
+			<h4>Kamus Istilah Populer</h4>
 			<ul v-for="kata in popIstilah.slice(0, 5)" :key="kata.id_glos">
 				<li class="d-flex w-100 transform">
 					<a href="#">{{ kata.judul_glos }} </a>
-					<button type="button" class="ml-auto btn btn-primary p-1 m-0 viewer">
-						{{ kata.view / 2 }}
-					</button>
+					<span class="badge badge-primary ml-auto viewer">{{
+						kata.view / 2
+					}}</span>
 				</li>
 			</ul>
 		</div>
@@ -20,13 +20,13 @@
 			/>
 		</div>
 		<div class="kartu-kata light-box p-4">
-			<h4>Kamus KBBI</h4>
+			<h4>Kamus KBBI Populer</h4>
 			<ul v-for="kata in popKbbi.slice(0, 5)" :key="kata._id">
 				<li class="d-flex w-100 transform">
 					<a href="#">{{ kata.kata }} </a>
-					<button type="button" class="ml-auto btn btn-primary p-1 m-0 viewer">
-						{{ kata.view / 2 }}
-					</button>
+					<span class="badge badge-primary ml-auto viewer">{{
+						kata.view / 2
+					}}</span>
 				</li>
 			</ul>
 		</div>
@@ -68,7 +68,10 @@ export default {
 .transform {
 	text-transform: capitalize;
 }
-.viewer {
-	border-radius: 50%;
+.badge.viewer {
+	font-size: 12px;
+	font-weight: 900;
+	color: white;
+	padding: 5px;
 }
 </style>

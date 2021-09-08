@@ -44,8 +44,11 @@
 							</b-form-text>
 						</b-form-group>
 						<b-button-group class="d-flex justify-content-around">
-							<b-button class="mr-2" type="submit" variant="primary"
-								>Masuk</b-button
+							<b-button class="mr-2 p-0" type="submit" variant="primary">
+								<div v-if="loading">
+									<b-spinner small variant="primary"></b-spinner>
+								</div>
+								<span v-if="!loading">Masuk</span></b-button
 							>
 							<b-button class="" to="/" variant="success">Kembali</b-button>
 						</b-button-group>
@@ -61,8 +64,9 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			urlLogin: "http://localhost:3002/login",
+			urlLogin: "",
 			error: "",
+			loading: false,
 			showDismissibleAlert: false,
 			form: {
 				email: "",
@@ -71,9 +75,15 @@ export default {
 		};
 	},
 
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.urlLogin = mainUrl + "/login";
+	},
+
 	methods: {
 		async onSubmit(e) {
 			e.preventDefault();
+			this.loading = true;
 
 			await axios
 				.post(this.urlLogin, {
@@ -85,7 +95,6 @@ export default {
 					localStorage.setItem("jwt", response.data.token);
 
 					if (localStorage.getItem("jwt") !== null) {
-						// this.$emit("loggedIn");
 						if (this.$route.params.nextUrl != null) {
 							this.$router.push(this.$route.params.nextUrl);
 						} else {
@@ -94,13 +103,13 @@ export default {
 					}
 				})
 				.catch((err) => {
+					this.loading = false;
 					this.form.email = "";
 					this.form.password = "";
 					this.showDismissibleAlert = true;
 					this.error = "Email / Password salah!";
 					console.log("salah", err);
 				});
-			// console.log({ email: this.form.email, password: this.form.password });
 		},
 	},
 };

@@ -1,45 +1,74 @@
 <template>
-	<div class="kbbi">
-		<div class="box-detail">
-			<div class="box-slice">
-				<div class="box-detail-single">
-					<h1>Arti kata {{ kata }} KBBI Kamus Bahasa Indonesia</h1>
-				</div>
+	<div class="box-detail mx-3">
+		<div class="cardIklan box-slice p-0">
+			<img
+				:src="iklan4"
+				class="iklanLandscape"
+				v-if="iklan4"
+				alt="Slot Iklan"
+			/>
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h1>Arti Kata {{ kata }} KBBI Kamus Bahasa Indonesia</h1>
+			</div>
+			<div class="cardIklan box-slice p-0">
+				<img
+					:src="iklan1"
+					class="iklanLandscape"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
+			</div>
+			<p>
+				Arti kata {{ kata }}, maksud, definisi, pengertian dan makna kata
+				terkait dengan arti kata {{ kata }}.
+			</p>
+
+			<h2>Arti Kata {{ kata }}</h2>
+
+			<p v-for="kata in dataKata.kbbi" :key="kata._id">
+				<strong>{{ kata.kata }}</strong
+				>: <span v-html="kata.keterangan"></span>
+			</p>
+
+			<div class="cardIklan box-slice p-0">
+				<img
+					:src="iklan2"
+					class="iklanLandscape"
+					v-if="iklan2"
+					alt="Slot Iklan"
+				/>
+			</div>
+
+			<div class="box-detail-single">
+				<h3>Related Word</h3>
+				<b-table
+					:items="dataKata.related"
+					:fields="fields"
+					striped
+					hover
+					head-variant="dark"
+					responsive="sm"
+					class="text-left mt-2"
+				>
+				</b-table>
 				<div class="cardIklan box-slice p-0">
 					<img
-						:src="iklan1"
+						:src="iklan3"
 						class="iklanLandscape"
-						v-if="iklan1"
+						v-if="iklan3"
 						alt="Slot Iklan"
 					/>
 				</div>
-				<p>
-					Arti kata {{ kata }}, maksud, definisi, pengertian dan makna kata
-					terkait dengan arti kata {{ kata }}.
-				</p>
+			</div>
 
-				<h2>Arti kata {{ kata }}</h2>
-
-				<div v-for="kata in dataKata.kbbi" :key="kata._id">
-					<p>
-						<strong class="transform mt-2">{{ kata.kata }}</strong
-						>: <span v-html="kata.keterangan"></span>
-					</p>
-				</div>
-				<div class="cardIklan box-slice p-0">
-					<img
-						:src="iklan2"
-						class="iklanLandscape"
-						v-if="iklan2"
-						alt="Slot Iklan"
-					/>
-				</div>
-
+			<div class="box-detail-single">
+				<h3>Arti Kata Lainnya</h3>
 				<div class="box-detail-single">
-					<h3>Related Word</h3>
 					<b-table
-						:items="dataKata.related"
-						:fields="fields"
+						:items="dataKata.random"
+						:fields="random"
 						striped
 						hover
 						head-variant="dark"
@@ -49,52 +78,28 @@
 					</b-table>
 					<div class="cardIklan box-slice p-0">
 						<img
-							:src="iklan3"
+							:src="iklan4"
 							class="iklanLandscape"
-							v-if="iklan3"
+							v-if="iklan4"
 							alt="Slot Iklan"
 						/>
 					</div>
 				</div>
-
-				<div class="box-detail-single">
-					<h3>Arti Kata Lainnya</h3>
-					<div class="box-detail-single">
-						<b-table
-							:items="dataKata.random"
-							:fields="random"
-							striped
-							hover
-							head-variant="dark"
-							responsive="sm"
-							class="text-left mt-2"
-						>
-						</b-table>
-						<div class="cardIklan box-slice p-0">
-							<img
-								:src="iklan4"
-								class="iklanLandscape"
-								v-if="iklan4"
-								alt="Slot Iklan"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="box-detail-single flexeo">
-					<div class="box-detail-single-flex">
-						<ul class="shares-makna">
-							<li>Bagikan Makna</li>
-							<li>
-								<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li>
-								<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="#" class="share gp"><i class="fa fa-google"></i></a>
-							</li>
-						</ul>
-					</div>
+			</div>
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

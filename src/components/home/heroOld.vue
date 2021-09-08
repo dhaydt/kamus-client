@@ -32,7 +32,7 @@
 									></b-form-select>
 									<b-button variant="danger" id="searchButton" type="submit"
 										><div v-if="loading">
-											<b-spinner small type="grow"></b-spinner>
+											<b-spinner small variant="primary"></b-spinner>
 										</div>
 										<span v-if="!loading"><i class="fa fa-search"></i></span
 									></b-button>

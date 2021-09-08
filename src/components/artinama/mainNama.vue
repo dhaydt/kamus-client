@@ -31,7 +31,7 @@
 										class="btn theme-bg r-radius full-width"
 									>
 										<div v-if="loading">
-											<b-spinner small type="grow"></b-spinner>
+											<b-spinner small variant="primary"></b-spinner>
 										</div>
 										<span v-if="!loading">Cari</span>
 									</button>

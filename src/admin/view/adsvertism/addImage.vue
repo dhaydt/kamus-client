@@ -2,57 +2,67 @@
 	<div class="addImage">
 		<Header :title="title" :items="items"></Header>
 		<b-card class="addImg">
-			<form @submit.prevent="submitForm">
-				<b-input-group>
-					<template #prepend>
-						<b-input-group-text>Title</b-input-group-text>
-					</template>
-					<b-form-input
-						v-model="formFields.title"
-						id="title"
-						required
-					></b-form-input>
-
-					<template #append>
-						<b-input-group-text
-							><strong class="text-danger">!</strong></b-input-group-text
-						>
-					</template>
-				</b-input-group>
-
-				<b-input-group class="mt-4">
-					<template #prepend>
-						<b-input-group-text>Detail</b-input-group-text>
-					</template>
-					<b-form-input v-model="formFields.detail" id="detail"></b-form-input>
-
-					<template #append>
-						<b-input-group-text
-							><strong class="text-danger">!</strong></b-input-group-text
-						>
-					</template>
-				</b-input-group>
-
-				<label class="btn btn-default">
+			<form>
+				<div class="form-group">
+					<label for="name">Name</label>
 					<input
-						type="file"
+						v-model="formFields.title"
+						type="text"
 						required
-						v-on:change="handleFileUpload()"
-						name="images"
-						id="images"
+						class="form-control"
+						id="name"
+						placeholder="Nama iklan"
 					/>
-				</label>
-
-				<button
-					class="btn btn-success"
-					:disabled="!formFields.images"
-					type="submit"
-				>
-					<div v-if="loading">
-						<b-spinner small type="grow"></b-spinner> Menyimpan...
+				</div>
+				<div class="form-group">
+					<label for="posisi">Posisi</label>
+					<select
+						class="form-control"
+						required
+						id="posisi"
+						v-model="formFields.posisi"
+					>
+						<option>Pilih Posisi</option>
+						<option value="atas">Atas</option>
+						<option value="bawah">Bawah</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="tipe">Tipe</label>
+					<select v-model="formFields.tipe" class="form-control" id="tipe">
+						<option>Pilih Tipe Iklan</option>
+						<option value="image">Image</option>
+						<option value="code">Code</option>
+					</select>
+				</div>
+				<div class="form-group" v-if="formFields.tipe == 'code'">
+					<label for="code">Code</label>
+					<textarea
+						class="form-control"
+						id="code"
+						v-model="formFields.code"
+						rows="3"
+					></textarea>
+				</div>
+				<div class="d-flex justify-content-between">
+					<div class="form-group d-flex" v-if="formFields.tipe == 'image'">
+						<label for="images">Image</label>
+						<input
+							type="file"
+							v-on:change="handleFileUpload()"
+							class="form-control-file ml-4"
+							name="images"
+							id="images"
+						/>
 					</div>
-					<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
-				</button>
+					<button type="submit" class="btn btn-primary mr-4 pr-4" disabled>
+						<!-- :disabled="!formFields.images" -->
+						<div v-if="loading">
+							<b-spinner small variant="primary"></b-spinner> Menyimpan...
+						</div>
+						<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+					</button>
+				</div>
 			</form>
 		</b-card>
 	</div>
@@ -65,12 +75,14 @@ import Header from "../../components/page-header.vue";
 export default {
 	data() {
 		return {
-			urlPostImg: "http://localhost:3002/postAdv",
+			urlPostImg: "",
 			loading: false,
 			formFields: {
 				title: null,
+				posisi: null,
+				tipe: null,
+				code: null,
 				images: null,
-				detail: null,
 			},
 			file: null,
 			title: "Tambah Advertism",
@@ -94,17 +106,23 @@ export default {
 		BSpinner,
 	},
 
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.urlPostImg = mainUrl + "/postAdv";
+	},
+
 	methods: {
 		async submitForm() {
 			this.loading = true;
 			let formData = new FormData();
 
-			formData.append("detail", this.formFields.detail);
 			formData.append("title", this.formFields.title);
-			formData.append("images", this.formFields.images);
+			formData.append("posisi", this.formFields.posisi);
+			formData.append("tipe", this.formFields.tipe);
+			formData.append("code", this.formFields.code);
 
 			await axios
-				.post("http://localhost:3002/postAdv", formData)
+				.post(this.urlPostImg, formData)
 				.then((res) => {
 					console.log(res);
 					this.loading = false;
@@ -114,7 +132,9 @@ export default {
 				});
 			this.formFields.title = "";
 			this.formFields.images = "";
-			this.formFields.detail = "";
+			this.formFields.posisi = "";
+			this.formFields.tipe = "";
+			this.formFields.code = "";
 			this.loading = false;
 		},
 

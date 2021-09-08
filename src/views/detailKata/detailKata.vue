@@ -1,69 +1,109 @@
 <template>
-	<div class="mainMenu kbbiDetail">
-		<b-container>
-			<b-row class="justify-content-center">
-				<b-col lg="8" md="8" sm="12">
-					<b-card-group deck class="mt-4">
-						<b-card class="text-left cardIklan">
-							<img
-								v-if="iklan"
-								:src="iklan"
-								class="iklanLandscape"
-								alt="Slot Iklan"
-							/>
-						</b-card>
-					</b-card-group>
+	<div class="detailKata mainMenu">
+		<!-- ============================ Page Title Start================================== -->
+		<!-- <div class="page-title search-form" style="padding: 4rem 0">
+			<div class="container">
+				<div class="row m-0 justify-content-left">
+					<div class="col-lg-8 col-md-8">
+						<div class="col-12">
+							<div class="guide">
+								Halaman ini khusus mencari arti kata di kamus {{ bidang }}. Jika
+								ingin mencari makna di kamus lain, silahkan pindah halaman
+								terlebih dahulu melalui menu di atas
+							</div>
+						</div>
+						<form class="search-big-form shadows" @submit="onSubmit">
+							<div class="row m-0">
+								<div class="col-lg-9 col-md-9 col-sm-9 p-0">
+									<div class="form-group">
+										<input
+											type="text"
+											class="form-control l-radius b-0 b-r"
+											placeholder="Kata"
+											v-model="keyword"
+											required
+										/>
+									</div>
+								</div>
+								<div class="col-lg-3 col-md-3 col-sm-3 p-0">
+									<button
+										type="submit"
+										class="btn theme-bg r-radius full-width"
+									>
+										<div v-if="loading">
+											<b-spinner small variant="primary"></b-spinner>
+										</div>
+										<span v-if="!loading">Cari</span>
+									</button>
+								</div>
+							</div>
+						</form>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-4"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<!-- ============================ Page Title End ================================== -->
+		<section class="gray-light">
+			<div class="container">
+				<div class="row">
+					<div
+						class="col-lg-8 col-md-12 col-sm-12"
+						style="padding: 0 15px; margin-top: -20px"
+					>
+						<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
+							<Kbbi
+								:dataKata="dataKata"
+								:kata="kata"
+								:dataIklan="dataIklan"
+							></Kbbi>
+						</b-card-group>
 
-					<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
-						<Kbbi
-							:dataKata="dataKata"
-							:kata="kata"
-							:dataIklan="dataIklan"
-						></Kbbi>
-					</b-card-group>
+						<b-card-group deck class="mt-4" v-if="bidang === 'glosarium'">
+							<Istilah
+								:dataIklan="dataIklan"
+								:dataKata="dataKata"
+								:kata="kata"
+							></Istilah>
+						</b-card-group>
 
-					<b-card-group deck class="mt-4" v-if="bidang === 'glosarium'">
-						<Istilah
-							:dataIklan="dataIklan"
-							:dataKata="dataKata"
-							:kata="kata"
-						></Istilah>
-					</b-card-group>
+						<b-card-group deck class="mt-4" v-if="bidang === 'artiNama'">
+							<ArtiNama
+								:dataIklan="dataIklan"
+								:dataKata="dataKata"
+								:kata="kata"
+							></ArtiNama>
+						</b-card-group>
 
-					<b-card-group deck class="mt-4" v-if="bidang === 'artiNama'">
-						<ArtiNama
-							:dataIklan="dataIklan"
-							:dataKata="dataKata"
-							:kata="kata"
-						></ArtiNama>
-					</b-card-group>
+						<b-card-group deck class="mt-4" v-if="bidang === 'engInd'">
+							<EngIn
+								:dataIklan="dataIklan"
+								:dataKata="dataKata"
+								:kata="kata"
+							></EngIn>
+						</b-card-group>
 
-					<b-card-group deck class="mt-4" v-if="bidang === 'engInd'">
-						<EngIn
-							:dataIklan="dataIklan"
-							:dataKata="dataKata"
-							:kata="kata"
-						></EngIn>
-					</b-card-group>
-
-					<b-card-group deck class="mt-4" v-if="bidang === 'indEng'">
-						<InEng
-							:dataIklan="dataIklan"
-							:dataKata="dataKata"
-							:kata="kata"
-						></InEng>
-					</b-card-group>
-				</b-col>
-				<b-col lg="4" md="4" sm="8">
-					<Side :dataIklan="dataIklan"></Side>
-				</b-col>
-			</b-row>
-		</b-container>
-		<div id="mainBody" class="container text-center">
-			<!-- <EllipsisLoader :loading="loading"></EllipsisLoader> -->
-			<ul id="results"></ul>
-		</div>
-		<footer class="mt-4"></footer>
+						<b-card-group deck class="mt-4" v-if="bidang === 'indEng'">
+							<InEng
+								:dataIklan="dataIklan"
+								:dataKata="dataKata"
+								:kata="kata"
+							></InEng>
+						</b-card-group>
+					</div>
+					<div class="col-lg-4 col-md-12 col-sm-12">
+						<Side :dataIklan="dataIklan"></Side>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 </template>
 

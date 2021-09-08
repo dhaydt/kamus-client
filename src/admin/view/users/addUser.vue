@@ -103,7 +103,7 @@
 						<b-button-group class="mt-4">
 							<b-button type="submit" variant="primary"
 								><div v-if="loading">
-									<b-spinner small type="grow"></b-spinner> Menyimpan...
+									<b-spinner small variant="primary"></b-spinner> Menyimpan...
 								</div>
 								<span v-if="!loading"
 									><i class="fa fa-save"></i> Simpan</span

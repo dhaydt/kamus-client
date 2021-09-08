@@ -101,7 +101,7 @@ export default {
 	background-color: #eef1f8 !important;
 }
 .main-content {
-	margin-top: 80px;
+	margin-top: 60px;
 }
 </style>
 

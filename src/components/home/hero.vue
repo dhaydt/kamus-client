@@ -30,7 +30,7 @@
 									class="form-control search-slt"
 									id="kategori-kamus"
 								>
-									<option value="">Pilih Kategori</option>
+									<option>Pilih Kategori</option>
 									<option value="kbbi">KBBI</option>
 									<option value="engin">Eng-Ind</option>
 									<option value="ineng">Ind-Eng</option>
@@ -41,7 +41,7 @@
 							<div class="col-lg-2 col-md-2 col-sm-12 p-0">
 								<button type="submit" class="btn btn-danger wrn-btn">
 									<div v-if="loading">
-										<b-spinner small type="grow"></b-spinner>
+										<b-spinner small variant="primary"></b-spinner>
 									</div>
 									<span v-if="!loading">Cari</span>
 								</button>

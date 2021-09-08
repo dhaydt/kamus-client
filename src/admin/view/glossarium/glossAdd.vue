@@ -82,7 +82,8 @@
 								<b-col md="12" class="d-flex justify-content-around">
 									<b-button type="submit" variant="primary"
 										><div v-if="loading">
-											<b-spinner small type="grow"></b-spinner> Menyimpan...
+											<b-spinner small variant="primary"></b-spinner>
+											Menyimpan...
 										</div>
 										<span v-if="!loading"
 											><i class="fa fa-save"></i> Simpan</span

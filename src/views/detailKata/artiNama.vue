@@ -1,49 +1,70 @@
 <template>
-	<div class="artiNama">
-		<div class="box-detail">
-			<div class="box-slice">
-				<div class="box-detail-single">
-					<h1>Arti Nama {{ kata }} KBBI Kamus Bahasa Indonesia</h1>
-				</div>
+	<div class="box-detail mx-3">
+		<div class="cardIklan box-slice p-0">
+			<img :src="iklan" class="iklanLandscape" v-if="iklan" alt="Slot Iklan" />
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h1>Arti Nama {{ kata }} dalam database KBBI Kamus Bahasa Indonesia</h1>
+			</div>
+			<div class="cardIklan box-slice p-0">
+				<img
+					:src="iklan1"
+					class="iklanLandscape"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
+			</div>
+			<p>
+				Arti nama {{ kata }}, maksud, definisi, pengertian dan makna nama
+				terkait dengan arti nama {{ kata }}.
+			</p>
+
+			<h2>Arti Nama {{ kata }}</h2>
+
+			<div v-for="kata in dataKata.nama" :key="kata.id">
+				<strong>{{ kata.judul_nama }}</strong
+				>: <span>{{ kata.isi_nama }}</span>
+				<p><strong>Asal nama</strong>: {{ kata.asal_nama }},</p>
+			</div>
+
+			<div class="cardIklan box-slice p-0">
+				<img
+					:src="iklan2"
+					class="iklanLandscape"
+					v-if="iklan2"
+					alt="Slot Iklan"
+				/>
+			</div>
+
+			<div class="box-detail-single">
+				<h3>Related Word</h3>
+				<b-table
+					:items="dataKata.related"
+					:fields="fields"
+					striped
+					hover
+					head-variant="dark"
+					responsive="sm"
+					class="text-left mt-2"
+				>
+				</b-table>
 				<div class="cardIklan box-slice p-0">
 					<img
-						:src="iklan1"
+						:src="iklan3"
 						class="iklanLandscape"
-						v-if="iklan1"
+						v-if="iklan3"
 						alt="Slot Iklan"
 					/>
 				</div>
-				<p>
-					Arti nama {{ kata }}, maksud, definisi, pengertian dan makna kata
-					terkait dengan arti nama {{ kata }}.
-				</p>
+			</div>
 
-				<h2>Arti Nama {{ kata }}</h2>
-
-				<div v-for="kata in dataKata.nama" :key="kata.id">
-					<p>
-						<strong>{{ kata.judul_nama }}</strong
-						>: {{ kata.isi_nama }},
-						<span
-							><em>{{ kata.kelamin_nama }}</em></span
-						>
-					</p>
-					<p><strong>Asal nama</strong>: {{ kata.asal_nama }},</p>
-				</div>
-				<div class="cardIklan box-slice p-0">
-					<img
-						:src="iklan2"
-						class="iklanLandscape"
-						v-if="iklan2"
-						alt="Slot Iklan"
-					/>
-				</div>
-
+			<div class="box-detail-single">
+				<h3>Arti Kata Lainnya</h3>
 				<div class="box-detail-single">
-					<h3>Related Word</h3>
 					<b-table
-						:items="dataKata.related"
-						:fields="fields"
+						:items="dataKata.random"
+						:fields="random"
 						striped
 						hover
 						head-variant="dark"
@@ -53,52 +74,28 @@
 					</b-table>
 					<div class="cardIklan box-slice p-0">
 						<img
-							:src="iklan3"
+							:src="iklan4"
 							class="iklanLandscape"
-							v-if="iklan3"
+							v-if="iklan4"
 							alt="Slot Iklan"
 						/>
 					</div>
 				</div>
-
-				<div class="box-detail-single">
-					<h3>Arti Kata Lainnya</h3>
-					<div class="box-detail-single">
-						<b-table
-							:items="dataKata.random"
-							:fields="random"
-							striped
-							hover
-							head-variant="dark"
-							responsive="sm"
-							class="text-left mt-2"
-						>
-						</b-table>
-						<div class="cardIklan box-slice p-0">
-							<img
-								:src="iklan4"
-								class="iklanLandscape"
-								v-if="iklan4"
-								alt="Slot Iklan"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="box-detail-single flexeo">
-					<div class="box-detail-single-flex">
-						<ul class="shares-makna">
-							<li>Bagikan Makna</li>
-							<li>
-								<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li>
-								<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="#" class="share gp"><i class="fa fa-google"></i></a>
-							</li>
-						</ul>
-					</div>
+			</div>
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

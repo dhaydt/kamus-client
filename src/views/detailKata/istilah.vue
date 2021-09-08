@@ -1,9 +1,17 @@
 <template>
-	<div class="istilah">
-		<b-card class="text-left">
-			<h1 class="mb-0 text-left section-label">
-				Hasil pencarian Glosarium untuk kata <em>{{ kata }}</em>
-			</h1>
+	<div class="box-detail mx-3">
+		<div class="cardIklan box-slice p-0">
+			<img
+				:src="iklan4"
+				class="iklanLandscape"
+				v-if="iklan4"
+				alt="Slot Iklan"
+			/>
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h1>Arti Istilah {{ kata }} KBBI Kamus Bahasa Indonesia</h1>
+			</div>
 			<div class="cardIklan box-slice p-0">
 				<img
 					:src="iklan1"
@@ -12,27 +20,18 @@
 					alt="Slot Iklan"
 				/>
 			</div>
-			<p class="mt-4 pt-4">
-				Arti istilah {{ kata }}, maksud, definisi, pengertian dan makna istilah
+			<p>
+				Arti Istilah {{ kata }}, maksud, definisi, pengertian dan makna kata
 				terkait dengan arti istilah {{ kata }}.
 			</p>
-			<div
-				class="text-left"
-				v-for="kata in dataKata.istilah"
-				:key="kata.id_glos"
-			>
-				<div class="capital">
-					<h1 class="card-title">
-						<em class="text-black">Arti Istilah </em>{{ kata.judul_glos }}
-					</h1>
-					<div>
-						<p class="makna ml-4">
-							Bidang : <em>{{ kata.bid_glos }}</em>
-						</p>
-					</div>
-					<p class="pl-4 ml-4">Makna : {{ kata.isi_glos }}</p>
-				</div>
-			</div>
+
+			<h2>Arti Istilah {{ kata }}</h2>
+
+			<p v-for="kata in dataKata.kbbi" :key="kata.id_glos">
+				<strong>{{ kata.judul_glos }}</strong
+				>: <span v-html="kata.isi_glos"></span>
+			</p>
+
 			<div class="cardIklan box-slice p-0">
 				<img
 					:src="iklan2"
@@ -41,8 +40,9 @@
 					alt="Slot Iklan"
 				/>
 			</div>
-			<div class="mt-4">
-				<h4 class="mb-0 text-left section-label">Related word</h4>
+
+			<div class="box-detail-single">
+				<h3>Related Word</h3>
 				<b-table
 					:items="dataKata.related"
 					:fields="fields"
@@ -53,59 +53,56 @@
 					class="text-left mt-2"
 				>
 				</b-table>
-			</div>
-			<b-card-group deck class="mt-4">
-				<b-card class="text-left cardIklan">
+				<div class="cardIklan box-slice p-0">
 					<img
-						v-if="iklan3"
 						:src="iklan3"
 						class="iklanLandscape"
+						v-if="iklan3"
 						alt="Slot Iklan"
 					/>
-				</b-card>
-			</b-card-group>
-			<div class="mt-4">
-				<h4 class="mb-0 text-left section-label">Arti kata lainnya</h4>
-				<b-table
-					:items="dataKata.random"
-					:fields="random"
-					striped
-					hover
-					head-variant="dark"
-					responsive="sm"
-					class="text-left mt-2"
-				>
-				</b-table>
+				</div>
 			</div>
-			<b-card-group deck class="mt-4">
-				<b-card class="text-left cardIklan">
-					<img
-						v-if="iklan4"
-						:src="iklan4"
-						class="iklanLandscape"
-						alt="Slot Iklan"
-					/>
-				</b-card>
-			</b-card-group>
-			<b-card class="mt-4 share d-flex">
-				<div class="d-flex">
-					<div class="shares">
-						<span>Bagikan Makna</span>
-					</div>
-					<div class="group">
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-facebook-square fb"></i
-						></b-button>
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-twitter-square twit"></i>
-						</b-button>
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-google-plus-square ig"></i>
-						</b-button>
+
+			<div class="box-detail-single">
+				<h3>Arti Kata Lainnya</h3>
+				<div class="box-detail-single">
+					<b-table
+						:items="dataKata.random"
+						:fields="random"
+						striped
+						hover
+						head-variant="dark"
+						responsive="sm"
+						class="text-left mt-2"
+					>
+					</b-table>
+					<div class="cardIklan box-slice p-0">
+						<img
+							:src="iklan4"
+							class="iklanLandscape"
+							v-if="iklan4"
+							alt="Slot Iklan"
+						/>
 					</div>
 				</div>
-			</b-card>
-		</b-card>
+			</div>
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 

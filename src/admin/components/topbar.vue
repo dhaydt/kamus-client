@@ -263,7 +263,8 @@ export default {
 	},
 	methods: {
 		logout() {
-			localStorage.clear();
+			localStorage.removeItem("user");
+			localStorage.removeItem("jwt");
 			this.$router.push("/");
 		},
 		toggleMenu() {

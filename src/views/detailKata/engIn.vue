@@ -1,36 +1,37 @@
 <template>
-	<div>
-		<b-card class="text-left">
-			<h2>
-				Hasil terjemahan kata {{ kata }} dalam kamus terjemahan KBBI Kamus
-				Bahasa Indonesia
-			</h2>
-			<div deck class="mt-4">
-				<div class="text-left cardIklan">
-					<img
-						v-if="iklan1"
-						:src="iklan1"
-						class="iklanLandscape"
-						alt="Slot Iklan"
-					/>
-				</div>
+	<div class="box-detail mx-3">
+		<div class="cardIklan box-slice p-0">
+			<img
+				:src="iklan4"
+				class="iklanLandscape"
+				v-if="iklan4"
+				alt="Slot Iklan"
+			/>
+		</div>
+		<div class="box-slice">
+			<div class="box-detail-single">
+				<h1>Terjemahan Kata {{ kata }} KBBI Kamus Bahasa Indonesia</h1>
 			</div>
-			<p class="mt-4 pt-4">
-				Terjemahan untuk kata {{ kata }}, maksud, definisi, pengertian dan makna
-				istilah terkait dengan terjemahan kata {{ kata }}.
+			<div class="cardIklan box-slice p-0">
+				<img
+					:src="iklan1"
+					class="iklanLandscape"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
+			</div>
+			<p>
+				Terjemahan kata {{ kata }}, maksud, definisi, pengertian dan makna kata
+				terkait dengan arti kata {{ kata }}.
 			</p>
-			<div class="text-left" v-for="kata in dataKata.engin" :key="kata.id">
-				<div class="capital">
-					<h1 class="card-title">
-						<em class="text-black">Arti Terjemahan </em>{{ kata.judul_artikel }}
-					</h1>
-					<b-card-text>
-						<p class="makna ml-4">
-							<em>{{ kata.isi_artikel }}</em>
-						</p>
-					</b-card-text>
-				</div>
-			</div>
+
+			<h2>Terjemahan Kata {{ kata }}</h2>
+
+			<p v-for="kata in dataKata.engin" :key="kata.id">
+				<strong>{{ kata.judul_artikel }}</strong
+				>: <span v-html="kata.isi_artikel"></span>
+			</p>
+
 			<div class="cardIklan box-slice p-0">
 				<img
 					:src="iklan2"
@@ -39,8 +40,9 @@
 					alt="Slot Iklan"
 				/>
 			</div>
-			<div class="mt-4">
-				<h4 class="mb-0 text-left section-label">Related word</h4>
+
+			<div class="box-detail-single">
+				<h3>Related Word</h3>
 				<b-table
 					:items="dataKata.related"
 					:fields="fields"
@@ -51,72 +53,56 @@
 					class="text-left mt-2"
 				>
 				</b-table>
-			</div>
-			<b-card-group deck class="mt-4">
-				<b-card class="text-left cardIklan">
+				<div class="cardIklan box-slice p-0">
 					<img
-						v-if="iklan3"
 						:src="iklan3"
 						class="iklanLandscape"
+						v-if="iklan3"
 						alt="Slot Iklan"
 					/>
-				</b-card>
-			</b-card-group>
-			<div class="mt-4">
-				<h4 class="mb-0 text-left section-label">Arti kata lainnya</h4>
-				<b-table
-					:items="dataKata.random"
-					:fields="random"
-					striped
-					hover
-					head-variant="dark"
-					responsive="sm"
-					class="text-left mt-2"
-				>
-				</b-table>
+				</div>
 			</div>
-			<div class="mt-4">
-				<h4 class="mb-0 text-left section-label">Arti kata lainnya</h4>
-				<b-table
-					:items="dataKata.random"
-					:fields="random"
-					striped
-					hover
-					head-variant="dark"
-					responsive="sm"
-					class="text-left mt-2"
-				>
-				</b-table>
-			</div>
-			<b-card-group deck class="mt-4">
-				<b-card class="text-left cardIklan">
-					<img
-						v-if="iklan4"
-						:src="iklan4"
-						class="iklanLandscape"
-						alt="Slot Iklan"
-					/>
-				</b-card>
-			</b-card-group>
-			<b-card class="mt-4 share d-flex">
-				<div class="d-flex">
-					<div class="shares">
-						<span>Bagikan Makna</span>
-					</div>
-					<div class="group">
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-facebook-square fb"></i
-						></b-button>
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-twitter-square twit"></i>
-						</b-button>
-						<b-button to="#" variant="outline" class="p-0 m-0"
-							><i class="fab fa-google-plus-square ig"></i>
-						</b-button>
+
+			<div class="box-detail-single">
+				<h3>Arti Kata Lainnya</h3>
+				<div class="box-detail-single">
+					<b-table
+						:items="dataKata.random"
+						:fields="random"
+						striped
+						hover
+						head-variant="dark"
+						responsive="sm"
+						class="text-left mt-2"
+					>
+					</b-table>
+					<div class="cardIklan box-slice p-0">
+						<img
+							:src="iklan4"
+							class="iklanLandscape"
+							v-if="iklan4"
+							alt="Slot Iklan"
+						/>
 					</div>
 				</div>
-			</b-card>
-		</b-card>
+			</div>
+			<div class="box-detail-single flexeo">
+				<div class="box-detail-single-flex">
+					<ul class="shares-makna">
+						<li>Bagikan Makna</li>
+						<li>
+							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
