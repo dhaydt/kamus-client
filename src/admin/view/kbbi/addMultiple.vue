@@ -91,7 +91,7 @@ import { mapMultiRowFields } from "vuex-map-fields";
 export default {
 	data() {
 		return {
-			postUrl: "http://localhost:3002/postKamus",
+			postUrl: "",
 			loading: "",
 			dismissSecs: 5,
 			dismissCountDown: 0,
@@ -113,6 +113,11 @@ export default {
 			editorData:
 				"<h3>Hello World!</h3><h5><b>This is an simple editable area.</b></h5>",
 		};
+	},
+
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.postUrl = mainUrl + "/postKamus";
 	},
 	components: {
 		PageHeader,

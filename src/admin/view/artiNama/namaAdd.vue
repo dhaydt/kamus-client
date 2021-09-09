@@ -118,7 +118,7 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			postUrl: "http://localhost:3002/postNama",
+			postUrl: "",
 			loading: "",
 			selected: null,
 			title: "Tambah Nama",
@@ -135,6 +135,11 @@ export default {
 				},
 			],
 		};
+	},
+
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.postUrl = mainUrl + "/postNama";
 	},
 
 	computed: {

@@ -114,11 +114,13 @@ import axios from "axios";
 export default {
 	data() {
 		return {
+			getImgUrl: "",
+			getAdvUrl: "",
+			postAdvUrl: "",
 			selectedFiles: undefined,
 			currentFile: undefined,
 			loading: false,
 			progress: 0,
-			getImg: `http://localhost:3002/images/client/`,
 			message: "",
 			fileInfos: [],
 			jumlahData: null,
@@ -151,6 +153,10 @@ export default {
 	},
 
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getImg = mainUrl + "/images/client";
+		this.getAdvUrl = mainUrl + "/getAdv";
+		this.postAdvUrl = mainUrl + "/postAdv";
 		this.getData();
 	},
 
@@ -162,7 +168,7 @@ export default {
 
 	methods: {
 		async getData() {
-			const img = await axios.get("http://localhost:3002/getAdv");
+			const img = await axios.get(this.getAdvUrl);
 			console.log(img.data.data);
 			this.fileInfos = img.data.data;
 		},
@@ -175,7 +181,7 @@ export default {
 			formData.append("images", this.formFields.images);
 
 			axios
-				.post("http://localhost:3002/postAdv", formData)
+				.post(this.postAdvUrl, formData)
 				.then((res) => {
 					console.log(res);
 				})

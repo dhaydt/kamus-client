@@ -8,7 +8,7 @@ export default {
 	data() {
 		return {
 			// mainUrl: "http://localhost:3002",
-			mainUrl: "https://server.kamuskbbi.id:3002",
+			mainUrl: "https://server.kamuskbbi.id",
 		};
 	},
 	mounted() {

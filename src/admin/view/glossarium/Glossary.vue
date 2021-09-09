@@ -119,6 +119,7 @@ export default {
 	},
 	data() {
 		return {
+			getUrl: "",
 			title: "Glossarium",
 			items: [
 				{
@@ -160,6 +161,8 @@ export default {
 		},
 	},
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getUrl = mainUrl + "/glossarium";
 		this.getGloss();
 		this.loading = true;
 	},
@@ -173,7 +176,7 @@ export default {
 		 */
 		async getGloss() {
 			try {
-				const response = await axios.get("http://localhost:3002/glossarium");
+				const response = await axios.get(this.getUrl);
 				this.dataKata = response.data;
 				this.jumlahData = response.data.length;
 				this.loading = false;

@@ -115,7 +115,7 @@ import PageHeader from "../../components/page-header.vue";
 export default {
 	data() {
 		return {
-			getNamaUrl: "http://localhost:3002/allNama",
+			getNamaUrl: "",
 			title: "Arti Nama",
 			items: [
 				{
@@ -149,6 +149,8 @@ export default {
 	},
 
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getNamaUrl = mainUrl + "/allNama";
 		this.getNama();
 		this.loading = true;
 	},

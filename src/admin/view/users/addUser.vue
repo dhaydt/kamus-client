@@ -124,7 +124,7 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			urlRegister: "http://localhost:3002/register",
+			urlRegister: "",
 			showDismissibleAlert: true,
 			error: "",
 			success: "",
@@ -149,6 +149,11 @@ export default {
 				},
 			],
 		};
+	},
+
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.urlRegister = mainUrl + "/register";
 	},
 
 	methods: {

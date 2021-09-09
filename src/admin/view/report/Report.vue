@@ -117,7 +117,7 @@ import PageHeader from "../../components/page-header.vue";
 export default {
 	data() {
 		return {
-			getReportUrl: "http://localhost:3002/getReport",
+			getReportUrl: "",
 			title: "Report Kata",
 			items: [
 				{
@@ -150,6 +150,8 @@ export default {
 	},
 
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getReportUrl = mainUrl + "/getReport";
 		this.getReport();
 		this.loading = true;
 	},

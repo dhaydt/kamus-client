@@ -12,7 +12,10 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
-							<nav id="navigation" class="navigation navigation-landscape">
+							<nav
+								id="navigation"
+								class="navigation navigation-landscape navbar-expand-lg"
+							>
 								<div class="nav-header">
 									<router-link class="nav-brand" to="/">
 										<img
@@ -21,37 +24,52 @@
 											src="../assets/assets/img/logo-kbbi.png"
 										/>
 									</router-link>
-									<div class="nav-toggle"></div>
+									<button
+										class="navbar-toggler txt-black ml-auto"
+										type="button"
+										data-toggle="collapse"
+										data-target="#navbarSupportedContent"
+										aria-controls="navbarSupportedContent"
+										aria-expanded="false"
+										aria-label="Toggle navigation"
+									>
+										<span class="navbar-toggler-icon" style="color: black"
+											><i class="ri-menu-3-line align-middle"></i
+										></span>
+									</button>
 								</div>
-								<div class="nav-menus-wrapper">
-									<ul class="nav-menu">
-										<li>
-											<router-link to="/"
+								<div
+									class="nav-menus-wrapper collapse navbar-collapse"
+									id="navbarSupportedContent"
+								>
+									<ul class="nav-menu navbar-nav">
+										<li class="nav-item">
+											<router-link to="/" class="nav-link txt-black"
 												>Home<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li>
-											<router-link to="/kbbi"
+										<li class="nav-item">
+											<router-link to="/kbbi" class="nav-link txt-black"
 												>KBBI<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li>
-											<router-link to="/artinama"
+										<li class="nav-item">
+											<router-link to="/artinama" class="nav-link txt-black"
 												>Arti Nama<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li>
-											<router-link to="/glossarium"
+										<li class="nav-item">
+											<router-link to="/glossarium" class="nav-link txt-black"
 												>Istilah<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li>
-											<router-link to="/terjemahan"
+										<li class="nav-item">
+											<router-link to="/terjemahan" class="nav-link txt-black"
 												>Terjemahan<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li class="ml-auto">
-											<router-link to="/admin"
+										<li class="ml-auto nav-item">
+											<router-link to="/admin" class="nav-link txt-black"
 												>Admin<span class="submenu-indicator"></span
 											></router-link>
 										</li>
@@ -81,4 +99,26 @@ export default {
 </script>
 <style lang="scss">
 @import "../assets/frontend/main.css";
+@media (max-width: 992px) {
+	.nav-link.txt-black {
+		color: black;
+	}
+
+	.nav-header {
+		width: 100%;
+		justify-content: space-between;
+		display: flex;
+	}
+
+	li.nav-item {
+		margin-left: 0 !important;
+		.nav-link {
+			padding: 15px;
+		}
+	}
+
+	.mainMenu {
+		padding-top: 0;
+	}
+}
 </style>

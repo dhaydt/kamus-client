@@ -130,7 +130,7 @@ export default {
 	// },
 	data() {
 		return {
-			getKamusUrl: "http://localhost:3002/kamus",
+			getKamusUrl: "",
 			loading: false,
 			text: "",
 			// kata: "",
@@ -168,6 +168,8 @@ export default {
 		};
 	},
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getKamusUrl = mainUrl + "/kamus";
 		this.getKamus();
 		this.loading = true;
 	},

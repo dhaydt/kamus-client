@@ -129,7 +129,7 @@ export default {
 				},
 			],
 			dataKata: [],
-			getIndUrl: "http://localhost:3002/kamusEng/",
+			getIndUrl: "",
 			jumlahData: null,
 			loading: false,
 			totalRows: 1,
@@ -151,6 +151,8 @@ export default {
 	},
 
 	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.getIndUrl = mainUrl + "/kamusEng/";
 		this.getKata();
 	},
 

@@ -113,7 +113,7 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			postUrl: "http://localhost:3002/postGlos",
+			postUrl: "",
 			loading: "",
 			selected: null,
 			title: "Tambah Glosarium",
@@ -130,6 +130,11 @@ export default {
 				},
 			],
 		};
+	},
+
+	created() {
+		const mainUrl = localStorage.mainUrl;
+		this.postUrl = mainUrl + "/postGlos";
 	},
 
 	computed: {
