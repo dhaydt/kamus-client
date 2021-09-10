@@ -7,6 +7,11 @@
 <script>
 import Terjemahan from "../components/translate/terjemahanMain.vue";
 export default {
+	metaInfo() {
+		return {
+			title: "KBBI | Terjemahan",
+		};
+	},
 	components: {
 		Terjemahan,
 	},

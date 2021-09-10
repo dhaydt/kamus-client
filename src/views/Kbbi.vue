@@ -9,6 +9,11 @@
 import Kbbi from "../components/kbbi/Search.vue";
 
 export default {
+	metaInfo() {
+		return {
+			title: "KBBI | KBBI",
+		};
+	},
 	components: {
 		// Main,
 		Kbbi,

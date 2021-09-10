@@ -75,6 +75,12 @@ export default {
 		};
 	},
 
+	metaInfo() {
+		return {
+			title: "KBBI | Authorization",
+		};
+	},
+
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		this.urlLogin = mainUrl + "/login";

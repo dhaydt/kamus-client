@@ -8,6 +8,11 @@
 <script>
 import Inmain from "../components/translate/Inmain.vue";
 export default {
+	metaInfo() {
+		return {
+			title: "KBBI | Terjemahan",
+		};
+	},
 	components: {
 		Inmain,
 	},

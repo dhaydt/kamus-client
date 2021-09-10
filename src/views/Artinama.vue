@@ -7,6 +7,11 @@
 <script>
 import Artikata from "../components/artinama/mainNama.vue";
 export default {
+	metaInfo() {
+		return {
+			title: "KBBI | Arti Nama",
+		};
+	},
 	components: {
 		Artikata,
 	},
