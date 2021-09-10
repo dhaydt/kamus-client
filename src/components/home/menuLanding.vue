@@ -113,7 +113,7 @@
 					<div class="box-kamus">
 						<div class="">
 							<div class="mx-4">
-								<img :src="iklanImage" alt="Slot Iklan" class="iklanBox" />
+								<img :src="iklan1" alt="Slot Iklan" class="iklanBox" />
 							</div>
 						</div>
 					</div>
@@ -155,15 +155,18 @@ export default {
 		return {
 			backendUrl: "",
 			getAdUrl: "/getSecondAdv",
-			urlImageData: "/getAdv/",
-			urlImg: "/images/client/",
-			iklanImage: "",
+			iklan1: "",
 		};
 	},
 	created() {
 		this.backendUrl = localStorage.mainUrl;
 		this.getIklan();
 		this.randomKata();
+	},
+
+	mounted() {
+		const getImg = this.backendUrl + "/images/client/";
+		this.iklan1 = getImg + this.dataIklan[0].images;
 	},
 
 	methods: {

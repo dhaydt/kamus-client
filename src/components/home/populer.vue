@@ -91,11 +91,7 @@
 					<div class="box-kamus">
 						<div class="">
 							<div class="mx-4">
-								<img
-									class="iklanBox"
-									:src="mainUrl + urlImg + dataImage.images"
-									alt=""
-								/>
+								<img class="iklanBox" :src="iklan2" alt="" />
 							</div>
 						</div>
 					</div>
@@ -161,8 +157,7 @@ export default {
 			urlPopNama: "/nama/pop",
 			urlPopEngIn: "/engin/pop",
 			urlPopInEng: "/ineng/pop",
-			urlSecondId: "/getSecondAdv",
-			urlImg: "/images/client/",
+			iklan2: "",
 			dataImage: [],
 			popKbbi: [],
 			popIstilah: [],
@@ -174,7 +169,6 @@ export default {
 
 	created() {
 		this.mainUrl = localStorage.mainUrl;
-		this.getSecond();
 		this.getPopKbbi();
 		this.getPopNama();
 		this.getPopIstilah();
@@ -182,13 +176,12 @@ export default {
 		this.getPopInEng();
 	},
 
-	methods: {
-		async getSecond() {
-			const resp = await axios.get(this.mainUrl + this.urlSecondId);
-			console.log(resp.data[0]);
-			this.dataImage = resp.data[0];
-		},
+	mounted() {
+		const getImg = this.mainUrl + "/images/client/";
+		this.iklan2 = getImg + this.dataIklan[1].images;
+	},
 
+	methods: {
 		async getPopKbbi() {
 			const resp = await axios.get(this.mainUrl + this.urlPopKbbi);
 			this.popKbbi = resp.data;
