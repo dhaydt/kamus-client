@@ -19,6 +19,12 @@ import Landing from "../components/home/menuLanding.vue";
 import Populer from "../components/home/populer.vue";
 import Konten from "../components/home/konten.vue";
 export default {
+	metaInfo() {
+		return {
+			title: "KBBI - Home",
+		};
+	},
+
 	components: {
 		Hero,
 		Landing,

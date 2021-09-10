@@ -1,5 +1,5 @@
 <template>
-	<div class="box-detail mx-3">
+	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
 			<img
 				:src="iklan4"
@@ -27,8 +27,8 @@
 
 			<h2>Arti Istilah {{ kata }}</h2>
 
-			<p v-for="kata in dataKata.kbbi" :key="kata.id_glos">
-				<strong>{{ kata.judul_glos }}</strong
+			<p v-for="kata in dataKata.istilah" :key="kata.id_glos">
+				<strong class="txt-trans">{{ kata.judul_glos }}</strong
 				>: <span v-html="kata.isi_glos"></span>
 			</p>
 

@@ -1,103 +1,74 @@
 <template>
 	<div class="addGloss">
-		<PageHeader :title="title" :items="items"></PageHeader>
 		<div class="card" style="min-height: 70vh">
-			<div class="card-body">
-				<b-row class="justify-content-center">
-					<b-col md="8">
-						<div>
-							<b-form
-								@submit="onSubmit"
-								@reset="onReset"
-								v-for="gloss in glosarium"
-								:key="gloss.id_glos"
+			<b-alert
+				:show="dismissCountDown"
+				dismissible
+				variant="success"
+				@dismissed="dismissCountDown = 0"
+				@dismiss-count-down="countDownChanged"
+			>
+				<p>{{ messages }}</p>
+				<b-progress
+					variant="warning"
+					:max="dismissSecs"
+					:value="dismissCountDown"
+					height="4px"
+				></b-progress>
+			</b-alert>
+
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Tambah Kata Manual</h5>
+					<form v-for="gloss in glosarium" :key="gloss.id_glos">
+						<div class="form-group">
+							<label for="kata">Kata</label>
+							<input
+								type="text"
+								class="form-control"
+								id="kata"
+								v-model="gloss.judul_glos"
+								aria-describedby="emailHelp"
+							/>
+							<small id="emailHelp" class="form-text text-muted"
+								>Masukan kata yang akan di tambahkan</small
 							>
-								<b-input-group prepend="Istilah" class="mt-3">
-									<b-form-input
-										v-model="gloss.judul_glos"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-
-								<b-input-group prepend="Bidang" class="mt-3">
-									<b-form-input
-										v-model="gloss.bid_glos"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-
-								<b-input-group prepend="SEO" class="mt-3">
-									<b-form-input
-										v-model="gloss.judul_seo"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-input-group prepend="Makna" class="mt-3">
-									<b-form-input
-										v-model="gloss.isi_glos"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-input-group prepend="Prefix" class="mt-3 mb-3">
-									<b-form-input
-										v-model="gloss.perfix_glos"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-col md="12" class="d-flex justify-content-around">
-									<b-button type="submit" variant="primary"
-										><div v-if="loading">
-											<b-spinner small variant="primary"></b-spinner>
-											Menyimpan...
-										</div>
-										<span v-if="!loading"
-											><i class="fa fa-save"></i> Simpan</span
-										></b-button
-									>
-									<b-button type="reset" variant="danger">Reset</b-button>
-									<b-button type="button" variant="success" @click="addGlosRow"
-										><i class="fa fa-plus"> Baris</i></b-button
-									>
-								</b-col>
-							</b-form>
 						</div>
-					</b-col>
-				</b-row>
+
+						<div class="form-group">
+							<label for="bidang">Bidang</label>
+							<input
+								v-model="gloss.bid_glos"
+								class="form-control"
+								id="bidang"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="makna">Makna</label>
+							<input v-model="gloss.isi_glos" class="form-control" id="makna" />
+						</div>
+					</form>
+					<div class="d-flex justify-content-around">
+						<button type="button" @click="onSubmit" class="btn btn-primary">
+							<div v-if="loading">
+								<b-spinner small variant="primary"></b-spinner> Menyimpan...
+							</div>
+							<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+						</button>
+					</div>
+					<div class="d-flex justify-content-end">
+						<button
+							type="button"
+							class="btn btn-success rounded-circle"
+							@click="addGlosRow"
+							data-toggle="tooltip"
+							data-placement="top"
+							title="Tambah baris"
+						>
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -105,9 +76,11 @@
 
 
 <script>
-import PageHeader from "../../components/page-header.vue";
 import { mapMutations } from "vuex";
+import { BSpinner } from "bootstrap-vue";
+import store from "../../../store/index";
 import { mapMultiRowFields } from "vuex-map-fields";
+// import store from "../../../store/index";
 import axios from "axios";
 
 export default {
@@ -116,19 +89,9 @@ export default {
 			postUrl: "",
 			loading: "",
 			selected: null,
-			title: "Tambah Glosarium",
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "Glosarium",
-				},
-				{
-					text: "Tambah Glosarium",
-					active: true,
-				},
-			],
+			dismissSecs: 5,
+			dismissCountDown: 0,
+			messages: "",
 		};
 	},
 
@@ -141,46 +104,54 @@ export default {
 		...mapMultiRowFields(["glosarium"]),
 	},
 	components: {
-		PageHeader,
+		BSpinner,
 	},
 
 	methods: {
 		...mapMutations(["addGlosRow"]),
 
-		async onSubmit(e) {
-			e.preventDefault();
-			this.loading = true;
-			const check = this.$store.state.glosarium;
-			const resp = await axios
-				.post(this.postUrl, {
-					data: check,
-				})
-				.then(console.log(resp));
-			this.loading = "";
-			console.log(check);
-			this.$store.state.glosarium = [
-				{
-					id_glos: "",
-					judul_glos: "",
-					bid_glos: "",
-					isi_glos: "",
-					judul_seo: "",
-					perfix_glos: "",
-				},
-			];
+		async onSubmit() {
+			const checker = store.state.records[0].judul_glos;
+			if (checker === "" || store.state.records[0].bid_glos === "") {
+				alert("Isi semua data");
+			} else {
+				try {
+					this.loading = true;
+					const check = this.$store.state.glosarium;
+					const resp = await axios
+						.post(this.postUrl, {
+							data: check,
+						})
+						.then(console.log(resp));
+				} catch (err) {
+					console.log(err);
+				}
+				this.messages = "Istilah tersimpan";
+				this.loading = "";
+				this.showAlert();
+
+				let state = this.$store;
+				let newState = {
+					glosarium: [
+						{
+							id_glos: "",
+							judul_glos: "",
+							bid_glos: "",
+							isi_glos: "",
+						},
+					],
+				};
+
+				state.replaceState(newState);
+				this.$root.$emit("getGloss");
+			}
 		},
 
-		onReset() {
-			this.$store.state.glosarium = [
-				{
-					id_glos: "",
-					judul_glos: "",
-					bid_glos: "",
-					isi_glos: "",
-					judul_seo: "",
-					perfix_glos: "",
-				},
-			];
+		countDownChanged(dismissCountDown) {
+			this.dismissCountDown = dismissCountDown;
+		},
+		showAlert() {
+			this.dismissCountDown = this.dismissSecs;
 		},
 	},
 };

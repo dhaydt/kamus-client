@@ -1,5 +1,5 @@
 <template>
-	<div class="box-detail mx-3">
+	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
 			<img :src="iklan" class="iklanLandscape" v-if="iklan" alt="Slot Iklan" />
 		</div>
@@ -23,7 +23,7 @@
 			<h2>Arti Nama {{ kata }}</h2>
 
 			<div v-for="kata in dataKata.nama" :key="kata.id">
-				<strong>{{ kata.judul_nama }}</strong
+				<strong class="txt-trans">{{ kata.judul_nama }}</strong
 				>: <span>{{ kata.isi_nama }}</span>
 				<p><strong>Asal nama</strong>: {{ kata.asal_nama }},</p>
 			</div>
@@ -119,6 +119,21 @@ export default {
 			random: [
 				{ key: "judul_nama", label: "Nama" },
 				{ key: "isi_nama", label: "Makna" },
+			],
+		};
+	},
+
+	metaInfo() {
+		return {
+			meta: [
+				{
+					name: "description",
+					content:
+						"Arti Nama " +
+						this.kata +
+						" pada bidang arti nama dengan makna " +
+						this.dataKata.nama,
+				},
 			],
 		};
 	},

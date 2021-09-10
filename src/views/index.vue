@@ -34,7 +34,7 @@
 										aria-label="Toggle navigation"
 									>
 										<span class="navbar-toggler-icon" style="color: black"
-											><i class="ri-menu-3-line align-middle"></i
+											><i class="ri-menu-line align-middle"></i
 										></span>
 									</button>
 								</div>
@@ -99,6 +99,14 @@ export default {
 </script>
 <style lang="scss">
 @import "../assets/frontend/main.css";
+.txt-trans {
+	text-transform: capitalize;
+}
+
+.bor-rad-0 {
+	border-radius: 0 !important;
+}
+
 @media (max-width: 992px) {
 	.nav-link.txt-black {
 		color: black;

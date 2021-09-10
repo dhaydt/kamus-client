@@ -140,9 +140,13 @@ export default {
 			},
 			fields: [
 				{ key: "id", label: "ID", sortable: true },
-				{ key: "images", label: "Gambar", sortable: true },
 				{ key: "title", label: "Judul", sortable: true },
-				{ key: "details", label: "Keterangan", sortable: true },
+				{ key: "tipe", label: "Tipe", sortable: true },
+				{ key: "posisi", label: "Posisi", sortable: true },
+				{ key: "code", label: "Code", sortable: true },
+				{ key: "images", label: "Gambar", sortable: true },
+				{ key: "start_date", label: "Mulai", sortable: true },
+				{ key: "end_date", label: "Berakhir", sortable: true },
 				{ key: "action", label: "Action", sortable: true },
 			],
 		};
@@ -154,7 +158,7 @@ export default {
 
 	created() {
 		const mainUrl = localStorage.mainUrl;
-		this.getImg = mainUrl + "/images/client";
+		this.getImg = mainUrl + "/images/client/";
 		this.getAdvUrl = mainUrl + "/getAdv";
 		this.postAdvUrl = mainUrl + "/postAdv";
 		this.getData();
@@ -171,53 +175,6 @@ export default {
 			const img = await axios.get(this.getAdvUrl);
 			console.log(img.data.data);
 			this.fileInfos = img.data.data;
-		},
-		submitForm() {
-			this.progress = 0;
-			let formData = new FormData();
-
-			formData.append("detail", this.formFields.detail);
-			formData.append("title", this.formFields.title);
-			formData.append("images", this.formFields.images);
-
-			axios
-				.post(this.postAdvUrl, formData)
-				.then((res) => {
-					console.log(res);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-			this.formFields.title = "";
-			this.formFields.images = "";
-			this.formFields.detail = "";
-			this.getData();
-		},
-		// upload() {
-		// 	this.progress = 0;
-
-		// 	this.currentFile = this.selectedFiles.item(0);
-		// 	UploadService.upload(this.currentFile, (event) => {
-		// 		this.progress = Math.round((100 * event.loaded) / event.total);
-		// 	})
-		// 		.then((response) => {
-		// 			this.message = response.data.message;
-		// 			return UploadService.getFiles();
-		// 		})
-		// 		.then((files) => {
-		// 			this.fileInfos = files.data;
-		// 		})
-		// 		.catch(() => {
-		// 			this.progress = 0;
-		// 			this.message = "Could not upload the file!";
-		// 			this.currentFile = undefined;
-		// 		});
-
-		// 	this.selectedFiles = undefined;
-		// },
-		selectFile(event) {
-			this.selectedFiles = this.$refs.file.files;
-			this.formFields.images = event.target.files[0];
 		},
 	},
 };

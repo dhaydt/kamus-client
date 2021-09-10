@@ -15,7 +15,7 @@
 
 					<router-link to="/" class="logo logo-light">
 						<span class="logo-sm">
-							<img src="@/assets/images/logo-sm-light.png" alt height="22" />
+							<img src="@/assets/assets/img/icon-kbbi.png" alt height="22" />
 						</span>
 						<span class="logo-lg">
 							<img src="@/assets/assets/img/logo-kbbi.png" alt height="28" />

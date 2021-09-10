@@ -8,10 +8,10 @@ export const menuItems = [
     id: 2,
     label: "Dashboard",
     icon: "ri-dashboard-line",
-    badge: {
-      variant: "success",
-      text: "1",
-    },
+    // badge: {
+    //   variant: "success",
+    //   text: "1",
+    // },
     link: "/admin",
   },
   {
@@ -51,7 +51,7 @@ export const menuItems = [
   },
   {
     id: 8,
-    label: "Glossary",
+    label: "Istilah",
     icon: "ri-double-quotes-l",
     link: "/admin/glossary",
   },

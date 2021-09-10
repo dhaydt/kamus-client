@@ -9,7 +9,6 @@
 import Kbbi from "../components/kbbi/Search.vue";
 
 export default {
-	name: "Home",
 	components: {
 		// Main,
 		Kbbi,

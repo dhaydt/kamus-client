@@ -1,5 +1,5 @@
 <template>
-	<div class="box-detail mx-3">
+	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
 			<img
 				:src="iklan4"
@@ -28,7 +28,7 @@
 			<h2>Arti Kata {{ kata }}</h2>
 
 			<p v-for="kata in dataKata.kbbi" :key="kata._id">
-				<strong>{{ kata.kata }}</strong
+				<strong class="txt-trans">{{ kata.kata }}</strong
 				>: <span v-html="kata.keterangan"></span>
 			</p>
 
@@ -135,6 +135,13 @@ export default {
 		this.iklan3 = getImg + this.dataIklan[3].images;
 		this.iklan4 = getImg + this.dataIklan[2].images;
 		this.dataKbbi = this.dataKata.kbbi;
+		this.kamus();
+	},
+
+	methods: {
+		kamus() {
+			this.$emit("kamus", "kbbi");
+		},
 	},
 };
 </script>

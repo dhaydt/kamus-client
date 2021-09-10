@@ -7,9 +7,9 @@
 					<div class="col-lg-8 col-md-8">
 						<div class="col-12">
 							<div class="guide">
-								Halaman ini khusus mencari arti kata di kamus KBBI. Jika ingin
-								mencari makna di kamus lain, silahkan pindah halaman terlebih
-								dahulu melalui menu di atas
+								Halaman ini khusus mencari arti kata di kamus Terjemahan. Jika
+								ingin mencari makna di kamus lain, silahkan pindah halaman
+								terlebih dahulu melalui menu di atas
 							</div>
 						</div>
 						<form class="search-big-form shadows" @submit="onSubmit">
@@ -29,7 +29,7 @@
 									<select
 										v-model="selected"
 										required
-										class="form-control"
+										class="form-control bor-rad-0"
 										id="kategori-kamus"
 									>
 										<option value="">Pilih Bahasa tujuan</option>

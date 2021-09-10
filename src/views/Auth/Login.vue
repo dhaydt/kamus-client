@@ -25,7 +25,7 @@
 								id="input-1"
 								v-model="form.email"
 								type="email"
-								placeholder="Enter email"
+								placeholder="admin@admin.com"
 								required
 							></b-form-input>
 						</b-form-group>
@@ -35,7 +35,7 @@
 							<b-form-input
 								type="password"
 								id="password"
-								placeholder="Masukkan Password"
+								placeholder="adminadmin"
 								v-model="form.password"
 								aria-describedby="password-help-block"
 							></b-form-input>

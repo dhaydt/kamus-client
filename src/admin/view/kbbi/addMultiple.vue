@@ -15,76 +15,64 @@
 				height="4px"
 			></b-progress>
 		</b-alert>
-		<PageHeader :title="title" :items="items"></PageHeader>
-		<b-card title="Tambah Kamus" class="mb-2">
-			<b-card-text> Masukan beberapa data dalam sekali klik </b-card-text>
-			<b-row
-				v-for="record in records"
-				:key="record._id"
-				class="d-flex justify-content-center"
-				style="border-bottom: 2px solid #ced4da"
-			>
-				<b-col md="8" class="mt-4">
-					<b-input-group>
-						<template #prepend>
-							<b-input-group-text>Kata</b-input-group-text>
-						</template>
-						<b-form-input v-model="record.kata" required></b-form-input>
-
-						<template #append>
-							<b-input-group-text
-								><strong class="text-danger">!</strong></b-input-group-text
-							>
-						</template>
-					</b-input-group>
-				</b-col>
-				<b-col md="9" class="mt-4">
-					<b-input-group>
-						<template #prepend>
-							<b-input-group-text style="height: 40px"
-								>Makna</b-input-group-text
-							>
-						</template>
-						<ckeditor
-							v-model="record.keterangan"
-							:editor="editor"
-							style="border: 1px solid #ced4da"
-						></ckeditor>
-						<template #append>
-							<b-input-group-text style="height: 40px"
-								><strong class="text-danger">!</strong></b-input-group-text
-							>
-						</template>
-					</b-input-group>
-				</b-col>
-			</b-row>
-
-			<b-row class="justify-content-around d-flex">
-				<b-button @click="submit" class="mt-4" size="md" variant="primary">
-					<div v-if="loading">
-						<b-spinner small variant="primary"></b-spinner> Menyimpan...
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Tambah Kata Manual</h5>
+				<form v-for="record in records" :key="record.id">
+					<div class="form-group">
+						<label for="kata">Kata</label>
+						<input
+							type="text"
+							class="form-control"
+							id="kata"
+							v-model="record.kata"
+							aria-describedby="emailHelp"
+						/>
+						<small id="emailHelp" class="form-text text-muted"
+							>Masukan kata yang akan di tambahkan</small
+						>
 					</div>
-					<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
-				</b-button>
-				<b-button
-					@click="addRecordsRow"
-					class="mt-4"
-					size="sm"
-					variant="success"
-					><i class="fa fa-plus"></i> Baris</b-button
-				>
-			</b-row>
-		</b-card>
+					<div class="form-group">
+						<label for="makna">Makna</label>
+						<ckeditor
+							:editor="editor"
+							v-model="record.keterangan"
+							class="form-control"
+							id="makna"
+						/>
+					</div>
+
+					<div class="d-flex justify-content-around">
+						<button type="button" @click="submit" class="btn btn-primary">
+							<div v-if="loading">
+								<b-spinner small variant="primary"></b-spinner> Menyimpan...
+							</div>
+							<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+						</button>
+					</div>
+				</form>
+				<div class="d-flex justify-content-end">
+					<button
+						class="btn btn-success rounded-circle"
+						@click="addRecordsRow"
+						data-toggle="tooltip"
+						data-placement="left"
+						title="Tambah Baris"
+					>
+						<i class="fa fa-plus"></i>
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import PageHeader from "../../components/page-header.vue";
+// import PageHeader from "../../components/page-header.vue";
 import CKEditor from "@ckeditor/ckeditor5-vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { BSpinner } from "bootstrap-vue";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import store from "../../../store/index";
-
 import axios from "axios";
 import { mapMutations } from "vuex";
 import { mapMultiRowFields } from "vuex-map-fields";
@@ -96,19 +84,6 @@ export default {
 			dismissSecs: 5,
 			dismissCountDown: 0,
 			messages: "",
-			title: "Tambah Kamus",
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "KBBI",
-				},
-				{
-					text: "Tambah kata",
-					active: true,
-				},
-			],
 			editor: ClassicEditor,
 			editorData:
 				"<h3>Hello World!</h3><h5><b>This is an simple editable area.</b></h5>",
@@ -120,7 +95,7 @@ export default {
 		this.postUrl = mainUrl + "/postKamus";
 	},
 	components: {
-		PageHeader,
+		// PageHeader,
 		BSpinner,
 		ckeditor: CKEditor.component,
 	},
@@ -160,6 +135,7 @@ export default {
 				};
 
 				state.replaceState(newState);
+				this.$root.$emit("getKamus");
 			}
 		},
 

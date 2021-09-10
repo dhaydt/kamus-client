@@ -1,13 +1,13 @@
 <template>
 	<div class="detailKata mainMenu">
 		<!-- ============================ Page Title Start================================== -->
-		<!-- <div class="page-title search-form" style="padding: 4rem 0">
+		<div class="page-title search-form" style="padding: 4rem 0">
 			<div class="container">
 				<div class="row m-0 justify-content-left">
 					<div class="col-lg-8 col-md-8">
 						<div class="col-12">
 							<div class="guide">
-								Halaman ini khusus mencari arti kata di kamus {{ bidang }}. Jika
+								Halaman ini khusus mencari arti kata di kamus {{ cariDi }}. Jika
 								ingin mencari makna di kamus lain, silahkan pindah halaman
 								terlebih dahulu melalui menu di atas
 							</div>
@@ -49,54 +49,51 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 		<!-- ============================ Page Title End ================================== -->
 		<section class="gray-light">
 			<div class="container">
 				<div class="row">
-					<div
-						class="col-lg-8 col-md-12 col-sm-12"
-						style="padding: 0 15px; margin-top: -20px"
-					>
-						<b-card-group v-if="bidang === 'kbbi'" deck class="mt-4">
+					<div class="col-lg-8 col-md-12 col-sm-12" style="padding: 0 15px">
+						<div v-if="bidang === 'kbbi'">
 							<Kbbi
 								:dataKata="dataKata"
 								:kata="kata"
 								:dataIklan="dataIklan"
 							></Kbbi>
-						</b-card-group>
+						</div>
 
-						<b-card-group deck class="mt-4" v-if="bidang === 'glosarium'">
+						<div v-if="bidang === 'glosarium'">
 							<Istilah
 								:dataIklan="dataIklan"
 								:dataKata="dataKata"
 								:kata="kata"
 							></Istilah>
-						</b-card-group>
+						</div>
 
-						<b-card-group deck class="mt-4" v-if="bidang === 'artiNama'">
+						<div v-if="bidang === 'artiNama'">
 							<ArtiNama
 								:dataIklan="dataIklan"
 								:dataKata="dataKata"
 								:kata="kata"
 							></ArtiNama>
-						</b-card-group>
+						</div>
 
-						<b-card-group deck class="mt-4" v-if="bidang === 'engInd'">
+						<div v-if="bidang === 'engInd'">
 							<EngIn
 								:dataIklan="dataIklan"
 								:dataKata="dataKata"
 								:kata="kata"
 							></EngIn>
-						</b-card-group>
+						</div>
 
-						<b-card-group deck class="mt-4" v-if="bidang === 'indEng'">
+						<div v-if="bidang === 'indEng'">
 							<InEng
 								:dataIklan="dataIklan"
 								:dataKata="dataKata"
 								:kata="kata"
 							></InEng>
-						</b-card-group>
+						</div>
 					</div>
 					<div class="col-lg-4 col-md-12 col-sm-12">
 						<Side :dataIklan="dataIklan"></Side>
@@ -121,9 +118,14 @@ export default {
 			kata: "",
 			bidang: "",
 			dataKata: [],
+			keyword: "",
+			error: "",
+			loading: false,
+			showDismissibleAlert: false,
 			dataIklan: [],
 			mainUrl: "",
 			iklan: "",
+			cariDi: "",
 			findUrl: {
 				kbbi: "/find/",
 				glos: "/findGlos/",
@@ -131,6 +133,12 @@ export default {
 				eng: "/translateEng/",
 				ind: "/translateInd/",
 			},
+		};
+	},
+	metaInfo() {
+		return {
+			title:
+				`Arti kata ` + this.kata + ` Menurut Kamus Besar Bahasa Indonesia KBBI`,
 		};
 	},
 
@@ -143,6 +151,7 @@ export default {
 		this.kata = this.$route.params.kata;
 		this.bidang = this.$route.params.bidang;
 		this.cariKata();
+		this.dimana();
 	},
 
 	components: {
@@ -155,6 +164,175 @@ export default {
 	},
 
 	methods: {
+		dimana() {
+			var kamus = this.bidang;
+			if (kamus == "kbbi") {
+				this.cariDi = "KBBI";
+			} else if (kamus == "glosarium") {
+				this.cariDi = "Istiilah";
+			} else if (kamus == "artiNama") {
+				this.cariDi = "Arti Nama";
+			} else if (kamus == "engin") {
+				this.cariDi = "Eng - Ind";
+			} else {
+				this.cariDi = "Ind - Eng";
+			}
+		},
+		async onSubmit(e) {
+			e.preventDefault();
+			var kamus = this.bidang;
+			this.showDismissibleAlert = false;
+			this.loading = true;
+			const backend = this.mainUrl;
+
+			if (kamus === "kbbi") {
+				console.log("cari di kbbi");
+				try {
+					const resp = await axios.get(
+						backend + this.findUrl.kbbi + this.keyword
+					);
+					const kbbi = resp.data;
+					// console.log("data", kbbi);
+
+					const row = kbbi.kbbi.length;
+
+					if (row === 0) {
+						this.error = "Data tidak ada di kamus kami!";
+						this.showDismissibleAlert = true;
+						this.loading = false;
+
+						console.log("row", row);
+						await axios.post(backend + this.reportUrl, {
+							kata: this.keyword,
+							bidang: "KBBI",
+						});
+					} else {
+						// console.log("data found");
+						// window.location.href = "/cari/kbbi/" + this.keyword;
+						history.pushState(null, null, "/cari/kbbi/" + this.keyword);
+						this.kata = this.keyword;
+						this.bidang = "kbbi";
+						this.cariKata();
+						this.loading = false;
+					}
+				} catch (err) {
+					console.log("kbbi", err);
+				}
+			} else if (kamus === "glosarium") {
+				try {
+					const resp = await axios.get(
+						backend + this.findUrl.glos + this.keyword
+					);
+					const glos = resp.data;
+					const row = glos.istilah.length;
+
+					if (row === 0) {
+						this.error = "Data Istilah tidak ditemukan";
+						this.showDismissibleAlert = true;
+						this.loading = false;
+
+						await axios.post(backend + this.reportUrl, {
+							kata: this.keyword,
+							bidang: "Istilah",
+						});
+					} else {
+						// window.location.href = "/cari/glosarium/" + this.keyword;
+						history.pushState(null, null, "/cari/glosarium/" + this.keyword);
+						this.kata = this.keyword;
+						this.bidang = "glosarium";
+						this.cariKata();
+						this.loading = false;
+					}
+				} catch (err) {
+					console.log("istilah", err);
+				}
+			} else if (kamus === "artiNama") {
+				console.log("cari di nama");
+				try {
+					const resp = await axios.get(
+						backend + this.findUrl.nama + this.keyword
+					);
+					const nama = resp.data;
+					const row = nama.nama.length;
+
+					if (row === 0) {
+						this.error = "Data Nama tidak ditemukan";
+						this.showDismissibleAlert = true;
+						this.loading = false;
+
+						await axios.post(backend + this.reportUrl, {
+							kata: this.keyword,
+							bidang: "Arti Nama",
+						});
+					} else {
+						// window.location.href = "/cari/artiNama/" + this.keyword;
+						history.pushState(null, null, "/cari/artiNama/" + this.keyword);
+						this.kata = this.keyword;
+						this.bidang = "artiNama";
+						this.cariKata();
+						this.loading = false;
+					}
+				} catch (err) {
+					console.log("nama", err);
+				}
+			} else if (kamus === "engin") {
+				try {
+					const resp = await axios.get(
+						backend + this.findUrl.eng + this.keyword
+					);
+					const nama = resp.data;
+					const row = nama.engin.length;
+
+					if (row === 0) {
+						this.error = "Data Terjemahan tidak ditemukan";
+						this.showDismissibleAlert = true;
+						this.loading = false;
+
+						await axios.post(backend + this.reportUrl, {
+							kata: this.keyword,
+							bidang: "ENG - IND",
+						});
+					} else {
+						// window.location.href = "/cari/engInd/" + this.keyword;
+						history.pushState(null, null, "/cari/engInd/" + this.keyword);
+						this.kata = this.keyword;
+						this.bidang = "engInd";
+						this.cariKata();
+						this.loading = false;
+					}
+				} catch (err) {
+					console.log("EngIn", err);
+				}
+			} else {
+				try {
+					const resp = await axios.get(
+						backend + this.findUrl.ind + this.keyword
+					);
+					const nama = resp.data;
+					const row = nama.idEng.length;
+
+					if (row === 0) {
+						this.error = "Data Terjemahan tidak ditemukan";
+						this.showDismissibleAlert = true;
+						this.loading = false;
+
+						await axios.post(backend + this.reportUrl, {
+							kata: this.keyword,
+							bidang: "IND - ENG",
+						});
+					} else {
+						// window.location.href = "/cari/indEng/" + this.keyword;
+						history.pushState(null, null, "/cari/indEng/" + this.keyword);
+						this.kata = this.keyword;
+						this.bidang = "indEng";
+						this.cariKata();
+						this.loading = false;
+					}
+				} catch (err) {
+					console.log("inEng", err);
+				}
+			}
+		},
 		async cariKata() {
 			try {
 				if (this.bidang === "kbbi") {

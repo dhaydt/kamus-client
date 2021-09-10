@@ -2528,8 +2528,8 @@ nav a:hover {
   border-color: transparent #0b85ec #0b85ec transparent;
 }
 .navigation-portrait .submenu-indicator.submenu-indicator-up {
-  -ms-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+  /* -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg); */
 }
 .nav-overlay-panel {
   width: 100%;
