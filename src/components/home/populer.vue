@@ -178,7 +178,8 @@ export default {
 
 	mounted() {
 		const getImg = this.mainUrl + "/images/client/";
-		this.iklan2 = getImg + this.dataIklan[1].images;
+		const dataIklan = JSON.parse(localStorage.getIklan);
+		this.iklan1 = getImg + dataIklan[1].images;
 	},
 
 	methods: {
