@@ -1,139 +1,141 @@
 <template>
 	<div class="addNama">
-		<PageHeader :title="title" :items="items"></PageHeader>
-		<div class="card" style="min-height: 70vh">
-			<div class="card-body">
-				<b-row class="justify-content-center">
-					<b-col md="8">
-						<div>
-							<b-form
-								@submit="onSubmit"
-								@reset="onReset"
-								v-for="nama in artiNama"
-								:key="nama.id"
-							>
-								<b-input-group prepend="Nama" class="mt-3">
-									<b-form-input
+		<div class="card">
+			<b-alert
+				:show="dismissCountDown"
+				dismissible
+				variant="success"
+				@dismissed="dismissCountDown = 0"
+				@dismiss-count-down="countDownChanged"
+			>
+				<p>{{ messages }}</p>
+				<b-progress
+					variant="warning"
+					:max="dismissSecs"
+					:value="dismissCountDown"
+					height="4px"
+				></b-progress>
+			</b-alert>
+
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Tambah Kata Manual</h5>
+					<form v-for="nama in artiNama" :key="nama.id" class="mt-4">
+						<div class="container p-4">
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="nama">Nama</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="text"
+										class="form-control"
+										id="nama"
 										v-model="nama.judul_nama"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
+										aria-describedby="emailHelp"
+									/>
+									<small id="emailHelp" class="form-text text-muted"
+										>Masukan nama yang akan di tambahkan</small
+									>
+								</div>
+							</div>
 
-								<b-input-group class="mt-3">
-									<b-form-select
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="kelamin">Kelamin</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<select
+										class="form-control"
+										required
+										id="kelamin"
 										v-model="nama.kelamin_nama"
-										required
-										class="mb-3"
 									>
-										<template #first>
-											<b-form-select-option :value="null" disabled
-												>-- Pilih Kelamin --</b-form-select-option
-											>
-										</template>
-										<b-form-select-option value="Laki-Laki"
-											>Laki - Laki</b-form-select-option
-										>
-										<b-form-select-option value="Perempuan"
-											>Perempuan</b-form-select-option
-										>
-									</b-form-select>
-								</b-input-group>
+										<option value="">-- Pilih kelamin --</option>
+										<option value="Laki - Laki">Laki - Laki</option>
+										<option value="Perempuan">Perempuan</option>
+									</select>
+								</div>
+							</div>
 
-								<b-input-group prepend="Asal" class="mt-3">
-									<b-form-input
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="asal">Asal nama</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
 										v-model="nama.asal_nama"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-input-group prepend="Makna" class="mt-3">
-									<b-form-input v-model="nama.isi_nama" required></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-input-group prepend="Prefix" class="mt-3 mb-3">
-									<b-form-input
-										v-model="nama.perfix_nama"
-										required
-									></b-form-input>
-									<template #append>
-										<b-input-group-text
-											><strong class="text-danger"
-												>!</strong
-											></b-input-group-text
-										>
-									</template>
-								</b-input-group>
-								<b-col md="12" class="d-flex justify-content-around">
-									<b-button type="submit" variant="primary"
-										><div v-if="loading">
-											<b-spinner small variant="primary"></b-spinner>
-											Menyimpan...
-										</div>
-										<span v-if="!loading"
-											><i class="fa fa-save"></i> Simpan</span
-										></b-button
-									>
-									<b-button type="reset" variant="danger">Reset</b-button>
-									<b-button
-										type="button"
-										variant="success"
-										@click="addArtiNamaRow"
-										><i class="fa fa-plus"> Baris</i></b-button
-									>
-								</b-col>
-							</b-form>
+										class="form-control"
+										id="bidang"
+									/>
+								</div>
+							</div>
+
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="makna">Makna</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										v-model="nama.isi_nama"
+										class="form-control"
+										id="makna"
+									/>
+								</div>
+							</div>
 						</div>
-					</b-col>
-				</b-row>
+					</form>
+					<div class="d-flex justify-content-around">
+						<button type="button" @click="onSubmit" class="btn btn-primary">
+							<div v-if="loading">
+								<b-spinner small variant="primary"></b-spinner> Menyimpan...
+							</div>
+							<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+						</button>
+					</div>
+					<div class="d-flex justify-content-end">
+						<button
+							type="button"
+							class="btn btn-success rounded-circle"
+							@click="addArtiNamaRow"
+							data-toggle="tooltip"
+							data-placement="top"
+							title="Tambah baris"
+						>
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import PageHeader from "../../components/page-header.vue";
 import { mapMutations } from "vuex";
 import { mapMultiRowFields } from "vuex-map-fields";
 import axios from "axios";
+import { BSpinner } from "bootstrap-vue";
+import store from "../../../store/index";
 
 export default {
 	data() {
 		return {
 			postUrl: "",
 			loading: "",
-			selected: null,
+			selected: "",
 			title: "Tambah Nama",
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "Arti nama",
-				},
-				{
-					text: "Tambah nama",
-					active: true,
-				},
-			],
+			dismissSecs: 5,
+			dismissCountDown: 0,
+			messages: "",
 		};
 	},
 
@@ -146,7 +148,7 @@ export default {
 		...mapMultiRowFields(["artiNama"]),
 	},
 	components: {
-		PageHeader,
+		BSpinner,
 	},
 
 	methods: {
@@ -154,42 +156,54 @@ export default {
 
 		async onSubmit(e) {
 			e.preventDefault();
-			this.loading = true;
-			const check = this.$store.state.artiNama;
-			const resp = await axios
-				.post(this.postUrl, {
-					data: check,
-				})
-				.then(console.log(resp));
-			this.loading = "";
-			console.log(check);
-			this.$store.state.artiNama = [
-				{
-					id: "",
-					judul_nama: "",
-					kelamin_nama: null,
-					asal_nama: "",
-					isi_nama: "",
-					perfix_nama: "",
-				},
-			];
+			const checker = store.state.artiNama[0].judul_nama;
+			if (checker == "" || store.state.artiNama[0].isi_nama == "") {
+				alert("Isi semua data!!");
+			} else {
+				try {
+					this.loading = true;
+					const check = this.$store.state.artiNama;
+					const resp = await axios
+						.post(this.postUrl, {
+							data: check,
+						})
+						.then(console.log(resp));
+				} catch (err) {
+					console.log(err);
+				}
+				this.loading = "";
+				this.messages = "Nama tersimpan";
+				this.showAlert();
+				let state = this.$store;
+				let newState = {
+					artiNama: [
+						{
+							id: "",
+							judul_nama: "",
+							kelamin_nama: null,
+							asal_nama: "",
+							isi_nama: "",
+						},
+					],
+				};
+				state.replaceState(newState);
+				this.$root.$emit("getNama");
+			}
 		},
 
-		onReset() {
-			this.$store.state.artiNama = [
-				{
-					id: "",
-					judul_nama: "",
-					kelamin_nama: null,
-					asal_nama: "",
-					isi_nama: "",
-					perfix_nama: "",
-				},
-			];
+		countDownChanged(dismissCountDown) {
+			this.dismissCountDown = dismissCountDown;
+		},
+		showAlert() {
+			this.dismissCountDown = this.dismissSecs;
 		},
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+.card {
+	box-shadow: none;
+	border: none;
+}
 </style>

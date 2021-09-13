@@ -19,38 +19,51 @@
 			<div class="card-body">
 				<h5 class="card-title">Tambah Kata Manual</h5>
 				<form v-for="record in records" :key="record.id">
-					<div class="form-group">
-						<label for="kata">Kata</label>
-						<input
-							type="text"
-							class="form-control"
-							id="kata"
-							v-model="record.kata"
-							aria-describedby="emailHelp"
-						/>
-						<small id="emailHelp" class="form-text text-muted"
-							>Masukan kata yang akan di tambahkan</small
-						>
-					</div>
-					<div class="form-group">
-						<label for="makna">Makna</label>
-						<ckeditor
-							:editor="editor"
-							v-model="record.keterangan"
-							class="form-control"
-							id="makna"
-						/>
-					</div>
-
-					<div class="d-flex justify-content-around">
-						<button type="button" @click="submit" class="btn btn-primary">
-							<div v-if="loading">
-								<b-spinner small variant="primary"></b-spinner> Menyimpan...
+					<div class="container p-4">
+						<div class="form-group row justify-content-center">
+							<div
+								class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+							>
+								<label for="kata">Kata</label>
 							</div>
-							<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
-						</button>
+							<div class="col-lg-8 col-md-8 col-sm-12">
+								<input
+									type="text"
+									class="form-control"
+									id="kata"
+									v-model="record.kata"
+									aria-describedby="emailHelp"
+								/>
+								<small id="emailHelp" class="form-text text-muted"
+									>Masukan kata yang akan di tambahkan</small
+								>
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div
+								class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+							>
+								<label for="makna">Makna</label>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-12">
+								<ckeditor
+									:editor="editor"
+									v-model="record.keterangan"
+									class="form-control"
+									id="makna"
+								/>
+							</div>
+						</div>
 					</div>
 				</form>
+				<div class="d-flex justify-content-around">
+					<button type="button" @click="submit" class="btn btn-primary">
+						<div v-if="loading">
+							<b-spinner small variant="primary"></b-spinner> Menyimpan...
+						</div>
+						<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+					</button>
+				</div>
 				<div class="d-flex justify-content-end">
 					<button
 						class="btn btn-success rounded-circle"
@@ -159,4 +172,8 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.card {
+	box-shadow: none;
+	border: none;
+}
 </style>

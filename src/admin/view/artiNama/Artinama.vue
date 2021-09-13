@@ -1,25 +1,68 @@
 <template>
 	<div>
-		<PageHeader :title="title" :items="items" />
-		<div class="card" style="min-height: 70vh">
-			<div class="card-body">
-				<div class="row justify-content-between">
-					<div class="col-sm-12 col-md-4">
-						<div id="tickets-table_length" class="dataTables_length">
-							<label class="d-inline-flex align-items-center">
-								Show&nbsp;
-								<b-form-select
-									v-model="perPage"
-									size="sm"
-									:options="pageOptions"
-									class="row-page"
-								></b-form-select
-								><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
-							</label>
-						</div>
+		<div class="row">
+			<div class="col-12">
+				<div
+					class="
+						page-title-box
+						pt-2
+						pb-0
+						d-flex
+						align-items-center
+						justify-content-between
+					"
+				>
+					<!-- <h4 class="mb-0">{{ title }}</h4> -->
+					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
 
-						<!-- Search -->
-						<!-- <div class="col-sm-12 col-md-4">
+					<div class="page-title-right"></div>
+				</div>
+			</div>
+		</div>
+		<b-card>
+			<div class="card-title">
+				<h4 class="mb-0">Arti Nama</h4>
+			</div>
+			<b-tabs content-class="mt-3" fill>
+				<b-tab title="Kamus Utama" active>
+					<div class="card-body pt-0">
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6">
+								<!-- Search -->
+								<div
+									id="tickets-table_filter"
+									class="dataTables_filter text-md-left"
+								>
+									<label class="d-inline-flex align-items-center">
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
+									</label>
+								</div>
+								<!-- End search -->
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div
+									id="tickets-table_length"
+									class="dataTables_length text-md-right"
+								>
+									<label class="d-inline-flex align-items-center">
+										Show&nbsp;
+										<b-form-select
+											v-model="perPage"
+											size="sm"
+											:options="pageOptions"
+											class="row-page"
+										></b-form-select
+										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+									</label>
+								</div>
+
+								<!-- Search -->
+								<!-- <div class="col-sm-12 col-md-4">
 					<div
 						id="tickets-table_filter"
 						class="dataTables_filter text-md-right"
@@ -33,84 +76,70 @@
 						</label>
 					</div>
 				</div> -->
-						<!-- End search -->
-					</div>
-
-					<div class="col-sm-6 col-md-3 d-flex justify-content-end">
-						<div class="text-center mr-1">
-							<router-link to="/admin/addNama">
-								<b-button v-b-modal.modal-center variant="success"
-									><i class="fa fa-plus mr-1"></i>&nbsp; Nama</b-button
-								>
-							</router-link>
+								<!-- End search -->
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-10">
-					<label class="d-inline-flex align-items-top">
 						<EllipsisLoader :loading="loading"></EllipsisLoader>
-					</label>
-				</div>
-				<div class="table-responsive">
-					<b-table
-						:items="dataKata"
-						:fields="fields"
-						responsive="sm"
-						:per-page="perPage"
-						class="text-left"
-						:current-page="currentPage"
-						:sort-by.sync="sortBy"
-						:sort-desc.sync="sortDesc"
-						:filter="filter"
-						:filter-included-fields="filterOn"
-						@filtered="onFiltered"
-					>
-						<template v-slot:cell(view)="data">
-							<td v-html="data.item.view / 2"></td>
-						</template>
-						<template v-slot:cell(action)>
-							<a
-								href="javascript:void(0);"
-								class="mr-3 text-primary"
-								v-b-tooltip.hover
-								data-toggle="tooltip"
-								title="Edit"
+						<div class="table-responsive">
+							<b-table
+								:items="dataKata"
+								:fields="fields"
+								responsive="sm"
+								:per-page="perPage"
+								class="text-left"
+								:current-page="currentPage"
+								:sort-by.sync="sortBy"
+								:sort-desc.sync="sortDesc"
+								:filter="filter"
+								:filter-included-fields="filterOn"
+								@filtered="onFiltered"
 							>
-								<i class="mdi mdi-pencil font-size-18"></i>
-							</a>
-							<a
-								href="javascript:void(0);"
-								class="text-danger"
-								v-b-tooltip.hover
-								title="Delete"
-							>
-								<i class="mdi mdi-trash-can font-size-18"></i>
-							</a>
-						</template>
-					</b-table>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="dataTables_paginate paging_simple_numbers float-right">
-							<ul class="pagination pagination-rounded mb-0">
-								<!-- pagination -->
-								<b-pagination
-									v-model="currentPage"
-									:total-rows="rows"
-									:per-page="perPage"
-								></b-pagination>
-							</ul>
+								<template v-slot:cell(view)="data">
+									<td class="no-border" v-html="data.item.view / 2"></td>
+								</template>
+								<template v-slot:cell(action)="data">
+									<a
+										href="javascript:void(0);"
+										class="text-danger"
+										v-b-tooltip.hover
+										title="Delete"
+										@click="deleteKata(data.item.id)"
+									>
+										<i class="mdi mdi-trash-can font-size-18"></i>
+									</a>
+								</template>
+							</b-table>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div
+									class="dataTables_paginate paging_simple_numbers float-right"
+								>
+									<ul class="pagination pagination-rounded mb-0">
+										<!-- pagination -->
+										<b-pagination
+											v-model="currentPage"
+											:total-rows="rows"
+											:per-page="perPage"
+										></b-pagination>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+				</b-tab>
+				<b-tab title="Kamus Tambahan"><Manual></Manual></b-tab>
+				<b-tab title="Tambah Nama"><Tambah></Tambah></b-tab>
+			</b-tabs>
+		</b-card>
 	</div>
 </template>
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
 import axios from "axios";
-import PageHeader from "../../components/page-header.vue";
+import Swal from "sweetalert2";
+import Tambah from "./namaAdd.vue";
+import Manual from "./manualNama.vue";
 
 export default {
 	data() {
@@ -131,8 +160,8 @@ export default {
 			jumlahData: null,
 			totalRows: 1,
 			currentPage: 1,
-			perPage: 5,
-			pageOptions: [5, 10, 25, 50],
+			perPage: 10,
+			pageOptions: [10, 25, 50, 100],
 			filter: null,
 			filterOn: [],
 			sortBy: "ID",
@@ -144,6 +173,7 @@ export default {
 				{ key: "asal_nama", label: "Asal", sortable: true },
 				{ key: "isi_nama", label: "Arti", sortable: true },
 				{ key: "view", label: "View", sortable: true },
+				{ key: "action" },
 			],
 		};
 	},
@@ -160,8 +190,9 @@ export default {
 	},
 
 	components: {
-		PageHeader,
 		EllipsisLoader,
+		Tambah,
+		Manual,
 	},
 
 	computed: {
@@ -187,6 +218,24 @@ export default {
 			this.totalRows = filteredItems.length;
 			this.currentPage = 1;
 		},
+
+		// Delete Product
+		async deleteKata(id) {
+			this.loading = true;
+			console.log(id);
+			try {
+				await axios.delete(this.getNamaUrl + `/${id}`);
+				this.getNama();
+				Swal.fire({
+					icon: "info",
+					title: "Nama Deleted",
+					text: "Successfully deleted Istilah!",
+				});
+				this.loading = false;
+			} catch (err) {
+				console.log(err);
+			}
+		},
 	},
 };
 </script>
@@ -195,8 +244,13 @@ export default {
 	width: 100px;
 }
 
-.lds-ellipsis {
-	position: absolute;
-	margin-top: 50px;
+.no-border {
+	border-top: none !important;
+}
+
+#search {
+	height: 30px !important;
+	padding: 5px 10px;
+	max-height: 45px !important;
 }
 </style>

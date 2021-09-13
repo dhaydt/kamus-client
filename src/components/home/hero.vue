@@ -30,7 +30,7 @@
 									class="form-control search-slt"
 									id="kategori-kamus"
 								>
-									<option>Pilih Kategori</option>
+									<option value="">Pilih Kategori</option>
 									<option value="kbbi">KBBI</option>
 									<option value="engin">Eng-Ind</option>
 									<option value="ineng">Ind-Eng</option>

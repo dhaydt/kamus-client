@@ -1,125 +1,112 @@
 <template>
 	<div class="addUser">
-		<PageHeader :items="items" :title="title"></PageHeader>
-		<b-card class="card-add">
-			<b-alert
-				v-model="showDismissibleAlert"
-				v-if="error"
-				class="mt-2"
-				variant="danger"
-				dismissible
-			>
-				{{ error }}
-			</b-alert>
-			<b-alert
-				v-if="success"
-				v-model="showDismissibleAlert"
-				class="mt-2"
-				variant="success"
-				dismissible
-			>
-				{{ success }}
-			</b-alert>
-			<b-row class="d-flex justify-content-center mt-4">
-				<b-col lg="8" md="9" sm="12">
-					<b-form @submit="onSubmit">
-						<b-input-group>
-							<template #prepend>
-								<b-input-group-text class="w-15">Nama</b-input-group-text>
-							</template>
-							<b-form-input
-								v-model="form.username"
-								id="username"
-								placeholder="Masukan nama"
-								required
-							></b-form-input>
-
-							<template #append>
-								<b-input-group-text
-									><strong class="text-danger">!</strong></b-input-group-text
+		<b-alert
+			v-model="showDismissibleAlert"
+			v-if="error"
+			class="mt-2"
+			variant="danger"
+			dismissible
+		>
+			{{ error }}
+		</b-alert>
+		<b-alert
+			v-if="success"
+			v-model="showDismissibleAlert"
+			class="mt-2"
+			variant="success"
+			dismissible
+		>
+			{{ success }}
+		</b-alert>
+		<b-row class="d-flex justify-content-center mt-4">
+			<b-col lg="12" md="12" sm="12">
+				<div class="container">
+					<form>
+						<div class="container p-4">
+							<div class="row form-group justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
 								>
-							</template>
-						</b-input-group>
-
-						<b-input-group class="mt-4">
-							<template #prepend>
-								<b-input-group-text class="w-15">Email</b-input-group-text>
-							</template>
-							<b-form-input
-								type="email"
-								required
-								placeholder="Masukan email"
-								v-model="form.email"
-								id="email"
-							></b-form-input>
-
-							<template #append>
-								<b-input-group-text
-									><strong class="text-danger">!</strong></b-input-group-text
-								>
-							</template>
-						</b-input-group>
-
-						<b-input-group class="mt-4">
-							<template #prepend>
-								<b-input-group-text class="w-15">Password</b-input-group-text>
-							</template>
-							<b-form-input
-								type="password"
-								required
-								placeholder="Masukan password"
-								v-model="form.password"
-								id="password"
-							></b-form-input>
-
-							<template #append>
-								<b-input-group-text
-									><strong class="text-danger">!</strong></b-input-group-text
-								>
-							</template>
-						</b-input-group>
-
-						<b-input-group class="mt-4">
-							<template #prepend>
-								<b-input-group-text class="w-15"
-									>Confirm Password</b-input-group-text
-								>
-							</template>
-							<b-form-input
-								type="password"
-								placeholder="Masukan password lagi"
-								v-model="form.c_password"
-								required
-								id="c_password"
-							></b-form-input>
-
-							<template #append>
-								<b-input-group-text
-									><strong class="text-danger">!</strong></b-input-group-text
-								>
-							</template>
-						</b-input-group>
-
-						<b-button-group class="mt-4">
-							<b-button type="submit" variant="primary"
-								><div v-if="loading">
-									<b-spinner small variant="primary"></b-spinner> Menyimpan...
+									<label for="nama">Nama :</label>
 								</div>
-								<span v-if="!loading"
-									><i class="fa fa-save"></i> Simpan</span
-								></b-button
-							>
-						</b-button-group>
-					</b-form>
-				</b-col>
-			</b-row>
-		</b-card>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="text"
+										v-model="form.username"
+										class="form-control"
+										id="username"
+										placeholder="Masukan Nama User"
+									/>
+								</div>
+							</div>
+							<div class="row form-group justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="email">Email :</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="email"
+										v-model="form.email"
+										class="form-control"
+										id="email"
+										placeholder="Masukan email"
+									/>
+								</div>
+							</div>
+
+							<div class="row form-group justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="password">Password :</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="password"
+										v-model="form.password"
+										class="form-control"
+										id="password"
+										placeholder="Masukan Password"
+									/>
+								</div>
+							</div>
+							<div class="row form-group justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="c_password">Konfirmasi Password :</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="password"
+										v-model="form.c_password"
+										class="form-control"
+										id="c_password"
+										placeholder="Konfirmasi password"
+									/>
+								</div>
+							</div>
+
+							<div class="col-lg-12 w-100 text-center">
+								<button class="btn btn-primary" @click="onSubmit">
+									<div v-if="loading">
+										<b-spinner small variant="primary"></b-spinner> Menyimpan...
+									</div>
+									<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</b-col>
+		</b-row>
 	</div>
 </template>
 
 <script>
 import { BSpinner } from "bootstrap-vue";
-import PageHeader from "../../components/page-header.vue";
 import axios from "axios";
 export default {
 	data() {
@@ -205,7 +192,6 @@ export default {
 		},
 	},
 	components: {
-		PageHeader,
 		BSpinner,
 	},
 };
@@ -217,5 +203,9 @@ export default {
 }
 .card-add {
 	min-height: 70vh;
+}
+
+input {
+	max-height: 45px;
 }
 </style>

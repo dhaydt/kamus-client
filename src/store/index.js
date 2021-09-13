@@ -45,11 +45,17 @@ export default new Vuex.Store({
       },
     ],
 
-    popKbbi: [
+    engIn: [
       {
-        _id: "",
-        kata: "",
-        view: "",
+        judul_artikel: "",
+        isi_artikel: "",
+      },
+    ],
+
+    inEng: [
+      {
+        judul_artikel: "",
+        isi_artikel: "",
       },
     ],
   },
@@ -85,6 +91,20 @@ export default new Vuex.Store({
         isi_glos: "",
         judul_seo: "",
         perfix_glos: "",
+      });
+    },
+
+    addEngin(state) {
+      state.engIn.push({
+        judul_artikel: "",
+        isi_artikel: "",
+      });
+    },
+
+    addInEng(state) {
+      state.inEng.push({
+        judul_artikel: "",
+        isi_artikel: "",
       });
     },
   },

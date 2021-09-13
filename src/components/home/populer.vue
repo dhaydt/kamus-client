@@ -91,7 +91,7 @@
 					<div class="box-kamus">
 						<div class="">
 							<div class="mx-4">
-								<img class="iklanBox" :src="iklan2" alt="" />
+								<img class="iklanBox" :src="iklan1" alt="" />
 							</div>
 						</div>
 					</div>
@@ -157,7 +157,7 @@ export default {
 			urlPopNama: "/nama/pop",
 			urlPopEngIn: "/engin/pop",
 			urlPopInEng: "/ineng/pop",
-			iklan2: "",
+			iklan1: "",
 			dataImage: [],
 			popKbbi: [],
 			popIstilah: [],
@@ -178,7 +178,7 @@ export default {
 
 	mounted() {
 		const getImg = this.mainUrl + "/images/client/";
-		const dataIklan = JSON.parse(localStorage.getIklan);
+		const dataIklan = JSON.parse(localStorage.dataIklan);
 		this.iklan1 = getImg + dataIklan[1].images;
 	},
 

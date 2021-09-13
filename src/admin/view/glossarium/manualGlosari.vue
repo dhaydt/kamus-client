@@ -1,9 +1,26 @@
 <template>
 	<div>
-		<div class="card-body">
+		<div class="card-body pt-0">
 			<div class="row justify-content-between">
-				<div class="col-sm-12 col-md-12">
-					<div id="tickets-table_length" class="dataTables_length">
+				<div class="col-sm-12 col-md-6">
+					<!-- Search -->
+					<div id="tickets-table_filter" class="dataTables_filter text-md-left">
+						<label class="d-inline-flex align-items-center">
+							Search:
+							<b-form-input
+								type="search"
+								id="search"
+								class="form-control form-control-sm ml-2"
+							></b-form-input>
+						</label>
+					</div>
+					<!-- End search -->
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<div
+						id="tickets-table_length"
+						class="dataTables_length text-md-right"
+					>
 						<label class="d-inline-flex align-items-center">
 							Show&nbsp;
 							<b-form-select
@@ -33,22 +50,8 @@
 				</div> -->
 					<!-- End search -->
 				</div>
-
-				<!-- <div class="col-sm-6 col-md-3 d-flex justify-content-end">
-								<div class="text-center mr-1">
-									<router-link to="/admin/addGloss">
-										<b-button v-b-modal.modal-center variant="success"
-											><i class="fa fa-plus"></i>&nbsp; Glosarium</b-button
-										>
-									</router-link>
-								</div>
-							</div> -->
 			</div>
-			<div class="col-md-10">
-				<label class="align-items-top">
-					<EllipsisLoader :loading="loading"></EllipsisLoader>
-				</label>
-			</div>
+			<EllipsisLoader :loading="loading"></EllipsisLoader>
 			<div class="table-responsive">
 				<b-table
 					:items="dataKata"
@@ -173,6 +176,7 @@ export default {
 
 		// Delete Product
 		async deleteKata(id) {
+			this.loading = true;
 			console.log(id);
 			try {
 				await axios.delete(this.getUrl + `/${id}`);
@@ -182,6 +186,7 @@ export default {
 					title: "Istilah Deleted",
 					text: "Successfully deleted Istilah!",
 				});
+				this.loading = false;
 			} catch (err) {
 				console.log(err);
 			}

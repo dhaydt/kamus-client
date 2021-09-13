@@ -75,7 +75,7 @@ const routes = [
       },
       {
         path: "/admin/user",
-        component: () => import("../admin/view/users/index.vue"),
+        component: () => import("../admin/view/users/userMain.vue"),
       },
       {
         path: "/admin/addUser",
@@ -91,7 +91,7 @@ const routes = [
       },
       {
         path: "/admin/kbbi",
-        component: () => import("../admin/view/kbbi/index.vue"),
+        component: () => import("../admin/view/kbbi/Kbbi.vue"),
       },
       {
         path: "/admin/eng-ind",
@@ -123,7 +123,7 @@ const routes = [
       },
       {
         path: "/admin/adv",
-        component: () => import("../admin/view/adsvertism/index.vue"),
+        component: () => import("../admin/view/adsvertism/advTable.vue"),
       },
       {
         path: "/admin/addAdv",

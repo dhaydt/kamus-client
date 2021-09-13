@@ -31,14 +31,6 @@
 				>
 					<i class="ri-menu-2-line align-middle" style="color: black"></i>
 				</button>
-
-				<!-- App Search-->
-				<!-- <form class="app-search d-none d-lg-block">
-					<div class="position-relative">
-						<input type="text" class="form-control" placeholder="Search" />
-						<span class="ri-search-line"></span>
-					</div>
-				</form> -->
 			</div>
 
 			<div class="d-flex">
@@ -88,151 +80,25 @@
 
 				<b-dropdown
 					right
-					menu-class="dropdown-menu-lg p-0"
-					toggle-class="header-item noti-icon"
-					variant="black"
-				>
-					<template v-slot:button-content>
-						<i class="ri-notification-3-line"></i>
-						<span class="noti-dot"></span>
-					</template>
-					<div class="p-3">
-						<div class="row align-items-center">
-							<div class="col">
-								<h6 class="m-0">Notifications</h6>
-							</div>
-							<div class="col-auto">
-								<a href="#!" class="small">View All</a>
-							</div>
-						</div>
-					</div>
-					<simplebar style="max-height: 230px">
-						<a href class="text-reset notification-item">
-							<div class="media">
-								<div class="avatar-xs mr-3">
-									<span
-										class="avatar-title bg-primary rounded-circle font-size-16"
-									>
-										<i class="ri-shopping-cart-line"></i>
-									</span>
-								</div>
-								<div class="media-body">
-									<h6 class="mt-0 mb-1">Your order is placed</h6>
-									<div class="font-size-12 text-muted">
-										<p class="mb-1">Some body text</p>
-										<p class="mb-0">
-											<i class="mdi mdi-clock-outline"></i>
-											20.20
-										</p>
-									</div>
-								</div>
-							</div>
-						</a>
-						<a href class="text-reset notification-item">
-							<div class="media">
-								<img
-									src="@/assets/images/users/avatar-3.jpg"
-									class="mr-3 rounded-circle avatar-xs"
-									alt="user-pic"
-								/>
-								<div class="media-body">
-									<h6 class="mt-0 mb-1">Mugiwara NoLuffy</h6>
-									<div class="font-size-12 text-muted">
-										<p class="mb-1">He will be kaizukou nuaori</p>
-										<p class="mb-0">
-											<i class="mdi mdi-clock-outline"></i>
-											1 hours ago
-										</p>
-									</div>
-								</div>
-							</div>
-						</a>
-						<a href class="text-reset notification-item">
-							<div class="media">
-								<div class="avatar-xs mr-3">
-									<span
-										class="avatar-title bg-success rounded-circle font-size-16"
-									>
-										<i class="ri-checkbox-circle-line"></i>
-									</span>
-								</div>
-								<div class="media-body">
-									<h6 class="mt-0 mb-1">Your item Shipped</h6>
-									<div class="font-size-12 text-muted">
-										<p class="mb-1">Free packeges for use</p>
-										<p class="mb-0">
-											<i class="mdi mdi-clock-outline"></i>
-											a few moments later
-										</p>
-									</div>
-								</div>
-							</div>
-						</a>
-						<a href class="text-reset notification-item">
-							<div class="media">
-								<img
-									src="@/assets/images/users/avatar-4.jpg"
-									class="mr-3 rounded-circle avatar-xs"
-									alt="user-pic"
-								/>
-								<div class="media-body">
-									<h6 class="mt-0 mb-1">Selena Gomes</h6>
-									<div class="font-size-12 text-muted">
-										<p class="mb-1">Selena love u so much</p>
-										<p class="mb-0">
-											<i class="mdi mdi-clock-outline"></i>
-											today
-										</p>
-									</div>
-								</div>
-							</div>
-						</a>
-					</simplebar>
-					<div class="p-2 border-top">
-						<a
-							class="btn btn-sm btn-link font-size-14 btn-block text-center"
-							href="javascript:void(0)"
-						>
-							<i class="mdi mdi-arrow-right-circle mr-1"></i>
-							Load More
-						</a>
-					</div>
-				</b-dropdown>
-
-				<b-dropdown
-					right
-					variant="black"
+					variant="white"
 					toggle-class="header-item"
 					class="d-inline-block user-dropdown"
 				>
 					<template v-slot:button-content>
-						<img
-							class="rounded-circle header-profile-user"
-							src="@/assets/images/users/avatar-2.jpg"
-							alt="Header Avatar"
-						/>
-						<span class="d-none d-xl-inline-block ml-1 mx-2">{{
+						<b-avatar
+							style="color: grey; background-color: transparent"
+						></b-avatar>
+						<span class="d-none d-xl-inline-block ml-1 mx-2 txt-black">{{
 							user.username
 						}}</span>
-						<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+						<i
+							class="mdi mdi-chevron-down d-none d-xl-inline-block txt-black"
+						></i>
 					</template>
 					<!-- item-->
 					<a class="dropdown-item" href="#">
 						<i class="ri-user-line align-middle mr-1"></i>
-						Profile list
-					</a>
-					<a class="dropdown-item" href="#">
-						<i class="ri-wallet-2-line align-middle mr-1"></i>
-						Wallet
-					</a>
-					<a class="dropdown-item d-block" href="#">
-						<span class="badge badge-success float-right mt-1">11</span>
-						<i class="ri-settings-2-line align-middle mr-1"></i>
-						Setting
-					</a>
-					<a class="dropdown-item" href="#">
-						<i class="ri-lock-unlock-line align-middle mr-1"></i>
-						Lock Screen
+						Profile
 					</a>
 					<div class="dropdown-divider"></div>
 					<a type="button" class="dropdown-item text-danger" @click="logout">
@@ -246,16 +112,12 @@
 </template>
 
 <script>
-import simplebar from "simplebar-vue";
-// import i18n from "../i18n";
-
 export default {
 	data() {
 		return {
 			user: {},
 		};
 	},
-	components: { simplebar },
 
 	created() {
 		this.user = JSON.parse(localStorage.getItem("user"));
@@ -312,5 +174,10 @@ export default {
 		color: #16181b;
 		background-color: #f8f9fa;
 	}
+}
+
+.txt-black {
+	color: black;
+	text-transform: capitalize;
 }
 </style>

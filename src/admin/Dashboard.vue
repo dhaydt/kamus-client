@@ -17,7 +17,7 @@
 			<!-- ============================================================== -->
 			<div class="main-content">
 				<div class="page-content p-3">
-					<div class="container-fluid">
+					<div class="container-fluid" style="min-height: 80vh">
 						<router-view></router-view>
 					</div>
 				</div>
@@ -103,10 +103,20 @@ export default {
 .main-content {
 	margin-top: 60px;
 }
+
+input {
+	max-height: 45px;
+}
 </style>
 
 <style>
 .row-page {
 	width: 100px;
+}
+
+.lds-ellipsis {
+	position: absolute !important;
+	margin-top: 80px;
+	left: 50%;
 }
 </style>

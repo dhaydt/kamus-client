@@ -1,13 +1,54 @@
 <template>
 	<div>
-		<PageHeader :title="title" :items="items" />
-		<b-card style="min-height: 70vh">
+		<div class="row">
+			<div class="col-12">
+				<div
+					class="
+						page-title-box
+						pt-2
+						pb-0
+						d-flex
+						align-items-center
+						justify-content-between
+					"
+				>
+					<!-- <h4 class="mb-0">{{ title }}</h4> -->
+					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
+
+					<div class="page-title-right"></div>
+				</div>
+			</div>
+		</div>
+		<b-card>
+			<div class="card-title">
+				<h4 class="mb-0">Kamus Istilah</h4>
+			</div>
 			<b-tabs content-class="mt-3" fill>
-				<b-tab title="Istilah Utama" fill>
-					<div class="card-body">
+				<b-tab title="Kamus Utama" active>
+					<div class="card-body pt-0">
 						<div class="row justify-content-between">
-							<div class="col-sm-12 col-md-12">
-								<div id="tickets-table_length" class="dataTables_length">
+							<div class="col-sm-12 col-md-6">
+								<!-- Search -->
+								<div
+									id="tickets-table_filter"
+									class="dataTables_filter text-md-left"
+								>
+									<label class="d-inline-flex align-items-center">
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
+									</label>
+								</div>
+								<!-- End search -->
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div
+									id="tickets-table_length"
+									class="dataTables_length text-md-right"
+								>
 									<label class="d-inline-flex align-items-center">
 										Show&nbsp;
 										<b-form-select
@@ -37,22 +78,8 @@
 				</div> -->
 								<!-- End search -->
 							</div>
-
-							<!-- <div class="col-sm-6 col-md-3 d-flex justify-content-end">
-								<div class="text-center mr-1">
-									<router-link to="/admin/addGloss">
-										<b-button v-b-modal.modal-center variant="success"
-											><i class="fa fa-plus"></i>&nbsp; Glosarium</b-button
-										>
-									</router-link>
-								</div>
-							</div> -->
 						</div>
-						<div class="col-md-10">
-							<label class="align-items-top">
-								<EllipsisLoader :loading="loading"></EllipsisLoader>
-							</label>
-						</div>
+						<EllipsisLoader :loading="loading"></EllipsisLoader>
 						<div class="table-responsive">
 							<b-table
 								:items="dataKata"
@@ -115,13 +142,11 @@
 import { EllipsisLoader } from "vue-spinners-css";
 import axios from "axios";
 import Swal from "sweetalert2";
-import PageHeader from "../../components/page-header.vue";
 import Manual from "./manualGlosari.vue";
 import Tambah from "./glossAdd.vue";
 
 export default {
 	components: {
-		PageHeader,
 		EllipsisLoader,
 		Tambah,
 		Manual,
@@ -129,13 +154,13 @@ export default {
 	data() {
 		return {
 			getUrl: "",
-			title: "Glossarium",
+			title: "Istilah",
 			items: [
 				{
 					text: "Admin",
 				},
 				{
-					text: "Glossarium",
+					text: "Istilah",
 					active: true,
 				},
 			],
@@ -144,8 +169,8 @@ export default {
 			loading: "",
 			totalRows: 1,
 			currentPage: 1,
-			perPage: 5,
-			pageOptions: [5, 10, 25, 50],
+			perPage: 10,
+			pageOptions: [10, 25, 50, 100],
 			filter: null,
 			filterOn: [],
 			sortBy: "ID",
@@ -201,6 +226,7 @@ export default {
 
 		// Delete Product
 		async deleteKata(id) {
+			this.loading = true;
 			console.log(id);
 			try {
 				await axios.delete(this.getUrl + `/${id}`);
@@ -210,6 +236,7 @@ export default {
 					title: "Istilah Deleted",
 					text: "Successfully deleted Istilah!",
 				});
+				this.loading = false;
 			} catch (err) {
 				console.log(err);
 			}

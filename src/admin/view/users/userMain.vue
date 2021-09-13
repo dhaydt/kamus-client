@@ -1,129 +1,177 @@
 <template>
-	<div class="card" style="min-height: 70vh">
-		<div class="card-body">
-			<div class="row justify-content-between">
-				<div class="col-sm-12 col-md-4">
-					<div id="tickets-table_length" class="dataTables_length">
-						<label class="d-inline-flex align-items-center">
-							Show&nbsp;
-							<b-form-select
-								v-model="perPage"
-								size="sm"
-								:options="pageOptions"
-								class="row-page"
-							></b-form-select
-							><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
-						</label>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-md-3 d-flex justify-content-end">
-					<div class="text-center mr-1">
-						<router-link to="/admin/addUser">
-							<b-button v-b-modal.modal-center variant="success"
-								><i class="fa fa-plus"></i>&nbsp; Admin</b-button
-							>
-						</router-link>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-10">
-				<label class="d-inline-flex align-items-top">
-					<EllipsisLoader :loading="loading"></EllipsisLoader>
-				</label>
-			</div>
-			<div class="table-responsive">
-				<b-table
-					:items="dataKata"
-					:fields="fields"
-					responsive="sm"
-					:per-page="perPage"
-					class="text-left"
-					:current-page="currentPage"
-					:sort-by.sync="sortBy"
-					:sort-desc.sync="sortDesc"
-					:filter-included-fields="filterOn"
+	<div class="userAdmin">
+		<!-- start page title -->
+		<div class="row">
+			<div class="col-12">
+				<div
+					class="
+						page-title-box
+						pt-2
+						pb-0
+						d-flex
+						align-items-center
+						justify-content-between
+					"
 				>
-					<!-- @filtered="onFiltered" -->
-					<template v-slot:cell(registered_at)="data">
-						<td>{{ data.item.registered_at | moment }}</td>
-					</template>
+					<!-- <h4 class="mb-0">{{ title }}</h4> -->
+					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
 
-					<template v-slot:cell(last_login)="data">
-						<td>
-							{{ data.item.last_login | moment }}
-						</td>
-					</template>
-
-					<template v-slot:cell(action)="data">
-						<a
-							href="javascript:void(0);"
-							class="mr-3 text-primary"
-							v-b-tooltip.hover
-							data-toggle="tooltip"
-							title="Edit"
-						>
-							<i class="mdi mdi-pencil font-size-18"></i>
-						</a>
-						<a
-							href="javascript:void(0);"
-							class="text-danger"
-							v-b-tooltip.hover
-							title="Delete"
-							@click="deleteKata(data.item._id)"
-						>
-							<i class="mdi mdi-trash-can font-size-18"></i>
-						</a>
-					</template>
-				</b-table>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="dataTables_paginate paging_simple_numbers float-right">
-						<ul class="pagination pagination-rounded mb-0">
-							<!-- pagination -->
-							<b-pagination
-								v-model="currentPage"
-								:total-rows="rows"
-								:per-page="perPage"
-							></b-pagination>
-						</ul>
-					</div>
+					<div class="page-title-right"></div>
 				</div>
 			</div>
 		</div>
+		<b-card>
+			<div class="card-title">
+				<h4 class="mb-0">User Management</h4>
+			</div>
+			<b-tabs content-class="mt-3" fill>
+				<b-tab title="Kamus Utama" active>
+					<div class="card-body pt-0">
+						<div class="row justify-content-between">
+							<div class="col-sm-12 col-md-6">
+								<!-- Search -->
+								<div
+									id="tickets-table_filter"
+									class="dataTables_filter text-md-left"
+								>
+									<label class="d-inline-flex align-items-center">
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
+									</label>
+								</div>
+								<!-- End search -->
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<div
+									id="tickets-table_length"
+									class="dataTables_length text-md-right"
+								>
+									<label class="d-inline-flex align-items-center">
+										Show&nbsp;
+										<b-form-select
+											v-model="perPage"
+											size="sm"
+											:options="pageOptions"
+											class="row-page"
+										></b-form-select
+										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+									</label>
+								</div>
+
+								<!-- Search -->
+								<!-- <div class="col-sm-12 col-md-4">
+					<div
+						id="tickets-table_filter"
+						class="dataTables_filter text-md-right"
+					>
+						<label class="d-inline-flex align-items-center">
+							Search:
+							<b-form-input
+								type="search"
+								class="form-control form-control-sm ml-2"
+							></b-form-input>
+						</label>
+					</div>
+				</div> -->
+								<!-- End search -->
+							</div>
+						</div>
+						<EllipsisLoader :loading="loading"></EllipsisLoader>
+						<div class="table-responsive">
+							<b-table
+								:items="dataKata"
+								:fields="fields"
+								responsive="sm"
+								:per-page="perPage"
+								class="text-left"
+								:current-page="currentPage"
+								:sort-by.sync="sortBy"
+								:sort-desc.sync="sortDesc"
+								:filter-included-fields="filterOn"
+							>
+								<!-- @filtered="onFiltered" -->
+								<template v-slot:cell(registered_at)="data">
+									<td style="border-top: none">
+										{{ data.item.registered_at | moment }}
+									</td>
+								</template>
+
+								<template v-slot:cell(last_login)="data">
+									<td style="border-top: none">
+										{{ data.item.last_login | moment }}
+									</td>
+								</template>
+
+								<template v-slot:cell(action)="data">
+									<a
+										href="javascript:void(0);"
+										class="mr-3 text-primary"
+										v-b-tooltip.hover
+										data-toggle="tooltip"
+										title="Edit"
+									>
+										<i class="mdi mdi-pencil font-size-18"></i>
+									</a>
+									<a
+										href="javascript:void(0);"
+										class="text-danger"
+										v-b-tooltip.hover
+										title="Delete"
+										@click="deleteKata(data.item.id)"
+									>
+										<i class="mdi mdi-trash-can font-size-18"></i>
+									</a>
+								</template>
+							</b-table>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div
+									class="dataTables_paginate paging_simple_numbers float-right"
+								>
+									<ul class="pagination pagination-rounded mb-0">
+										<!-- pagination -->
+										<b-pagination
+											v-model="currentPage"
+											:total-rows="rows"
+											:per-page="perPage"
+										></b-pagination>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</b-tab>
+				<b-tab title="Add user">
+					<Tambah></Tambah>
+				</b-tab>
+			</b-tabs>
+		</b-card>
 	</div>
 </template>
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
+import Tambah from "./addUser.vue";
 import moment from "moment";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-// import { FormWizard, TabContent } from "vue-form-wizard";
-
 export default {
-	// page: {
-	// 	title: "Form Wizard",
-	// 	meta: [{ name: "description" }],
-	// },
 	data() {
 		return {
 			getKamusUrl: "",
 			loading: false,
 			text: "",
-			// kata: "",
-			// makna: "",
-			ket: "",
-			title: "Form Wizard",
 			items: [
 				{
-					text: "Forms",
-					href: "/",
+					text: "Admin",
 				},
 				{
-					text: "Form Wizard",
+					text: "Administrator",
 					active: true,
 				},
 			],
@@ -132,14 +180,14 @@ export default {
 			dataKata: [],
 			totalRows: 1,
 			currentPage: 1,
-			perPage: 5,
-			pageOptions: [5, 10, 25, 50],
+			perPage: 10,
+			pageOptions: [10, 25, 50, 100],
 			filter: null,
 			filterOn: [],
 			sortBy: "Terdaftar",
 			sortDesc: false,
 			fields: [
-				{ key: "id", sortable: true, label: "ID" },
+				// { key: "id", sortable: true, label: "ID" },
 				{ key: "username", sortable: true, label: "Nama" },
 				{ key: "email", sortable: true, label: "E-Mail" },
 				{ key: "registered_at", sortable: true, label: "Terdaftar" },
@@ -156,6 +204,7 @@ export default {
 	},
 	components: {
 		EllipsisLoader,
+		Tambah,
 	},
 	computed: {
 		/** Total no. of records */
@@ -192,13 +241,14 @@ export default {
 		async deleteKata(id) {
 			console.log(id);
 			try {
-				await axios.delete(`http://localhost:3002/kamus/${id}`);
+				await axios.delete(this.getKamusUrl + `/${id}`);
 				this.getKamus();
 				Swal.fire({
 					icon: "info",
 					title: "Word Deleted",
 					text: "Successfully deleted word!",
 				});
+				this.getKamus();
 			} catch (err) {
 				console.log(err);
 			}
@@ -217,8 +267,15 @@ export default {
 	width: 100px;
 }
 
+input {
+	height: 40px;
+	padding: 5px 10px;
+	max-height: 45px !important;
+}
+
 .lds-ellipsis {
-	position: absolute;
-	margin-top: 50px;
+	position: absolute !important;
+	margin-top: 80px;
+	left: 50%;
 }
 </style>

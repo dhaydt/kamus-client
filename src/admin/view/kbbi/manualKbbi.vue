@@ -1,8 +1,22 @@
 <template>
-	<div class="card-body">
+	<div class="card-body pt-0">
 		<div class="row justify-content-between">
-			<div class="col-sm-12 col-md-12">
-				<div id="tickets-table_length" class="dataTables_length">
+			<div class="col-sm-12 col-md-6">
+				<!-- Search -->
+				<div id="tickets-table_filter" class="dataTables_filter text-md-left">
+					<label class="d-inline-flex align-items-center">
+						Search:
+						<b-form-input
+							type="search"
+							id="search"
+							class="form-control form-control-sm ml-2"
+						></b-form-input>
+					</label>
+				</div>
+				<!-- End search -->
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="tickets-table_length" class="dataTables_length text-md-right">
 					<label class="d-inline-flex align-items-center">
 						Show&nbsp;
 						<b-form-select
@@ -32,29 +46,8 @@
 				</div> -->
 				<!-- End search -->
 			</div>
-
-			<!-- <div class="col-sm-6 col-md-3 d-flex justify-content-end">
-				<div class="text-center mr-1">
-					<router-link to="/admin/addMultiple">
-						<b-button v-b-modal.modal-center variant="success"
-							><i class="fa fa-plus"></i>&nbsp; Kata</b-button
-						>
-					</router-link>
-				</div>
-
-				<div class="text-center">
-					<router-link to="/admin/addword">
-						<b-button variant="success">&nbsp;Scrape</b-button></router-link
-					>
-				</div>
-			</div> -->
 		</div>
-
-		<div class="col-md-10">
-			<label class="d-inline-flex align-items-top">
-				<EllipsisLoader :loading="loading"></EllipsisLoader>
-			</label>
-		</div>
+		<EllipsisLoader :loading="loading"></EllipsisLoader>
 		<div class="table-responsive">
 			<b-table
 				:items="dataKata"
@@ -69,11 +62,11 @@
 			>
 				<!-- @filtered="onFiltered" -->
 				<template v-slot:cell(keterangan)="data">
-					<td v-html="data.item.keterangan"></td>
+					<td v-html="data.item.keterangan" class="no-border"></td>
 				</template>
 
 				<template v-slot:cell(view)="data">
-					<td v-html="data.item.view / 2"></td>
+					<td v-html="data.item.view / 2" class="no-border"></td>
 				</template>
 
 				<template v-slot:cell(action)="data">
@@ -128,8 +121,8 @@ export default {
 			jumlahData: null,
 			totalRows: 1,
 			currentPage: 1,
-			perPage: 5,
-			pageOptions: [5, 10, 25, 50],
+			perPage: 10,
+			pageOptions: [10, 25, 50, 100],
 			filter: null,
 			filterOn: [],
 			sortBy: "ID",
@@ -205,6 +198,7 @@ export default {
 
 		// Delete Product
 		async deleteKata(id) {
+			this.loading = true;
 			console.log(id);
 			try {
 				await axios.delete(this.getKamusUrl + `/${id}`);
@@ -214,6 +208,7 @@ export default {
 					title: "Word Deleted",
 					text: "Successfully deleted word!",
 				});
+				this.loading = false;
 			} catch (err) {
 				console.log(err);
 			}

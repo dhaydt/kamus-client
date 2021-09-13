@@ -5,7 +5,7 @@
 		</div>
 		<div class="box-slice">
 			<div class="box-detail-single">
-				<h1>Arti Nama {{ kata }} dalam database KBBI Kamus Bahasa Indonesia</h1>
+				<h1>Arti Kata {{ kata }}</h1>
 			</div>
 			<div class="cardIklan box-slice p-0">
 				<img
