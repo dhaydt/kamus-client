@@ -173,9 +173,8 @@ export default {
 
 	mounted() {
 		const getImg = this.backendUrl + "/images/client/";
-		const dataIklan = JSON.parse(localStorage.atasJudul);
-		console.log(dataIklan);
-		this.iklan1 = getImg + dataIklan[0].images;
+		const dataIklan = JSON.parse(localStorage.dataIklan);
+		this.iklan1 = getImg + dataIklan.atasJudul[0].images;
 	},
 
 	methods: {
