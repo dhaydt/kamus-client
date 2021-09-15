@@ -172,7 +172,7 @@ export default {
 				this.cariDi = "Istiilah";
 			} else if (kamus == "artiNama") {
 				this.cariDi = "Arti Nama";
-			} else if (kamus == "engin") {
+			} else if (kamus == "engInd") {
 				this.cariDi = "Eng - Ind";
 			} else {
 				this.cariDi = "Ind - Eng";
@@ -275,12 +275,13 @@ export default {
 				} catch (err) {
 					console.log("nama", err);
 				}
-			} else if (kamus === "engin") {
+			} else if (kamus === "engInd") {
 				try {
 					const resp = await axios.get(
 						backend + this.findUrl.eng + this.keyword
 					);
 					const nama = resp.data;
+					console.log(nama);
 					const row = nama.engin.length;
 
 					if (row === 0) {
@@ -369,7 +370,7 @@ export default {
 						this.mainUrl + this.findUrl.nama + this.kata
 					);
 					this.dataKata = res.data;
-				} else if (this.bidang === "engin") {
+				} else if (this.bidang === "engInd") {
 					const res = await axios.get(
 						this.mainUrl + this.findUrl.eng + this.kata
 					);
