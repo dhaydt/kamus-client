@@ -72,6 +72,15 @@
 					<template v-slot:cell(action)="data">
 						<a
 							href="javascript:void(0);"
+							class="mr-3 text-primary"
+							v-b-tooltip.hover
+							data-toggle="tooltip"
+							title="Edit"
+						>
+							<i class="mdi mdi-pencil font-size-18"></i>
+						</a>
+						<a
+							href="javascript:void(0);"
 							class="text-danger"
 							v-b-tooltip.hover
 							title="Delete"

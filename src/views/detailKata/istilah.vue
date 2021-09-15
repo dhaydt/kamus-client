@@ -1,12 +1,7 @@
 <template>
 	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
-			<img
-				:src="iklan4"
-				class="iklanLandscape"
-				v-if="iklan4"
-				alt="Slot Iklan"
-			/>
+			<img :src="iklan" class="iklanLandscape" v-if="iklan" alt="Slot Iklan" />
 		</div>
 		<div class="box-slice">
 			<div class="box-detail-single">
@@ -27,10 +22,18 @@
 
 			<h2>Arti Istilah {{ kata }}</h2>
 
-			<p v-for="kata in dataKata.istilah" :key="kata.id_glos">
-				<strong class="txt-trans">{{ kata.judul_glos }}</strong
-				>: <span v-html="kata.isi_glos"></span>
-			</p>
+			<div v-for="kata in dataKata.istilah" :key="kata.id_glos">
+				<div class="d-flex flex-column mb-4">
+					<div class="d-flex">
+						<strong class="txt-trans">{{ kata.judul_glos }} </strong>:&nbsp;
+						<span v-html="kata.isi_glos"></span>
+					</div>
+					<div class="d-flex">
+						<strong class="txt-trans">Bidang </strong>:&nbsp;
+						<span v-html="kata.bid_glos"></span>
+					</div>
+				</div>
+			</div>
 
 			<div class="cardIklan box-slice p-0">
 				<img
@@ -111,6 +114,7 @@ export default {
 	props: ["dataKata", "kata", "dataIklan"],
 	data() {
 		return {
+			iklan: "",
 			iklan1: "",
 			iklan2: "",
 			iklan3: "",
@@ -130,10 +134,11 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
-		this.iklan1 = getImg + this.dataIklan[2].images;
-		this.iklan2 = getImg + this.dataIklan[3].images;
-		this.iklan3 = getImg + this.dataIklan[4].images;
-		this.iklan4 = getImg + this.dataIklan[5].images;
+		this.iklan = getImg + this.dataIklan.atasJudul[0].images;
+		this.iklan1 = getImg + this.dataIklan.bawahJudul[0].images;
+		this.iklan2 = getImg + this.dataIklan.atasRelated[0].images;
+		this.iklan3 = getImg + this.dataIklan.atasLainnya[0].images;
+		this.iklan4 = getImg + this.dataIklan.atasShared[0].images;
 	},
 };
 </script>

@@ -1,43 +1,9 @@
 <template>
 	<div>
 		<!-- start page title -->
-		<div class="row">
-			<div class="col-12">
-				<div
-					class="
-						page-title-box
-						pt-2
-						pb-0
-						d-flex
-						align-items-center
-						justify-content-between
-					"
-				>
-					<!-- <h4 class="mb-0">{{ title }}</h4> -->
-					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
-
-					<div class="page-title-right">
-						<!-- <div id="tickets-table_length" class="dataTables_length">
-							<label class="d-inline-flex align-items-center">
-								Show&nbsp;
-								<b-form-select
-									v-model="perPage"
-									size="sm"
-									:options="pageOptions"
-									class="row-page"
-								></b-form-select
-								><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
-							</label>
-						</div> -->
-					</div>
-				</div>
-			</div>
-		</div>
+		<Header :title="title"></Header>
 		<!-- end page title -->
 		<b-card>
-			<div class="card-title">
-				<h4 class="mb-0">Terjemahan Inggris - Indonesia</h4>
-			</div>
 			<b-tabs content-class="mt-3" fill>
 				<b-tab title="Kamus Utama" active>
 					<div class="card-body pt-0">
@@ -49,11 +15,16 @@
 									class="dataTables_filter text-md-left"
 								>
 									<label class="d-inline-flex align-items-center">
-										Search:
-										<b-form-input
-											type="search"
-											class="form-control form-control-sm ml-2"
-										></b-form-input>
+										Show&nbsp;
+										<b-form-select
+											v-model="perPage"
+											size="sm"
+											:options="pageOptions"
+											class="row-page"
+										></b-form-select
+										><em style="color: #a4a6ab">
+											&nbsp;From {{ jumlahData }} data</em
+										>
 									</label>
 								</div>
 								<!-- End search -->
@@ -64,14 +35,11 @@
 									class="dataTables_length text-md-right"
 								>
 									<label class="d-inline-flex align-items-center">
-										Show&nbsp;
-										<b-form-select
-											v-model="perPage"
-											size="sm"
-											:options="pageOptions"
-											class="row-page"
-										></b-form-select
-										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+										Search:
+										<b-form-input
+											type="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
 									</label>
 								</div>
 							</div>
@@ -143,6 +111,7 @@
 </template>
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
+import Header from "../../components/page-header.vue";
 import axios from "axios";
 import Tambah from "./addEng.vue";
 import Manual from "./manualEngin.vue";
@@ -151,19 +120,7 @@ import Swal from "sweetalert2";
 export default {
 	data() {
 		return {
-			title: "English -> Indonesian",
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "Translate",
-				},
-				{
-					text: "ENG - IND",
-					active: true,
-				},
-			],
+			title: "Inggris - Indonesia",
 			getEngUrl: "",
 			loading: "",
 			dataKata: [],
@@ -178,8 +135,8 @@ export default {
 			sortDesc: false,
 			fields: [
 				{ key: "id", sortable: true, label: "ID" },
-				{ key: "judul_artikel", sortable: true, label: "English" },
-				{ key: "isi_artikel", sortable: true, label: "Indonesian" },
+				{ key: "judul_artikel", sortable: true, label: "Inggris" },
+				{ key: "isi_artikel", sortable: true, label: "Indonesia" },
 				{ key: "view", sortable: true, label: "View" },
 				{ key: "action" },
 			],
@@ -195,6 +152,7 @@ export default {
 
 	mounted() {
 		// Set the initial number of items
+		this.$root.$on("getKata", this.getEng);
 		this.totalRows = this.dataKata.length;
 	},
 
@@ -202,6 +160,7 @@ export default {
 		EllipsisLoader,
 		Tambah,
 		Manual,
+		Header,
 	},
 
 	computed: {
@@ -248,11 +207,6 @@ export default {
 <style lang="scss" scoped>
 .row-page {
 	width: 100px;
-}
-
-.lds-ellipsis {
-	position: absolute;
-	margin-top: 50px;
 }
 
 .no-border {

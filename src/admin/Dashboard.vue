@@ -103,10 +103,6 @@ export default {
 .main-content {
 	margin-top: 60px;
 }
-
-input {
-	max-height: 45px;
-}
 </style>
 
 <style>
@@ -116,7 +112,14 @@ input {
 
 .lds-ellipsis {
 	position: absolute !important;
-	margin-top: 80px;
-	left: 50%;
+	margin-top: 30px;
+	left: 45%;
+}
+
+#search,
+.input-30 {
+	height: 30px !important;
+	padding: 5px 10px;
+	max-height: 45px !important;
 }
 </style>

@@ -1,28 +1,7 @@
 <template>
 	<div>
-		<div class="row">
-			<div class="col-12">
-				<div
-					class="
-						page-title-box
-						pt-2
-						pb-0
-						d-flex
-						align-items-center
-						justify-content-between
-					"
-				>
-					<!-- <h4 class="mb-0">{{ title }}</h4> -->
-					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
-
-					<div class="page-title-right"></div>
-				</div>
-			</div>
-		</div>
+		<Header :title="title"></Header>
 		<b-card>
-			<div class="card-title">
-				<h4 class="mb-0">Arti Nama</h4>
-			</div>
 			<b-tabs content-class="mt-3" fill>
 				<b-tab title="Kamus Utama" active>
 					<div class="card-body pt-0">
@@ -34,12 +13,16 @@
 									class="dataTables_filter text-md-left"
 								>
 									<label class="d-inline-flex align-items-center">
-										Search:
-										<b-form-input
-											type="search"
-											id="search"
-											class="form-control form-control-sm ml-2"
-										></b-form-input>
+										Show&nbsp;
+										<b-form-select
+											v-model="perPage"
+											size="sm"
+											:options="pageOptions"
+											class="row-page"
+										></b-form-select
+										><em style="color: #a4a6ab">
+											&nbsp;From {{ jumlahData }} data</em
+										>
 									</label>
 								</div>
 								<!-- End search -->
@@ -50,14 +33,12 @@
 									class="dataTables_length text-md-right"
 								>
 									<label class="d-inline-flex align-items-center">
-										Show&nbsp;
-										<b-form-select
-											v-model="perPage"
-											size="sm"
-											:options="pageOptions"
-											class="row-page"
-										></b-form-select
-										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
 									</label>
 								</div>
 
@@ -100,6 +81,15 @@
 								<template v-slot:cell(action)="data">
 									<a
 										href="javascript:void(0);"
+										class="mr-3 text-primary"
+										v-b-tooltip.hover
+										data-toggle="tooltip"
+										title="Edit"
+									>
+										<i class="mdi mdi-pencil font-size-18"></i>
+									</a>
+									<a
+										href="javascript:void(0);"
 										class="text-danger"
 										v-b-tooltip.hover
 										title="Delete"
@@ -137,6 +127,7 @@
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
 import axios from "axios";
+import Header from "../../components/page-header.vue";
 import Swal from "sweetalert2";
 import Tambah from "./namaAdd.vue";
 import Manual from "./manualNama.vue";
@@ -146,15 +137,6 @@ export default {
 		return {
 			getNamaUrl: "",
 			title: "Arti Nama",
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "Arti nama",
-					active: true,
-				},
-			],
 			loading: "",
 			dataKata: [],
 			jumlahData: null,
@@ -193,6 +175,7 @@ export default {
 		EllipsisLoader,
 		Tambah,
 		Manual,
+		Header,
 	},
 
 	computed: {

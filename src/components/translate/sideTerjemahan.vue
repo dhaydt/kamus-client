@@ -73,9 +73,9 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
-		this.iklan1 = getImg + this.dataIklan[0].images;
-		this.iklan2 = getImg + this.dataIklan[2].images;
-		this.iklan3 = getImg + this.dataIklan[3].images;
+		this.iklan1 = getImg + this.dataIklan.sideAtas[0].images;
+		this.iklan2 = getImg + this.dataIklan.sideTengah[0].images;
+		this.iklan3 = getImg + this.dataIklan.sideBawah[0].images;
 		this.randomKata = JSON.parse(localStorage.randomKata);
 	},
 };

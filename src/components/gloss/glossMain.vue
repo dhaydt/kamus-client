@@ -154,8 +154,8 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
-		this.iklan1 = getImg + this.dataIklan[3].images;
-		this.iklan2 = getImg + this.dataIklan[4].images;
+		this.iklan1 = getImg + this.dataIklan.atasJudul[0].images;
+		this.iklan2 = getImg + this.dataIklan.atasShared[0].images;
 	},
 };
 </script>

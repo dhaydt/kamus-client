@@ -176,7 +176,8 @@ export default {
 					console.log("berhasil");
 					this.loading = false;
 					this.success = "Berhasil Mendaftarkan Admin!!!";
-					this.$router.push("/admin/user");
+					this.$root.$emit("getUser");
+					// this.$router.push("/admin/user");
 				} catch (err) {
 					console.log(err);
 					this.loading = false;

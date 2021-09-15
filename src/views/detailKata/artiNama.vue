@@ -141,11 +141,11 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
-		this.iklan1 = getImg + this.dataIklan[7].images;
-		this.iklan2 = getImg + this.dataIklan[4].images;
-		this.iklan3 = getImg + this.dataIklan[2].images;
-		this.iklan4 = getImg + this.dataIklan[0].images;
-		this.iklan = getImg + this.dataIklan[5].images;
+		this.iklan = getImg + this.dataIklan.atasJudul[0].images;
+		this.iklan1 = getImg + this.dataIklan.bawahJudul[0].images;
+		this.iklan2 = getImg + this.dataIklan.atasRelated[0].images;
+		this.iklan3 = getImg + this.dataIklan.atasLainnya[0].images;
+		this.iklan4 = getImg + this.dataIklan.atasShared[0].images;
 	},
 };
 </script>

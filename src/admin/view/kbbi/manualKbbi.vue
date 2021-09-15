@@ -5,19 +5,6 @@
 				<!-- Search -->
 				<div id="tickets-table_filter" class="dataTables_filter text-md-left">
 					<label class="d-inline-flex align-items-center">
-						Search:
-						<b-form-input
-							type="search"
-							id="search"
-							class="form-control form-control-sm ml-2"
-						></b-form-input>
-					</label>
-				</div>
-				<!-- End search -->
-			</div>
-			<div class="col-sm-12 col-md-6">
-				<div id="tickets-table_length" class="dataTables_length text-md-right">
-					<label class="d-inline-flex align-items-center">
 						Show&nbsp;
 						<b-form-select
 							v-model="perPage"
@@ -25,7 +12,20 @@
 							:options="pageOptions"
 							class="row-page"
 						></b-form-select
-						><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+						><em style="color: #a4a6ab"> &nbsp;From {{ jumlahData }} data</em>
+					</label>
+				</div>
+				<!-- End search -->
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div id="tickets-table_length" class="dataTables_length text-md-right">
+					<label class="d-inline-flex align-items-center">
+						Search:
+						<b-form-input
+							type="search"
+							id="search"
+							class="form-control form-control-sm ml-2"
+						></b-form-input>
 					</label>
 				</div>
 
@@ -70,7 +70,7 @@
 				</template>
 
 				<template v-slot:cell(action)="data">
-					<!-- <a
+					<a
 						href="javascript:void(0);"
 						class="mr-3 text-primary"
 						v-b-tooltip.hover
@@ -78,7 +78,7 @@
 						title="Edit"
 					>
 						<i class="mdi mdi-pencil font-size-18"></i>
-					</a> -->
+					</a>
 					<a
 						href="javascript:void(0);"
 						class="text-danger"
@@ -131,6 +131,7 @@ export default {
 				{ key: "_id", sortable: true, label: "ID" },
 				{ key: "kata", sortable: true, label: "Kata" },
 				{ key: "keterangan", sortable: true, label: "Makna" },
+				{ key: "tipe", sortable: true, label: "Tipe" },
 				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
 			],

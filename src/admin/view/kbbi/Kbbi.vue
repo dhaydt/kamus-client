@@ -1,28 +1,7 @@
 <template>
 	<div>
-		<div class="row">
-			<div class="col-12">
-				<div
-					class="
-						page-title-box
-						pt-2
-						pb-0
-						d-flex
-						align-items-center
-						justify-content-between
-					"
-				>
-					<!-- <h4 class="mb-0">{{ title }}</h4> -->
-					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
-
-					<div class="page-title-right"></div>
-				</div>
-			</div>
-		</div>
+		<Header :title="title"></Header>
 		<b-card>
-			<div class="card-title">
-				<h4 class="mb-0">Kamus Besar Bahasa Indonesia</h4>
-			</div>
 			<b-tabs content-class="mt-3" fill>
 				<b-tab title="Kamus Utama" active>
 					<div class="card-body pt-0">
@@ -34,12 +13,16 @@
 									class="dataTables_filter text-md-left"
 								>
 									<label class="d-inline-flex align-items-center">
-										Search:
-										<b-form-input
-											type="search"
-											id="search"
-											class="form-control form-control-sm ml-2"
-										></b-form-input>
+										Show&nbsp;
+										<b-form-select
+											v-model="perPage"
+											size="sm"
+											:options="pageOptions"
+											class="row-page"
+										></b-form-select
+										><em style="color: #a4a6ab">
+											&nbsp;From {{ jumlahData }} data</em
+										>
 									</label>
 								</div>
 								<!-- End search -->
@@ -50,14 +33,12 @@
 									class="dataTables_length text-md-right"
 								>
 									<label class="d-inline-flex align-items-center">
-										Show&nbsp;
-										<b-form-select
-											v-model="perPage"
-											size="sm"
-											:options="pageOptions"
-											class="row-page"
-										></b-form-select
-										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2"
+										></b-form-input>
 									</label>
 								</div>
 
@@ -101,8 +82,8 @@
 									<td class="no-border" v-html="data.item.view / 2"></td>
 								</template>
 
-								<template v-slot:cell(action)="data">
-									<!-- <a
+								<template v-slot:cell(action)="data" class="d-flex">
+									<a
 										href="javascript:void(0);"
 										class="mr-3 text-primary"
 										v-b-tooltip.hover
@@ -110,7 +91,7 @@
 										title="Edit"
 									>
 										<i class="mdi mdi-pencil font-size-18"></i>
-									</a> -->
+									</a>
 									<a
 										href="javascript:void(0);"
 										class="text-danger"
@@ -153,6 +134,7 @@
 </template>
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
+import Header from "../../components/page-header.vue";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Manual from "./manualKbbi.vue";
@@ -161,6 +143,7 @@ export default {
 	data() {
 		return {
 			getKamusUrl: "",
+			title: "KBBI Management",
 			loading: false,
 			dataHtml: [],
 			jumlahData: null,
@@ -180,15 +163,6 @@ export default {
 				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
 			],
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "KBBI",
-					active: true,
-				},
-			],
 		};
 	},
 	created() {
@@ -201,6 +175,7 @@ export default {
 		EllipsisLoader,
 		Manual,
 		Tambah,
+		Header,
 	},
 	computed: {
 		/** Total no. of records */
@@ -278,8 +253,8 @@ export default {
 
 .lds-ellipsis {
 	position: absolute !important;
-	margin-top: 80px;
-	left: 50%;
+	margin-top: 30px;
+	left: 45%;
 }
 
 .no-border {

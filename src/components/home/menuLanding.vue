@@ -154,7 +154,14 @@ export default {
 	data() {
 		return {
 			backendUrl: "",
-			getAdUrl: "/getSecondAdv",
+			getAdUrl: "/getAtasJudul",
+			getBJ: "/getBawahJudul",
+			getAR: "/getAtasRelated",
+			getAL: "/getAtasLainnya",
+			getAS: "/getAtasShared",
+			getSA: "/getSideAtas",
+			getST: "/getSideTengah",
+			getSB: "/getSideBawah",
 			iklan1: "",
 		};
 	},
@@ -166,18 +173,48 @@ export default {
 
 	mounted() {
 		const getImg = this.backendUrl + "/images/client/";
-		const dataIklan = JSON.parse(localStorage.dataIklan);
+		const dataIklan = JSON.parse(localStorage.atasJudul);
 		console.log(dataIklan);
 		this.iklan1 = getImg + dataIklan[0].images;
 	},
 
 	methods: {
 		async getIklan() {
-			const resp = await axios.get(this.backendUrl + this.getAdUrl);
-			const data = resp.data[1].images;
-			const share = JSON.stringify(resp.data);
+			const resAj = await axios.get(this.backendUrl + this.getAdUrl);
+			const AJ = resAj.data;
+
+			const resBj = await axios.get(this.backendUrl + this.getBJ);
+			const BJ = resBj.data;
+
+			const resAr = await axios.get(this.backendUrl + this.getAR);
+			const AR = resAr.data;
+
+			const resAl = await axios.get(this.backendUrl + this.getAL);
+			const AL = resAl.data;
+
+			const resAs = await axios.get(this.backendUrl + this.getAS);
+			const AS = resAs.data;
+
+			const resSa = await axios.get(this.backendUrl + this.getSA);
+			const SA = resSa.data;
+			const resSt = await axios.get(this.backendUrl + this.getST);
+			const ST = resSt.data;
+			const resSb = await axios.get(this.backendUrl + this.getSB);
+			const SB = resSb.data;
+
+			const dataIklan = {
+				atasJudul: AJ,
+				bawahJudul: BJ,
+				atasRelated: AR,
+				atasLainnya: AL,
+				atasShared: AS,
+				sideAtas: SA,
+				sideTengah: ST,
+				sideBawah: SB,
+			};
+			const share = JSON.stringify(dataIklan);
 			localStorage.setItem("dataIklan", share);
-			this.iklanImage = this.backendUrl + this.urlImg + data;
+			// this.iklanImage = this.backendUrl + this.urlImg + data;
 			// this.getImageData();
 		},
 

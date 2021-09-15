@@ -31,14 +31,10 @@
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<input
 										type="text"
-										class="form-control"
+										class="form-control input-30"
 										id="nama"
 										v-model="nama.judul_nama"
-										aria-describedby="emailHelp"
 									/>
-									<small id="emailHelp" class="form-text text-muted"
-										>Masukan nama yang akan di tambahkan</small
-									>
 								</div>
 							</div>
 
@@ -50,7 +46,7 @@
 								</div>
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<select
-										class="form-control"
+										class="form-control input-30"
 										required
 										id="kelamin"
 										v-model="nama.kelamin_nama"
@@ -71,7 +67,7 @@
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<input
 										v-model="nama.asal_nama"
-										class="form-control"
+										class="form-control input-30"
 										id="bidang"
 									/>
 								</div>
@@ -86,7 +82,7 @@
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<input
 										v-model="nama.isi_nama"
-										class="form-control"
+										class="form-control input-30"
 										id="makna"
 									/>
 								</div>

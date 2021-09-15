@@ -145,8 +145,8 @@ export default {
 	created() {
 		this.dataIklan = JSON.parse(localStorage.dataIklan);
 		this.mainUrl = localStorage.mainUrl;
-		const getImg = this.mainUrl + "/images/client/";
-		this.iklan = getImg + this.dataIklan[1].images;
+		// const getImg = this.mainUrl + "/images/client/";
+		// this.iklan = getImg + this.dataIklan[1].images;
 		console.log(this.$route.params.kata);
 		this.kata = this.$route.params.kata;
 		this.bidang = this.$route.params.bidang;
@@ -369,7 +369,7 @@ export default {
 						this.mainUrl + this.findUrl.nama + this.kata
 					);
 					this.dataKata = res.data;
-				} else if (this.bidang === "engInd") {
+				} else if (this.bidang === "engin") {
 					const res = await axios.get(
 						this.mainUrl + this.findUrl.eng + this.kata
 					);

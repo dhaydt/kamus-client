@@ -8,6 +8,14 @@
 				alt="Slot Iklan"
 			/>
 		</div>
+		<div class="ad-container">
+			<InFeedAdsense
+				data-ad-client="ca-pub-9333981154484827"
+				data-ad-slot="5683973304"
+				data-ad-format="auto"
+				data-full-width-responsive="true"
+			></InFeedAdsense>
+		</div>
 		<div class="box-slice">
 			<div class="box-detail-single">
 				<h2>Tentang KBBI daring</h2>
@@ -191,8 +199,8 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
-		this.iklan1 = getImg + this.dataIklan[1].images;
-		this.iklan2 = getImg + this.dataIklan[2].images;
+		this.iklan1 = getImg + this.dataIklan.atasJudul[0].images;
+		this.iklan2 = getImg + this.dataIklan.atasShared[0].images;
 	},
 };
 </script>

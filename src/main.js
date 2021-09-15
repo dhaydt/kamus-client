@@ -17,12 +17,17 @@ import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Ads from "vue-google-adsense";
 
 library.add(faUserSecret);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+Vue.use(require("vue-script2"));
+Vue.use(Ads.Adsense);
+Vue.use(Ads.InArticleAdsense);
+Vue.use(Ads.InFeedAdsense);
 Vue.use(BootstrapVue);
 Vue.use(VueMeta);
 Vue.use(vco);

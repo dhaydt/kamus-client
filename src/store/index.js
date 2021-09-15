@@ -6,12 +6,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    mainUrl: "",
     records: [
       {
         _id: "",
         kata: "",
         keterangan: "",
+        tipe: "",
       },
     ],
 
@@ -30,15 +30,23 @@ export default new Vuex.Store({
       {
         id_glos: "",
         judul_glos: "",
-        bid_glos: "",
+        bid_glos: [],
         isi_glos: "",
-        judul_seo: "",
-        perfix_glos: "",
       },
     ],
 
+    // Indglosarium: [
+    //   {
+    //     id_glos: "",
+    //     judul_glos: "",
+    //     bid_glos: [],
+    //     isi_glos: "",
+    //   },
+    // ],
+
     adv: [
       {
+        id: "",
         title: "",
         image: "",
         detail: "",
@@ -47,6 +55,7 @@ export default new Vuex.Store({
 
     engIn: [
       {
+        id: "",
         judul_artikel: "",
         isi_artikel: "",
       },
@@ -54,6 +63,7 @@ export default new Vuex.Store({
 
     inEng: [
       {
+        id: "",
         judul_artikel: "",
         isi_artikel: "",
       },
@@ -71,6 +81,7 @@ export default new Vuex.Store({
       state.records.push({
         kata: "",
         keterangan: "",
+        tipe: "",
       });
     },
 
@@ -87,12 +98,18 @@ export default new Vuex.Store({
     addGlosRow(state) {
       state.glosarium.push({
         judul_glos: "",
-        bid_glos: "",
+        bid_glos: [],
         isi_glos: "",
-        judul_seo: "",
-        perfix_glos: "",
       });
     },
+
+    // addIndglosariumRow(state) {
+    //   state.Indglosarium.push({
+    //     judul_glos: "",
+    //     bid_glos: [],
+    //     isi_glos: "",
+    //   });
+    // },
 
     addEngin(state) {
       state.engIn.push({

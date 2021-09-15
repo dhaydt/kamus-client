@@ -29,14 +29,29 @@
 							<div class="col-lg-8 col-md-8 col-sm-12">
 								<input
 									type="text"
-									class="form-control"
+									class="form-control input-30"
 									id="kata"
 									v-model="record.kata"
-									aria-describedby="emailHelp"
 								/>
-								<small id="emailHelp" class="form-text text-muted"
-									>Masukan kata yang akan di tambahkan</small
+							</div>
+						</div>
+						<div class="form-group row justify-content-center">
+							<div
+								class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+							>
+								<label for="tipe">Tipe</label>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-12">
+								<select
+									class="form-control input-30"
+									required
+									id="tipe"
+									v-model="record.tipe"
 								>
+									<option value="">-- Tipe --</option>
+									<option value="KBBI">KBBI</option>
+									<option value="Tesaurus">Tesaurus</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center">
@@ -97,6 +112,9 @@ export default {
 			dismissSecs: 5,
 			dismissCountDown: 0,
 			messages: "",
+			record: {
+				tipe: "",
+			},
 			editor: ClassicEditor,
 			editorData:
 				"<h3>Hello World!</h3><h5><b>This is an simple editable area.</b></h5>",
@@ -143,6 +161,7 @@ export default {
 							_id: "",
 							kata: "",
 							keterangan: "",
+							tipe: "",
 						},
 					],
 				};

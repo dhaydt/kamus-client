@@ -32,7 +32,7 @@
 									<input
 										type="text"
 										v-model="kata.judul_artikel"
-										class="form-control"
+										class="form-control input-30"
 										id="kata"
 										placeholder="Masukan kata"
 									/>
@@ -135,6 +135,7 @@ export default {
 				}
 				this.messages = "Kata tersimpan!";
 				this.loading = "";
+				this.$root.$emit("getKata");
 				this.showAlert();
 
 				let state = this.$store;

@@ -22,7 +22,7 @@
 								v-model="formFields.title"
 								type="text"
 								required
-								class="form-control"
+								class="form-control input-30"
 								id="name"
 								placeholder="Nama iklan"
 							/>
@@ -34,14 +34,20 @@
 						</div>
 						<div class="col-lg-8 col-md-8 col-sm-12">
 							<select
-								class="form-control"
+								class="form-control input-30"
 								required
 								id="posisi"
 								v-model="formFields.posisi"
 							>
 								<option value="">-- Posisi --</option>
-								<option value="atas">Atas</option>
-								<option value="bawah">Bawah</option>
+								<option value="atas_judul">Atas Judul</option>
+								<option value="bawah_judul">Bawah Judul</option>
+								<option value="atas_related">Atas Related</option>
+								<option value="atas_lainnya">Atas Lainnya</option>
+								<option value="atas_shared">Atas Shared</option>
+								<option value="side_atas">Side Atas</option>
+								<option value="side_tengah">Side Tengah</option>
+								<option value="side_bawah">Side Bawah</option>
 							</select>
 						</div>
 					</div>
@@ -52,7 +58,7 @@
 						<div class="col-lg-8 col-md-8 col-sm-12">
 							<select
 								v-model="formFields.tipe"
-								class="form-control"
+								class="form-control input-30"
 								required
 								id="tipe"
 							>
@@ -72,52 +78,69 @@
 									class="form-control"
 									id="code"
 									v-model="formFields.code"
-									rows="3"
+									rows="4"
 								></textarea>
-							</div>
-						</div>
-						<div class="start-date form-group row justify-content-center">
-							<div class="col-lg-3 col-md-3 col-sm-12">
-								<label for="start_date">Start date :</label>
-							</div>
-							<div class="col-lg-8 col-md-8 col-sm-12">
-								<b-form-datepicker
-									id="start_date"
-									v-model="formFields.start_date"
-									class="mb-2"
-								></b-form-datepicker>
-							</div>
-						</div>
-
-						<div class="end-date form-group row justify-content-center">
-							<div class="col-lg-3 col-md-3 col-sm-12">
-								<label for="end_date">End date :</label>
-							</div>
-							<div class="col-lg-8 col-md-8 col-sm-12">
-								<b-form-datepicker
-									id="end_date"
-									v-model="formFields.end_date"
-									class="mb-2"
-								></b-form-datepicker>
 							</div>
 						</div>
 					</div>
 
-					<div
-						class="form-group d-flex row justify-content-center"
-						v-if="formFields.tipe == 'image'"
-					>
+					<div class="form-group" v-if="formFields.tipe == 'image'">
+						<div class="form-group d-flex row justify-content-center">
+							<div class="col-lg-3 col-md-3 col-sm-12">
+								<label for="images">Image</label>
+							</div>
+							<div class="col-lg-8 col-md-8 col-sm-12">
+								<input
+									type="file"
+									v-on:change="handleFileUpload()"
+									class="form-control-file"
+									name="images"
+									id="images"
+								/>
+							</div>
+						</div>
+
+						<div class="form-group d-flex row justify-content-center">
+							<div class="col-lg-3 col-md-3 col-sm-12">
+								<label for="url">URL</label>
+							</div>
+
+							<div class="col-lg-8 col-md-8 col-sm-12">
+								<input
+									v-model="formFields.url"
+									type="text"
+									required
+									class="form-control input-30"
+									id="url"
+									placeholder="URL iklan"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div class="start-date form-group row justify-content-center">
 						<div class="col-lg-3 col-md-3 col-sm-12">
-							<label for="images">Image</label>
+							<label for="start_date">Start date :</label>
 						</div>
 						<div class="col-lg-8 col-md-8 col-sm-12">
-							<input
-								type="file"
-								v-on:change="handleFileUpload()"
-								class="form-control-file"
-								name="images"
-								id="images"
-							/>
+							<b-form-datepicker
+								id="start_date"
+								v-model="formFields.start_date"
+								class="mb-2"
+							></b-form-datepicker>
+						</div>
+					</div>
+
+					<div class="end-date form-group row justify-content-center">
+						<div class="col-lg-3 col-md-3 col-sm-12">
+							<label for="end_date">End date :</label>
+						</div>
+						<div class="col-lg-8 col-md-8 col-sm-12">
+							<b-form-datepicker
+								id="end_date"
+								v-model="formFields.end_date"
+								class="mb-2"
+							></b-form-datepicker>
 						</div>
 					</div>
 					<div class="d-flex justify-content-center">
@@ -149,6 +172,7 @@ export default {
 				posisi: "",
 				tipe: "",
 				code: null,
+				url: "",
 				images: null,
 				start_date: null,
 				end_date: null,
@@ -191,6 +215,7 @@ export default {
 			formData.append("posisi", this.formFields.posisi);
 			formData.append("tipe", this.formFields.tipe);
 			formData.append("code", this.formFields.code);
+			formData.append("url", this.formFields.url);
 			formData.append("end_date", this.formFields.end_date);
 			formData.append("start_date", this.formFields.start_date);
 			formData.append("images", this.formFields.images);
@@ -209,6 +234,7 @@ export default {
 			this.formFields.posisi = "";
 			this.formFields.tipe = "";
 			this.formFields.code = "";
+			this.formFields.url = "";
 			this.formFields.start_date = "";
 			this.formFields.end_date = "";
 			this.loading = false;
@@ -227,5 +253,9 @@ export default {
 .card {
 	box-shadow: none;
 	border: none;
+}
+
+textarea.form-control {
+	height: auto !important;
 }
 </style>

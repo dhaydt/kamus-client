@@ -1,53 +1,15 @@
 <template>
 	<div class="advPage">
-		<div class="row">
-			<div class="col-12">
-				<div
-					class="
-						page-title-box
-						pt-2
-						pb-0
-						d-flex
-						align-items-center
-						justify-content-between
-					"
-				>
-					<!-- <h4 class="mb-0">{{ title }}</h4> -->
-					<b-breadcrumb :items="items" class="m-0"></b-breadcrumb>
-
-					<div class="page-title-right"></div>
-				</div>
-			</div>
-		</div>
+		<Header :title="title"></Header>
 		<b-card>
-			<div class="card-title">
-				<h4 class="mb-0">Advertism Management</h4>
-			</div>
 			<b-tabs content-class="mt-3" fill>
-				<b-tab title="Kamus Utama" active>
+				<b-tab title="Advertism List" active>
 					<div class="card-body pt-0">
 						<div class="row justify-content-between">
 							<div class="col-sm-12 col-md-6">
-								<!-- Search -->
-								<div
-									id="tickets-table_filter"
-									class="dataTables_filter text-md-left"
-								>
-									<label class="d-inline-flex align-items-center">
-										Search:
-										<b-form-input
-											type="search"
-											id="search"
-											class="form-control form-control-sm ml-2"
-										></b-form-input>
-									</label>
-								</div>
-								<!-- End search -->
-							</div>
-							<div class="col-sm-12 col-md-6">
 								<div
 									id="tickets-table_length"
-									class="dataTables_length text-md-right"
+									class="dataTables_length text-md-left"
 								>
 									<label class="d-inline-flex align-items-center">
 										Show&nbsp;
@@ -60,6 +22,23 @@
 										><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
 									</label>
 								</div>
+							</div>
+							<div class="col-sm-12 col-md-6">
+								<!-- Search -->
+								<div
+									id="tickets-table_filter"
+									class="dataTables_filter text-md-right"
+								>
+									<label class="d-inline-flex align-items-center">
+										Search:
+										<b-form-input
+											type="search"
+											id="search"
+											class="form-control form-control-sm ml-2 input-30"
+										></b-form-input>
+									</label>
+								</div>
+								<!-- End search -->
 
 								<!-- Search -->
 								<!-- <div class="col-sm-12 col-md-4">
@@ -92,12 +71,12 @@
 								:sort-desc.sync="sortDesc"
 								:filter-included-fields="filterOn"
 							>
-								<template v-slot:cell(images)="data">
+								<!-- <template v-slot:cell(images)="data">
 									<b-avatar
 										:src="getImg + data.item.images"
 										size="6rem"
 									></b-avatar>
-								</template>
+								</template> -->
 								<template v-slot:cell(start_date)="data">
 									<td class="no-border">{{ data.item.start_date | moment }}</td>
 								</template>
@@ -154,6 +133,7 @@
 
 <script>
 import { EllipsisLoader } from "vue-spinners-css";
+import Header from "../../components/page-header.vue";
 import moment from "moment";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -162,13 +142,13 @@ import Tambah from "./addImage.vue";
 export default {
 	data() {
 		return {
+			title: "Advertism Management",
 			getImgUrl: "",
 			getAdvUrl: "",
 			postAdvUrl: "",
 			selectedFiles: undefined,
 			currentFile: undefined,
 			loading: false,
-			progress: 0,
 			message: "",
 			fileInfos: [],
 			jumlahData: null,
@@ -191,20 +171,11 @@ export default {
 				{ key: "title", label: "Judul", sortable: true },
 				{ key: "tipe", label: "Tipe", sortable: true },
 				{ key: "posisi", label: "Posisi", sortable: true },
-				{ key: "code", label: "Code", sortable: true },
-				{ key: "images", label: "Gambar", sortable: true },
+				{ key: "url", label: "Url", sortable: true },
+				// { key: "images", label: "Gambar", sortable: true },
 				{ key: "start_date", label: "Mulai", sortable: true },
 				{ key: "end_date", label: "Berakhir", sortable: true },
 				{ key: "action", label: "Action", sortable: true },
-			],
-			items: [
-				{
-					text: "Admin",
-				},
-				{
-					text: "Advertism",
-					active: true,
-				},
 			],
 		};
 	},
@@ -212,6 +183,7 @@ export default {
 	components: {
 		EllipsisLoader,
 		Tambah,
+		Header,
 	},
 
 	created() {
@@ -273,12 +245,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .no-border {
 	border-top: none !important;
 }
 
-#search {
+#search,
+.input-30 {
 	height: 30px !important;
 	padding: 5px 10px;
 	max-height: 45px !important;
