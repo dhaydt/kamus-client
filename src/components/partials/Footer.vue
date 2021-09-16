@@ -8,7 +8,7 @@
 						<li><router-link to="/about">About Us</router-link></li>
 						<li><router-link to="/disclaimer">Disclaimer</router-link></li>
 						<li><router-link to="/privacy">Privacy Policy</router-link></li>
-						<li><router-link to="contact">Contact Us</router-link></li>
+						<li><router-link to="/contact">Contact Us</router-link></li>
 					</ul>
 				</b-col>
 			</b-row>

@@ -208,7 +208,7 @@ export default {
 	methods: {
 		async getData() {
 			const img = await axios.get(this.getAdvUrl);
-			console.log(img.data.data);
+			// console.log(img.data.data);
 			this.jumlahData = img.data.data.length;
 			this.fileInfos = img.data.data;
 		},

@@ -142,7 +142,6 @@
 
 <script>
 export default {
-	name: "HelloWorld",
 	props: ["dataIklan"],
 	data() {
 		return {

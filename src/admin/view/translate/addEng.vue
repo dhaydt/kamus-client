@@ -67,6 +67,16 @@
 					<div class="d-flex justify-content-end">
 						<button
 							type="button"
+							class="btn btn-outline-danger rounded-circle mr-2"
+							@click="resetVuex"
+							data-toggle="tooltip"
+							data-placement="top"
+							title="Tambah baris"
+						>
+							<i class="fa fa-trash"></i>
+						</button>
+						<button
+							type="button"
 							class="btn btn-success rounded-circle"
 							@click="addEngin"
 							data-toggle="tooltip"
@@ -137,21 +147,81 @@ export default {
 				this.loading = "";
 				this.$root.$emit("getKata");
 				this.showAlert();
-
-				let state = this.$store;
-				let newState = {
-					engIn: [
-						{
-							id: "",
-							judul_artikel: "",
-							isi_artikel: "",
-						},
-					],
-				};
-
-				state.replaceState(newState);
+				this.resetVuex();
 				this.$root.$emit("getKamus");
 			}
+		},
+
+			resetVuex() {
+			let state = this.$store;
+			let newState = {
+				records: [
+					{
+						_id: "",
+						kata: "",
+						keterangan: "",
+						tipe: "",
+					},
+				],
+
+				artiNama: [
+					{
+						id: "",
+						judul_nama: "",
+						kelamin_nama: null,
+						asal_nama: "",
+						isi_nama: "",
+						perfix_nama: "",
+					},
+				],
+
+				glosarium: [
+					{
+						id_glos: "",
+						judul_glos: "",
+						bid_glos: [],
+						isi_glos: "",
+					},
+				],
+
+				Indglosarium: [
+					{
+						id_glos: "",
+						judul_eng_glos: "",
+						judul_ind_glos: "",
+						isi_eng_glos: "",
+						isi_ind_glos: "",
+						bid_glos: [],
+					},
+				],
+
+				adv: [
+					{
+						id: "",
+						title: "",
+						image: "",
+						detail: "",
+					},
+				],
+
+				engIn: [
+					{
+						id: "",
+						judul_artikel: "",
+						isi_artikel: "",
+					},
+				],
+
+				inEng: [
+					{
+						id: "",
+						judul_artikel: "",
+						isi_artikel: "",
+					},
+				],
+			};
+
+			state.replaceState(newState);
 		},
 
 		countDownChanged(dismissCountDown) {

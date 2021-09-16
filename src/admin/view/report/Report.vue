@@ -179,7 +179,7 @@ export default {
 	methods: {
 		async getReport() {
 			const report = await axios.get(this.getReportUrl);
-			console.log(report.data);
+			// console.log(report.data);
 			this.dataKata = report.data;
 			this.loading = false;
 			this.jumlahData = report.data.length;

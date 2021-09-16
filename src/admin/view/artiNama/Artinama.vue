@@ -36,7 +36,9 @@
 										Search:
 										<b-form-input
 											type="search"
+											v-model="filter"
 											id="search"
+											placeholder="search..."
 											class="form-control form-control-sm ml-2"
 										></b-form-input>
 									</label>

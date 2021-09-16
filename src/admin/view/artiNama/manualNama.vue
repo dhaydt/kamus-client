@@ -6,12 +6,14 @@
 					<!-- Search -->
 					<div id="tickets-table_filter" class="dataTables_filter text-md-left">
 						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								id="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
+							Show&nbsp;
+							<b-form-select
+								v-model="perPage"
+								size="sm"
+								:options="pageOptions"
+								class="row-page"
+							></b-form-select
+							><em style="color: #a4a6ab"> &nbsp;From {{ jumlahData }} data</em>
 						</label>
 					</div>
 					<!-- End search -->
@@ -22,14 +24,13 @@
 						class="dataTables_length text-md-right"
 					>
 						<label class="d-inline-flex align-items-center">
-							Show&nbsp;
-							<b-form-select
-								v-model="perPage"
-								size="sm"
-								:options="pageOptions"
-								class="row-page"
-							></b-form-select
-							><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+							Search:
+							<b-form-input
+								type="search"
+								v-model="filter"
+								id="search"
+								class="form-control form-control-sm ml-2"
+							></b-form-input>
 						</label>
 					</div>
 

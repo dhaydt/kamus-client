@@ -72,14 +72,13 @@
 							@filtered="onFiltered"
 						>
 							<template v-slot:cell(isi_glos)="data">
-								<td
-									class="no-border"
-									v-html="JSON.parse(JSON.stringify(data.item.isi_glos))"
-								></td>
+								<td class="no-border" v-html="data.item.isi_glos"></td>
 							</template>
 
-							<template v-slot:cell(Bidang)="data">
-								<td>{{ JSON.parse(data.item.bid_glos) }}</td>
+							<template v-slot:cell(bid_glos)="data">
+								<td class="no-border">
+									{{ JSON.parse(data.item.bid_glos)[0] }}
+								</td>
 							</template>
 
 							<template v-slot:cell(view)="data">
@@ -187,19 +186,8 @@ export default {
 				const dataHtml = response.data;
 				this.jumlahData = response.data.length;
 
-				String.prototype.escapeSpecialChars = function () {
-					return this.replace(/\\n/g, "\\n")
-						.replace(/\\'/g, "\\'")
-						.replace(/\\"/g, '\\"')
-						.replace(/\\&/g, "\\&")
-						.replace(/\\r/g, "\\r")
-						.replace(/\\t/g, "\\t");
-				};
-
-				var myJSONString = JSON.stringify(dataHtml);
-				var myEscapedJSONString = myJSONString.escapeSpecialChars();
 				this.loading = false;
-				this.dataKata = JSON.parse(myEscapedJSONString);
+				this.dataKata = dataHtml;
 			} catch (err) {
 				console.log(err);
 			}

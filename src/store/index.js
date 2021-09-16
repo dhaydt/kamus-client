@@ -35,14 +35,16 @@ export default new Vuex.Store({
       },
     ],
 
-    // Indglosarium: [
-    //   {
-    //     id_glos: "",
-    //     judul_glos: "",
-    //     bid_glos: [],
-    //     isi_glos: "",
-    //   },
-    // ],
+    Indglosarium: [
+      {
+        id_glos: "",
+        judul_eng_glos: "",
+        judul_ind_glos: "",
+        isi_eng_glos: "",
+        isi_ind_glos: "",
+        bid_glos: [],
+      },
+    ],
 
     adv: [
       {
@@ -103,13 +105,15 @@ export default new Vuex.Store({
       });
     },
 
-    // addIndglosariumRow(state) {
-    //   state.Indglosarium.push({
-    //     judul_glos: "",
-    //     bid_glos: [],
-    //     isi_glos: "",
-    //   });
-    // },
+    addIndglosariumRow(state) {
+      state.Indglosarium.push({
+        judul_eng_glos: "",
+        judul_ind_glos: "",
+        isi_eng_glos: "",
+        isi_ind_glos: "",
+        bid_glos: [],
+      });
+    },
 
     addEngin(state) {
       state.engIn.push({

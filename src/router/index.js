@@ -40,6 +40,27 @@ const routes = [
         name: "terjemahan",
         component: () => import("../views/Terjemahan.vue"),
       },
+      {
+        path: "/about",
+        name: "about",
+        component: () => import("../components/footer/about/About.vue"),
+      },
+      {
+        path: "/disclaimer",
+        name: "disclaimer",
+        component: () =>
+          import("../components/footer/disclaimer/Disclaimer.vue"),
+      },
+      {
+        path: "/privacy",
+        name: "privacy",
+        component: () => import("../components/footer/privacy/Privacy.vue"),
+      },
+      {
+        path: "/contact",
+        name: "contact",
+        component: () => import("../components/footer/contact/Contact.vue"),
+      },
       // {
       //   path: "/engin",
       //   name: "EngIn",

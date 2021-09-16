@@ -37,6 +37,7 @@
 										<b-form-input
 											type="search"
 											id="search"
+											v-model="filter"
 											class="form-control form-control-sm ml-2"
 										></b-form-input>
 									</label>
@@ -71,7 +72,9 @@
 								:current-page="currentPage"
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
+								:filter="filter"
 								:filter-included-fields="filterOn"
+								@filtered="onFiltered"
 							>
 								<!-- @filtered="onFiltered" -->
 								<template v-slot:cell(keterangan)="data">
@@ -193,7 +196,13 @@ export default {
 			clearTimeout(this.$_timeout);
 			this.$_timeout = setTimeout(() => {
 				this.criteria = val;
-			}, 150); // set this value to your preferred debounce timeout
+			}, 3000); // set this value to your preferred debounce timeout
+		},
+
+		onFiltered(filteredItems) {
+			// Trigger pagination to upkata the number of buttons/pages due to filtering
+			this.totalRows = filteredItems.length;
+			this.currentPage = 1;
 		},
 
 		async getKamus() {

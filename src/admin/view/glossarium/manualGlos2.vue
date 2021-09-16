@@ -66,10 +66,15 @@
 				>
 					<!-- @filtered="onFiltered" -->
 					<template v-slot:cell(bid_glos)="data">
-						<td class="no-border">{{ JSON.parse(data.item.bid_glos) }}</td>
+						<td class="no-border">
+							{{ JSON.parse(data.item.bid_glos)[0] }}
+						</td>
 					</template>
-					<template v-slot:cell(isi_glos)="data">
-						<td class="no-border" v-html="data.item.isi_glos"></td>
+					<template v-slot:cell(isi_eng_glos)="data">
+						<td class="no-border" v-html="data.item.isi_eng_glos"></td>
+					</template>
+					<template v-slot:cell(isi_ind_glos)="data">
+						<td class="no-border" v-html="data.item.isi_ind_glos"></td>
 					</template>
 
 					<template v-slot:cell(view)="data">
@@ -91,7 +96,7 @@
 							class="text-danger"
 							v-b-tooltip.hover
 							title="Delete"
-							@click="deleteKata(data.item._id)"
+							@click="deleteKata(data.item.id_glos)"
 						>
 							<i class="mdi mdi-trash-can font-size-18"></i>
 						</a>
@@ -138,10 +143,11 @@ export default {
 			sortDesc: false,
 			fields: [
 				{ key: "id_glos", sortable: true, label: "ID" },
-				{ key: "judul_glos", sortable: true, label: "Istilah" },
+				{ key: "judul_eng_glos", sortable: true, label: "Inggris" },
+				{ key: "judul_ind_glos", sortable: true, label: "Indonesia" },
 				{ key: "bid_glos", sortable: true, label: "Bidang" },
-				{ key: "bahasa", sortable: true, label: "Bahasa" },
-				{ key: "isi_glos", sortable: true, label: "Makna" },
+				{ key: "isi_eng_glos", sortable: true, label: "Makna Eng" },
+				{ key: "isi_ind_glos", sortable: true, label: "Makna Ind" },
 				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
 			],
@@ -173,7 +179,7 @@ export default {
 			clearTimeout(this.$_timeout);
 			this.$_timeout = setTimeout(() => {
 				this.criteria = val;
-			}, 150); // set this value to your preferred debounce timeout
+			}, 1500); // set this value to your preferred debounce timeout
 		},
 
 		async getKamus() {
@@ -181,25 +187,9 @@ export default {
 				const response = await axios.get(this.getKamusUrl);
 				const dataHtml = response.data;
 				this.jumlahData = response.data.length;
-				String.prototype.escapeSpecialChars = function () {
-					return (
-						this.replace(/&lt;\/b&gt;/g, "</b>")
-							/* eslint-disable */
-							.replace(/&lt;b&gt;/g, "<b>")
-							.replace(/&lt;\/sup&gt;/g, "</sup>")
-							.replace(/&lt;sup&gt;/g, "<sup>")
-							.replace(/&lt;\/i&gt;/g, "</i>")
-							.replace(/&lt;i&gt;/g, "<i>")
-							.replace(/&lt;br&gt;/g, "<br>")
-							.replace(/\\b/g, "\\b")
-							.replace(/\\f/g, "\\f")
-					);
-				};
 
-				var myJSONString = JSON.stringify(dataHtml);
-				var myEscapedJSONString = myJSONString.escapeSpecialChars();
 				this.loading = false;
-				this.dataKata = JSON.parse(myEscapedJSONString);
+				this.dataKata = dataHtml;
 			} catch (err) {
 				console.log(err);
 			}

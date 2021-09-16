@@ -173,7 +173,7 @@ export default {
 <template>
 	<!-- ========== Left Sidebar Start ========== -->
 	<div class="vertical-menu">
-		<simplebar class="h-100" ref="currentMenu" id="my-element">
+		<simplebar class="" style="height: 100%" ref="currentMenu" id="my-element">
 			<!--- Sidemenu -->
 			<div id="sidebar-menu">
 				<!-- Left Menu Start -->

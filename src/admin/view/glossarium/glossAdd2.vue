@@ -21,19 +21,35 @@
 				<div class="card-body">
 					<h5 class="card-title">Tambah Istilah Indonesia</h5>
 					<div class="container p-4">
-						<form v-for="glosy in glosarium" :key="glosy.id_glos">
+						<form v-for="glosy in Indglosarium" :key="glosy.id_glos">
 							<div class="form-group row justify-content-center">
 								<div
 									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
 								>
-									<label for="kata">Kata</label>
+									<label for="kata">Kata Inggris</label>
 								</div>
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<input
 										type="text"
 										class="form-control input-30"
-										id="kata"
-										v-model="glosy.judul_glos"
+										id="kataEng"
+										v-model="glosy.judul_eng_glos"
+									/>
+								</div>
+							</div>
+
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="kata">Kata Indonesia</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<input
+										type="text"
+										class="form-control input-30"
+										id="kataInd"
+										v-model="glosy.judul_ind_glos"
 									/>
 								</div>
 							</div>
@@ -48,12 +64,12 @@
 									<b-form-group label="" v-slot="{ ariaDescribedby }">
 										<!-- <input type="text" v-model="glosy.bid_glos" readonly /> -->
 										<b-form-checkbox-group
-											:id="glosy.judul_glos"
+											:id="glosy.judul_eng_glos"
 											v-model="glosy.bid_glos"
 											:options="options"
 											required
 											:aria-describedby="ariaDescribedby"
-											:name="glosy.judul_glos"
+											:name="glosy.judul_eng_glos"
 										></b-form-checkbox-group>
 									</b-form-group>
 								</div>
@@ -62,14 +78,30 @@
 								<div
 									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
 								>
-									<label for="makna">Makna</label>
+									<label for="makna">Makna Inggris</label>
 								</div>
 								<div class="col-lg-8 col-md-8 col-sm-12">
 									<ckeditor
 										:editor="editor"
-										v-model="glosy.isi_glos"
+										v-model="glosy.isi_eng_glos"
 										class="form-control"
-										id="makna"
+										id="maknaEng"
+									/>
+								</div>
+							</div>
+
+							<div class="form-group row justify-content-center">
+								<div
+									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+								>
+									<label for="makna">Makna Indonesia</label>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<ckeditor
+										:editor="editor"
+										v-model="glosy.isi_ind_glos"
+										class="form-control"
+										id="maknaInd"
 									/>
 								</div>
 							</div>
@@ -85,9 +117,18 @@
 					</div>
 					<div class="d-flex justify-content-end">
 						<button
+							class="btn btn-outline-danger rounded-circle mr-2"
+							@click="resetVuex"
+							data-toggle="tooltip"
+							data-placement="left"
+							title="Reset"
+						>
+							<i class="fa fa-trash"></i>
+						</button>
+						<button
 							type="button"
 							class="btn btn-success rounded-circle"
-							@click="addGlosRow"
+							@click="addIndglosariumRow"
 							data-toggle="tooltip"
 							data-placement="top"
 							title="Tambah baris"
@@ -137,10 +178,11 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		this.postUrl = mainUrl + "/postGlos2";
+		// console.log("state", this.$store.commit("glosarium/addGlosRow"));
 	},
 
 	computed: {
-		...mapMultiRowFields(["glosarium"]),
+		...mapMultiRowFields(["Indglosarium"]),
 	},
 	components: {
 		BSpinner,
@@ -148,16 +190,16 @@ export default {
 	},
 
 	methods: {
-		...mapMutations(["addGlosRow"]),
+		...mapMutations(["addIndglosariumRow"]),
 
 		async pushIstilah() {
-			const checker = store.state.glosarium[0].judul_glos;
-			if (checker === "" || store.state.glosarium[0].isi_glos === "") {
+			const checker = store.state.Indglosarium[0].judul_eng_glos;
+			if (checker === "" || store.state.Indglosarium[0].isi_eng_glos === "") {
 				alert("Isi semua data!!");
 			} else {
 				try {
 					this.loading = true;
-					const check = this.$store.state.glosarium;
+					const check = this.$store.state.Indglosarium;
 					const resp = await axios
 						.post(this.postUrl, {
 							data: check,
@@ -169,21 +211,80 @@ export default {
 				this.messages = "Istilah tersimpan!";
 				this.loading = "";
 				this.showAlert();
-
-				let state = this.$store;
-				let newState = {
-					glosarium: [
-						{
-							judul_glos: "",
-							bid_glos: [],
-							isi_glos: "",
-						},
-					],
-				};
-
-				state.replaceState(newState);
+				this.resetVuex();
 				this.$root.$emit("getGloss22");
 			}
+		},
+		resetVuex() {
+			let state = this.$store;
+			let newState = {
+				records: [
+					{
+						_id: "",
+						kata: "",
+						keterangan: "",
+						tipe: "",
+					},
+				],
+
+				artiNama: [
+					{
+						id: "",
+						judul_nama: "",
+						kelamin_nama: null,
+						asal_nama: "",
+						isi_nama: "",
+						perfix_nama: "",
+					},
+				],
+
+				glosarium: [
+					{
+						id_glos: "",
+						judul_glos: "",
+						bid_glos: [],
+						isi_glos: "",
+					},
+				],
+
+				Indglosarium: [
+					{
+						id_glos: "",
+						judul_eng_glos: "",
+						judul_ind_glos: "",
+						isi_eng_glos: "",
+						isi_ind_glos: "",
+						bid_glos: [],
+					},
+				],
+
+				adv: [
+					{
+						id: "",
+						title: "",
+						image: "",
+						detail: "",
+					},
+				],
+
+				engIn: [
+					{
+						id: "",
+						judul_artikel: "",
+						isi_artikel: "",
+					},
+				],
+
+				inEng: [
+					{
+						id: "",
+						judul_artikel: "",
+						isi_artikel: "",
+					},
+				],
+			};
+
+			state.replaceState(newState);
 		},
 
 		countDownChanged(dismissCountDown) {
