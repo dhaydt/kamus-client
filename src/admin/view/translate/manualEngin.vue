@@ -54,6 +54,17 @@
 					<template v-slot:cell(action)="data">
 						<a
 							href="javascript:void(0);"
+							class="mr-3 text-primary"
+							data-target="#exampleModal"
+							v-b-tooltip.hover
+							data-toggle="tooltip"
+							title="Edit"
+							@click="showModalEdit(data.item)"
+						>
+							<i class="mdi mdi-pencil font-size-18"></i>
+						</a>
+						<a
+							href="javascript:void(0);"
 							class="text-danger"
 							v-b-tooltip.hover
 							title="Delete"
@@ -75,6 +86,78 @@
 								:per-page="perPage"
 							></b-pagination>
 						</ul>
+					</div>
+				</div>
+				<div
+					class="modal fade"
+					id="modalmuncul"
+					tabindex="-1"
+					aria-labelledby="modalmuncul1"
+					aria-hidden="true"
+				>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalmuncul1">Ubah Kata</h5>
+								<button
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-label="Close"
+								>
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<input
+											type="text"
+											v-model="data.id"
+											class="form-control"
+											id="_id"
+											readonly
+											hidden
+										/>
+										<label for="kata" class="col-form-label">Kata:</label>
+										<input
+											type="text"
+											v-model="data.judul_artikel"
+											class="form-control input-30"
+											id="kata"
+										/>
+										<label for="makna" class="col-form-label"
+											>Terjemahan:</label
+										>
+										<input
+											type="text"
+											v-model="data.isi_artikel"
+											class="form-control input-30"
+											id="makna"
+										/>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button"
+									class="btn btn-danger"
+									data-dismiss="modal"
+								>
+									Close
+								</button>
+								<button
+									type="button"
+									@click="updateData"
+									class="btn btn-primary"
+								>
+									<div v-if="loading">
+										<b-spinner small variant="primary"></b-spinner> Menyimpan...
+									</div>
+									<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -108,6 +191,12 @@ export default {
 				{ key: "view", sortable: true, label: "View" },
 				{ key: "action" },
 			],
+
+			data: {
+				id: "",
+				judul_artikel: "",
+				isi_artikel: "",
+			},
 		};
 	},
 
@@ -135,6 +224,33 @@ export default {
 		this.$root.$on("getKamus", this.getEngin);
 	},
 	methods: {
+		showModalEdit(val) {
+			// this.statusmodal = true;
+			// this.form.reset();
+			window.$("#modalmuncul").modal("show");
+			this.data.id = val.id;
+			this.data.judul_artikel = val.judul_artikel;
+			this.data.isi_artikel = val.isi_artikel;
+		},
+
+		async updateData() {
+			this.loading = true;
+			const resp = await axios.put(this.getUrl + "/" + this.data.id, {
+				judul_artikel: this.data.judul_artikel,
+				isi_artikel: this.data.isi_artikel,
+			});
+			this.loading = false;
+			const data = JSON.parse(resp.config.data);
+			window.$("#modalmuncul").modal("hide");
+			Swal.fire({
+				icon: "success",
+				title: "Update Berhasil",
+				text: "Kata " + data.judul_artikel + " berhasil diubah!!!",
+			});
+			this.getEngin();
+			console.log(data.judul_artikel);
+		},
+
 		/**
 		 * Search the table data with search input
 		 */

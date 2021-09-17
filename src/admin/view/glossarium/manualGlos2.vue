@@ -85,9 +85,11 @@
 						<a
 							href="javascript:void(0);"
 							class="mr-3 text-primary"
+							data-target="#exampleModal"
 							v-b-tooltip.hover
 							data-toggle="tooltip"
 							title="Edit"
+							@click="showModalEdit(data.item)"
 						>
 							<i class="mdi mdi-pencil font-size-18"></i>
 						</a>
@@ -116,6 +118,112 @@
 						</ul>
 					</div>
 				</div>
+				<div
+					class="modal fade"
+					id="modalmuncul"
+					tabindex="-1"
+					aria-labelledby="modalmuncul1"
+					aria-hidden="true"
+				>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalmuncul1">Ubah Kata</h5>
+								<button
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-label="Close"
+								>
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<input
+											type="text"
+											v-model="data.id_glos"
+											class="form-control"
+											id="id"
+											readonly
+											hidden
+										/>
+										<label for="kata" class="col-form-label"
+											>Istilah Ingrris:</label
+										>
+										<input
+											type="text"
+											required
+											v-model="data.judul_eng_glos"
+											class="form-control input-30"
+											id="kata"
+										/>
+										<label for="kata" class="col-form-label"
+											>Istilah Indonesia:</label
+										>
+										<input
+											type="text"
+											required
+											v-model="data.judul_ind_glos"
+											class="form-control input-30"
+											id="kata"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="kata" class="col-form-label">Bidang:</label>
+										<input
+											type="text"
+											required
+											v-model="data.bid_glos"
+											class="form-control input-30"
+											id="kata"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="makna" class="col-form-label"
+											>Makna Ingrris:</label
+										>
+										<ckeditor
+											:editor="editor"
+											v-model="data.isi_eng_glos"
+											class="form-control"
+											id="makna"
+										/>
+										<label for="makna" class="col-form-label"
+											>Makna Indonesia:</label
+										>
+										<ckeditor
+											:editor="editor"
+											v-model="data.isi_ind_glos"
+											class="form-control"
+											id="makna"
+										/>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button"
+									class="btn btn-danger"
+									data-dismiss="modal"
+								>
+									Close
+								</button>
+								<button
+									type="button"
+									@click="updateData"
+									class="btn btn-primary"
+								>
+									<div v-if="loading">
+										<b-spinner small variant="primary"></b-spinner> Menyimpan...
+									</div>
+									<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -124,6 +232,8 @@
 import { EllipsisLoader } from "vue-spinners-css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import CKEditor from "@ckeditor/ckeditor5-vue";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
 	data() {
 		return {
@@ -151,6 +261,26 @@ export default {
 				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
 			],
+
+			editor: ClassicEditor,
+			editorData: "",
+
+			options: [
+				{ text: "Matematika", value: "Matematika" },
+				{ text: "Kimia", value: "Kimia" },
+				{ text: "Fisika", value: "Fisika" },
+				{ text: "Biologi", value: "Biologi" },
+				{ text: "Komputer", value: "Komputer" },
+			],
+
+			data: {
+				id_glos: "",
+				judul_eng_glos: "",
+				judul_ind_glos: "",
+				bid_glos: [],
+				isi_eng_glos: "",
+				isi_ind_glos: "",
+			},
 		};
 	},
 	created() {
@@ -161,6 +291,7 @@ export default {
 	},
 	components: {
 		EllipsisLoader,
+		ckeditor: CKEditor.component,
 	},
 	computed: {
 		/** Total no. of records */
@@ -175,6 +306,39 @@ export default {
 		this.totalRows = this.dataKata.length;
 	},
 	methods: {
+		showModalEdit(val) {
+			// this.statusmodal = true;
+			// this.form.reset();
+			window.$("#modalmuncul").modal("show");
+			this.data.id_glos = val.id_glos;
+			this.data.judul_eng_glos = val.judul_eng_glos;
+			this.data.judul_ind_glos = val.judul_ind_glos;
+			this.data.bid_glos = val.bid_glos;
+			this.data.isi_eng_glos = val.isi_eng_glos;
+			this.data.isi_ind_glos = val.isi_ind_glos;
+		},
+
+		async updateData() {
+			this.loading = true;
+			const resp = await axios.put(this.getKamusUrl + "/" + this.data.id_glos, {
+				judul_eng_glos: this.data.judul_eng_glos,
+				judul_ind_glos: this.data.judul_ind_glos,
+				bid_glos: this.data.bid_glos,
+				isi_eng_glos: this.data.isi_eng_glos,
+				isi_ind_glos: this.data.isi_ind_glos,
+			});
+			this.loading = false;
+			const data = JSON.parse(resp.config.data);
+			window.$("#modalmuncul").modal("hide");
+			Swal.fire({
+				icon: "success",
+				title: "Update Berhasil",
+				text: "Kata " + data.judul_eng_glos + " berhasil diubah!!!",
+			});
+			this.getKamus();
+			console.log(data.judul_eng_glos);
+		},
+
 		handleFilter(val) {
 			clearTimeout(this.$_timeout);
 			this.$_timeout = setTimeout(() => {

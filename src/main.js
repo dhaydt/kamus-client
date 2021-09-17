@@ -4,6 +4,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueSweetalert2 from "vue-sweetalert2";
 import jQuery from "jquery";
 import VueMeta from "vue-meta";
+import VueSocialSharing from "vue-social-sharing";
 
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -24,6 +25,12 @@ library.add(faUserSecret);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+// Vue.use(VueSocialSharing);
+Vue.use(VueSocialSharing, {
+  networks: {
+    newNetwork: "https://new.kamuskbbi.id/",
+  },
+});
 Vue.use(require("vue-script2"));
 Vue.use(Ads.Adsense);
 Vue.use(Ads.InArticleAdsense);

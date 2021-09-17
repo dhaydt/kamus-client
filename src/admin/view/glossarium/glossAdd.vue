@@ -1,7 +1,7 @@
 <template>
 	<div class="addGloss">
 		<b-tabs content-class="mt-3">
-			<b-tab title="Inggris">
+			<b-tab title="Istilah lama">
 				<div class="card">
 					<b-alert
 						:show="dismissCountDown"
@@ -21,7 +21,7 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Tambah Istilah Inggris</h5>
+							<h5 class="card-title">Tambah Istilah Lama</h5>
 							<div class="container p-4">
 								<form v-for="gloss in glosarium" :key="gloss.id_glos">
 									<div class="form-group row justify-content-center">
@@ -119,7 +119,7 @@
 						</div>
 					</div></div
 			></b-tab>
-			<b-tab title="Indonesia">
+			<b-tab title="Istilah baru">
 				<Add></Add>
 			</b-tab>
 		</b-tabs>

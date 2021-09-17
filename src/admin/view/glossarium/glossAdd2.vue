@@ -19,48 +19,20 @@
 
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Tambah Istilah Indonesia</h5>
+					<h5 class="card-title">Tambah Istilah Baru</h5>
 					<div class="container p-4">
-						<form v-for="glosy in Indglosarium" :key="glosy.id_glos">
-							<div class="form-group row justify-content-center">
+						<form
+							v-for="glosy in Indglosarium"
+							:key="glosy.id_glos"
+							class="mb-4 pb-4"
+						>
+							<div class="form-group row justify-content-start">
 								<div
-									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
-								>
-									<label for="kata">Kata Inggris</label>
-								</div>
-								<div class="col-lg-8 col-md-8 col-sm-12">
-									<input
-										type="text"
-										class="form-control input-30"
-										id="kataEng"
-										v-model="glosy.judul_eng_glos"
-									/>
-								</div>
-							</div>
-
-							<div class="form-group row justify-content-center">
-								<div
-									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
-								>
-									<label for="kata">Kata Indonesia</label>
-								</div>
-								<div class="col-lg-8 col-md-8 col-sm-12">
-									<input
-										type="text"
-										class="form-control input-30"
-										id="kataInd"
-										v-model="glosy.judul_ind_glos"
-									/>
-								</div>
-							</div>
-
-							<div class="form-group row justify-content-center">
-								<div
-									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
+									class="col-lg-2 col-md-2 col-sm-12 d-flex align-items-start"
 								>
 									<label for="bid">Bidang</label>
 								</div>
-								<div class="col-lg-8 col-md-8 col-sm-12">
+								<div class="col-lg-10 col-md-10 col-sm-12">
 									<b-form-group label="" v-slot="{ ariaDescribedby }">
 										<!-- <input type="text" v-model="glosy.bid_glos" readonly /> -->
 										<b-form-checkbox-group
@@ -74,35 +46,76 @@
 									</b-form-group>
 								</div>
 							</div>
-							<div class="form-group row justify-content-center">
-								<div
-									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
-								>
-									<label for="makna">Makna Inggris</label>
-								</div>
-								<div class="col-lg-8 col-md-8 col-sm-12">
-									<ckeditor
-										:editor="editor"
-										v-model="glosy.isi_eng_glos"
-										class="form-control"
-										id="maknaEng"
-									/>
-								</div>
-							</div>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm12">
+									<div class="form-group row justify-content-start mb-4">
+										<div class="col-lg-12 col-sm-12 d-flex align-items-center">
+											<label for="kata">Kata Inggris</label>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<input
+												type="text"
+												class="form-control input-30"
+												placeholder="Kata inggris"
+												id="kataEng"
+												v-model="glosy.judul_eng_glos"
+											/>
+										</div>
+									</div>
 
-							<div class="form-group row justify-content-center">
-								<div
-									class="col-lg-3 col-md-3 col-sm-12 d-flex align-items-center"
-								>
-									<label for="makna">Makna Indonesia</label>
+									<div class="form-group row justify-content-center pt-2">
+										<div
+											class="
+												col-lg-12 col-md-12 col-sm-12
+												d-flex
+												align-items-center
+											"
+										>
+											<label for="makna">Makna Inggris</label>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<ckeditor
+												:editor="editor"
+												v-model="glosy.isi_eng_glos"
+												class="form-control"
+												id="maknaEng"
+											/>
+										</div>
+									</div>
 								</div>
-								<div class="col-lg-8 col-md-8 col-sm-12">
-									<ckeditor
-										:editor="editor"
-										v-model="glosy.isi_ind_glos"
-										class="form-control"
-										id="maknaInd"
-									/>
+								<div class="col-lg-6 col-md-6 col-sm12">
+									<div class="form-group row justify-content-start mb-4">
+										<div class="col-sm-12 d-flex align-items-center">
+											<label for="kata">Kata Indonesia</label>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<input
+												type="text"
+												class="form-control input-30"
+												id="kataInd"
+												v-model="glosy.judul_ind_glos"
+											/>
+										</div>
+									</div>
+									<div class="form-group row justify-content-center pt-2">
+										<div
+											class="
+												col-lg-12 col-md-12 col-sm-12
+												d-flex
+												align-items-center
+											"
+										>
+											<label for="makna">Makna Indonesia</label>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<ckeditor
+												:editor="editor"
+												v-model="glosy.isi_ind_glos"
+												class="form-control"
+												id="maknaInd"
+											/>
+										</div>
+									</div>
 								</div>
 							</div>
 						</form>

@@ -74,9 +74,11 @@
 						<a
 							href="javascript:void(0);"
 							class="mr-3 text-primary"
+							data-target="#exampleModal"
 							v-b-tooltip.hover
 							data-toggle="tooltip"
 							title="Edit"
+							@click="showModalEdit(data.item)"
 						>
 							<i class="mdi mdi-pencil font-size-18"></i>
 						</a>
@@ -105,6 +107,99 @@
 						</ul>
 					</div>
 				</div>
+				<div
+					class="modal fade"
+					id="modalmuncul"
+					tabindex="-1"
+					aria-labelledby="modalmuncul1"
+					aria-hidden="true"
+				>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalmuncul1">Ubah Kata</h5>
+								<button
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-label="Close"
+								>
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+										<input
+											type="text"
+											v-model="data.id"
+											class="form-control"
+											id="_id"
+											readonly
+											hidden
+										/>
+										<label for="nama" class="col-form-label">Nama:</label>
+										<input
+											type="text"
+											v-model="data.judul_nama"
+											class="form-control input-30"
+											id="nama"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="kelamin" class="col-form-label">Kelamin:</label>
+										<select
+											class="form-control input-30"
+											required
+											id="tipe"
+											v-model="data.kelamin_nama"
+										>
+											<option value="Laki-Laki">Laki-Laki</option>
+											<option value="Perempuan">Perempuan</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="asal" class="col-form-label">Asal Nama:</label>
+										<input
+											type="text"
+											v-model="data.asal_nama"
+											class="form-control input-30"
+											id="nama"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="makna" class="col-form-label">Makna:</label>
+										<input
+											type="text"
+											v-model="data.isi_nama"
+											class="form-control input-30"
+											id="makna"
+										/>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button"
+									class="btn btn-danger"
+									data-dismiss="modal"
+								>
+									Close
+								</button>
+								<button
+									type="button"
+									@click="updateData"
+									class="btn btn-primary"
+								>
+									<div v-if="loading">
+										<b-spinner small variant="primary"></b-spinner> Menyimpan...
+									</div>
+									<span v-if="!loading"><i class="fa fa-save"></i> Simpan</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -114,6 +209,7 @@
 import axios from "axios";
 import { EllipsisLoader } from "vue-spinners-css";
 import Swal from "sweetalert2";
+import { BSpinner } from "bootstrap-vue";
 export default {
 	data() {
 		return {
@@ -138,11 +234,20 @@ export default {
 				{ key: "view", sortable: true, label: "View" },
 				{ key: "action" },
 			],
+
+			data: {
+				id: "",
+				judul_nama: "",
+				kelamin_nama: "",
+				asal_nama: "",
+				isi_nama: "",
+			},
 		};
 	},
 
 	components: {
 		EllipsisLoader,
+		BSpinner,
 	},
 
 	computed: {
@@ -165,6 +270,36 @@ export default {
 		this.$root.$on("getNama", this.getNama);
 	},
 	methods: {
+		showModalEdit(val) {
+			// this.statusmodal = true;
+			// this.form.reset();
+			window.$("#modalmuncul").modal("show");
+			this.data.id = val.id;
+			this.data.judul_nama = val.judul_nama;
+			this.data.kelamin_nama = val.kelamin_nama;
+			this.data.asal_nama = val.asal_nama;
+			this.data.isi_nama = val.isi_nama;
+		},
+		async updateData() {
+			this.loading = true;
+			const resp = await axios.put(this.getUrl + "/" + this.data.id, {
+				id: this.data.id,
+				judul_nama: this.data.judul_nama,
+				kelamin_nama: this.data.kelamin_nama,
+				asal_nama: this.data.asal_nama,
+				isi_nama: this.data.isi_nama,
+			});
+			this.loading = false;
+			const data = JSON.parse(resp.config.data);
+			window.$("#modalmuncul").modal("hide");
+			Swal.fire({
+				icon: "success",
+				title: "Update Berhasil",
+				text: "Arti nama " + data.judul_nama + " berhasil diubah!!!",
+			});
+			this.getNama();
+			console.log(data.kata);
+		},
 		/**
 		 * Search the table data with search input
 		 */
@@ -172,6 +307,7 @@ export default {
 			try {
 				const response = await axios.get(this.getUrl);
 				this.dataKata = response.data;
+				// console.log(this.dataKata);
 				this.jumlahData = response.data.length;
 				this.loading = false;
 			} catch (err) {
