@@ -6,11 +6,14 @@
 					<!-- Search -->
 					<div id="tickets-table_filter" class="dataTables_filter text-md-left">
 						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
+							Show&nbsp;
+							<b-form-select
+								v-model="perPage"
+								size="sm"
+								:options="pageOptions"
+								class="row-page"
+							></b-form-select
+							><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
 						</label>
 					</div>
 					<!-- End search -->
@@ -21,14 +24,13 @@
 						class="dataTables_length text-md-right"
 					>
 						<label class="d-inline-flex align-items-center">
-							Show&nbsp;
-							<b-form-select
-								v-model="perPage"
-								size="sm"
-								:options="pageOptions"
-								class="row-page"
-							></b-form-select
-							><em style="color: #a4a6ab"> From {{ jumlahData }} data</em>
+							Search:
+							<b-form-input
+								type="search"
+								v-model="filter"
+								lazy
+								class="form-control form-control-sm ml-2"
+							></b-form-input>
 						</label>
 					</div>
 				</div>
@@ -45,6 +47,7 @@
 					:sort-by.sync="sortBy"
 					:sort-desc.sync="sortDesc"
 					:filter="filter"
+					primary-key="id"
 					:filter-included-fields="filterOn"
 					@filtered="onFiltered"
 				>
@@ -181,7 +184,7 @@ export default {
 			perPage: 10,
 			pageOptions: [10, 25, 50, 100],
 			filter: null,
-			filterOn: [],
+			filterOn: ["judul_artikel"],
 			sortBy: "ID",
 			sortDesc: false,
 			fields: [

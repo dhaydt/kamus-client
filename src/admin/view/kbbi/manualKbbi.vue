@@ -24,6 +24,8 @@
 						<b-form-input
 							type="search"
 							id="search"
+							v-model="filter"
+							filter-debounce="200"
 							class="form-control form-control-sm ml-2"
 						></b-form-input>
 					</label>
@@ -58,7 +60,10 @@
 				:current-page="currentPage"
 				:sort-by.sync="sortBy"
 				:sort-desc.sync="sortDesc"
+				primary-key="_id"
+				:filter="filter"
 				:filter-included-fields="filterOn"
+				@filtered="onFiltered"
 			>
 				<!-- @filtered="onFiltered" -->
 				<template v-slot:cell(keterangan)="data">
@@ -206,14 +211,14 @@ export default {
 			currentPage: 1,
 			perPage: 10,
 			pageOptions: [10, 25, 50, 100],
-			filter: null,
-			filterOn: [],
+			filter: "",
+			filterOn: ["kata"],
 			sortBy: "ID",
 			sortDesc: false,
 			fields: [
 				{ key: "_id", sortable: true, label: "ID" },
 				{ key: "kata", sortable: true, label: "Kata" },
-				{ key: "keterangan", sortable: true, label: "Makna" },
+				{ key: "keterangan", sortable: false, label: "Makna" },
 				{ key: "tipe", sortable: true, label: "Tipe" },
 				{ key: "View", sortable: true, label: "View" },
 				{ key: "action" },
@@ -269,7 +274,13 @@ export default {
 			clearTimeout(this.$_timeout);
 			this.$_timeout = setTimeout(() => {
 				this.criteria = val;
-			}, 150); // set this value to your preferred debounce timeout
+			}, 350000); // set this value to your preferred debounce timeout
+		},
+
+		onFiltered(filteredItems) {
+			// Trigger pagination to upkata the number of buttons/pages due to filtering
+			this.totalRows = filteredItems.length;
+			this.currentPage = 1;
 		},
 
 		async updateData() {

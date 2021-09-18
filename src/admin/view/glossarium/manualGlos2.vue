@@ -27,6 +27,8 @@
 							Search:
 							<b-form-input
 								type="search"
+								v-model="filter"
+								lazy
 								id="search"
 								class="form-control form-control-sm ml-2"
 							></b-form-input>
@@ -61,8 +63,11 @@
 					class="text-left"
 					:current-page="currentPage"
 					:sort-by.sync="sortBy"
+					:filter="filter"
+					primary-key="id_glos"
 					:sort-desc.sync="sortDesc"
 					:filter-included-fields="filterOn"
+					@filtered="onFiltered"
 				>
 					<!-- @filtered="onFiltered" -->
 					<template v-slot:cell(bid_glos)="data">
@@ -248,7 +253,7 @@ export default {
 			perPage: 10,
 			pageOptions: [10, 25, 50, 100],
 			filter: null,
-			filterOn: [],
+			filterOn: ["judul_eng_glos", "judul_ind_glos"],
 			sortBy: "ID",
 			sortDesc: false,
 			fields: [
@@ -357,6 +362,14 @@ export default {
 			} catch (err) {
 				console.log(err);
 			}
+		},
+
+		onFiltered(filteredItems) {
+			this.loading = true;
+			// Trigger pagination to upkata the number of buttons/pages due to filtering
+			this.totalRows = filteredItems.length;
+			this.currentPage = 1;
+			this.loading = false;
 		},
 
 		// Delete Product

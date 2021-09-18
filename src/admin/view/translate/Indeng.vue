@@ -37,6 +37,8 @@
 										Search:
 										<b-form-input
 											type="search"
+											v-model="filter"
+											lazy
 											id="search"
 											class="form-control form-control-sm ml-2"
 										></b-form-input>
@@ -73,6 +75,7 @@
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
 								:filter="filter"
+								primary-key="id"
 								:filter-included-fields="filterOn"
 								@filtered="onFiltered"
 							>
@@ -146,7 +149,7 @@ export default {
 			perPage: 10,
 			pageOptions: [10, 25, 50, 100],
 			filter: null,
-			filterOn: [],
+			filterOn: ["judul_artikel"],
 			sortBy: "ID",
 			sortDesc: false,
 			fields: [

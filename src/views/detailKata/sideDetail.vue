@@ -4,7 +4,7 @@
 			<h4>Kamus Istilah Populer</h4>
 			<ul v-for="kata in popIstilah.slice(0, 5)" :key="kata.id_glos">
 				<li class="d-flex w-100 transform">
-					<a href="#">{{ kata.judul_glos }} </a>
+					<a :href="find.istilah + kata.judul_glos">{{ kata.judul_glos }} </a>
 					<span class="badge badge-primary ml-auto viewer">{{
 						kata.view / 2
 					}}</span>
@@ -23,7 +23,7 @@
 			<h4>Kamus KBBI Populer</h4>
 			<ul v-for="kata in popKbbi.slice(0, 5)" :key="kata._id">
 				<li class="d-flex w-100 transform">
-					<a href="#">{{ kata.kata }} </a>
+					<a :href="find.kbbi + kata.kata">{{ kata.kata }} </a>
 					<span class="badge badge-primary ml-auto viewer">{{
 						kata.view / 2
 					}}</span>
@@ -50,6 +50,7 @@ export default {
 			iklan2: "",
 			popKbbi: [],
 			popIstilah: [],
+			find: [],
 		};
 	},
 
@@ -60,6 +61,7 @@ export default {
 		this.iklan2 = getImg + this.dataIklan.sideTengah[0].images;
 		this.popKbbi = JSON.parse(localStorage.popKbbi);
 		this.popIstilah = JSON.parse(localStorage.popIstilah);
+		this.find = JSON.parse(localStorage.findUrl);
 	},
 };
 </script>

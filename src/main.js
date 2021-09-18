@@ -23,9 +23,7 @@ import Ads from "vue-google-adsense";
 library.add(faUserSecret);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-
 Vue.config.productionTip = false;
-// Vue.use(VueSocialSharing);
 Vue.use(VueSocialSharing, {
   networks: {
     newNetwork: "https://kamuskbbi.id/",

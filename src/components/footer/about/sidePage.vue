@@ -14,7 +14,7 @@
 			<h4>Kamus Istilah</h4>
 			<ul v-for="kata in randomKata.istilah.slice(0, 5)" :key="kata.id_glos">
 				<li>
-					<a href="#">{{ kata.judul_glos }}</a>
+					<a :href="find.istilah + kata.judul_glos">{{ kata.judul_glos }}</a>
 				</li>
 			</ul>
 		</div>
@@ -32,7 +32,7 @@
 			<h4>Kamus Nama</h4>
 			<ul v-for="kata in randomKata.nama.slice(0, 5)" :key="kata.id">
 				<li>
-					<a href="#">{{ kata.judul_nama }}</a>
+					<a :href="find.nama + kata.judul_nama">{{ kata.judul_nama }}</a>
 				</li>
 			</ul>
 		</div>
@@ -59,6 +59,7 @@ export default {
 			iklan3: "",
 			imgData: [],
 			randomKata: [],
+			find: [],
 		};
 	},
 
@@ -69,6 +70,7 @@ export default {
 		this.iklan2 = getImg + this.dataIklan.sideTengah[0].images;
 		this.iklan3 = getImg + this.dataIklan.sideBawah[0].images;
 		this.randomKata = JSON.parse(localStorage.randomKata);
+		this.find = JSON.parse(localStorage.findUrl);
 	},
 };
 </script>

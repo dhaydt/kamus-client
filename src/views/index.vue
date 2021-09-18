@@ -128,8 +128,26 @@
 <script>
 import Footer from "../components/partials/Footer.vue";
 export default {
+	created() {
+		this.findUrl();
+	},
 	components: {
 		Footer,
+	},
+
+	methods: {
+		findUrl() {
+			const find = {
+				kbbi: "/cari/kbbi/",
+				istilah: "/cari/glosarium/",
+				eng: "/cari/engInd/",
+				ind: "/cari/indEng/",
+				nama: "/cari/artiNama/",
+			};
+
+			const cari = JSON.stringify(find);
+			localStorage.setItem("findUrl", cari);
+		},
 	},
 };
 </script>

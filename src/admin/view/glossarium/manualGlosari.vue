@@ -33,6 +33,8 @@
 									<b-form-input
 										type="search"
 										id="search"
+										v-model="filter"
+										lazy
 										class="form-control form-control-sm ml-2"
 									></b-form-input>
 								</label>
@@ -68,6 +70,7 @@
 							:sort-by.sync="sortBy"
 							:sort-desc.sync="sortDesc"
 							:filter="filter"
+							primary-key="id_glos"
 							:filter-included-fields="filterOn"
 							@filtered="onFiltered"
 						>
@@ -233,7 +236,7 @@ export default {
 			perPage: 10,
 			pageOptions: [10, 25, 50, 100],
 			filter: null,
-			filterOn: [],
+			filterOn: ["judul_glos"],
 			sortBy: "ID",
 			sortDesc: false,
 			fields: [
@@ -341,8 +344,10 @@ export default {
 
 		onFiltered(filteredItems) {
 			// Trigger pagination to upkata the number of buttons/pages due to filtering
+			this.loading = true;
 			this.totalRows = filteredItems.length;
 			this.currentPage = 1;
+			this.loading = false;
 		},
 
 		// Delete Product
