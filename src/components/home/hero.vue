@@ -48,20 +48,7 @@
 							</div>
 						</div>
 					</form>
-					<div class="btn mt-4 btn-outline-primary" type="button">
-						<ShareNetwork
-							network="twitter"
-							url="https://new.kamuskbbi.id"
-							title="Kamus KBBI Terlengkap"
-							description="Kamus lengkap dengan berbagai macam fitur pendukung"
-							twitter-user="910dayat"
-							media="https://new.kamuskbbi.id/img/logo-kbbi.0d654383.png"
-						>
-							<span
-								><i class="fa fa-twitter"></i> Share on Twitter</span
-							></ShareNetwork
-						>
-					</div>
+
 					<b-alert
 						v-model="showDismissibleAlert"
 						class="mt-2"

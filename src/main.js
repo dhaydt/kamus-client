@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 // Vue.use(VueSocialSharing);
 Vue.use(VueSocialSharing, {
   networks: {
-    newNetwork: "https://new.kamuskbbi.id/",
+    newNetwork: "https://kamuskbbi.id/",
   },
 });
 Vue.use(require("vue-script2"));

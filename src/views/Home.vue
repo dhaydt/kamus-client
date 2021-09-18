@@ -21,7 +21,7 @@ import Konten from "../components/home/konten.vue";
 export default {
 	metaInfo() {
 		return {
-			title: "KBBI | Home",
+			title: "Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id",
 		};
 	},
 

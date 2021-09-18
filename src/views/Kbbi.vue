@@ -11,7 +11,7 @@ import Kbbi from "../components/kbbi/Search.vue";
 export default {
 	metaInfo() {
 		return {
-			title: "KBBI | KBBI",
+			title: "Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id",
 		};
 	},
 	components: {

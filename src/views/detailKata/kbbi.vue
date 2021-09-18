@@ -86,13 +86,30 @@
 					<ul class="shares-makna">
 						<li>Bagikan Makna</li>
 						<li>
-							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+							<a href="javascript:void(0)" class="share fb">
+								<ShareNetwork
+									network="facebook"
+									url="https://kamuskbbi.id"
+									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
+									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									tag="a"
+								>
+									<span class="text-white"
+										><i class="fa fa-facebook"></i></span></ShareNetwork
+							></a>
 						</li>
 						<li>
-							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
-						</li>
-						<li>
-							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+							<a href="#" class="share tw">
+								<ShareNetwork
+									network="twitter"
+									url="https://kamuskbbi.id"
+									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
+									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									twitter-user="kamuskbbiID"
+								>
+									<span class="text-white"
+										><i class="fa fa-twitter"></i></span></ShareNetwork
+							></a>
 						</li>
 					</ul>
 				</div>
@@ -119,6 +136,43 @@ export default {
 			random: [
 				{ key: "judul_nama", label: "Nama" },
 				{ key: "isi_nama", label: "Makna" },
+			],
+		};
+	},
+
+	metaInfo() {
+		return {
+			title: "Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id",
+			meta: [
+				{ key: "og:site_name", property: "og:site_name", content: "kamusKBBI" },
+				{ key: "og:type", property: "og:type", content: "website" },
+				{ key: "og:locale", property: "og:locale", content: "id_ID" },
+				{
+					key: "og:title",
+					property: "og:title",
+					content: "Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id",
+				},
+				{
+					key: "description",
+					name: "description",
+					content:
+						"Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara.",
+				},
+				{ key: "og:url", property: "og:url", content: "https://kamuskbbi.id" },
+				{
+					property: "og:image",
+					content: "https://cekresi.co.id/img/og_image_default_new.jpg",
+				},
+				{
+					property: "og:image:secure_url",
+					content: "https://cekresi.co.id/img/og_image_default_new.jpg",
+				},
+				{ property: "og:image:type", content: "image/jpg" },
+				{ property: "og:image:width", content: "1200" },
+				{ property: "og:image:height", content: "630" },
+				{ property: "og:image:alt", content: "KamusKBBI Web" },
+				{ property: "og:image:alt", content: "KamusKBBI Web" },
+				{ key: "keywords", name: "keywords", content: this.keywords },
 			],
 		};
 	},
