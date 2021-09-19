@@ -1,19 +1,26 @@
 <template>
 	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
-			<img :src="iklan" class="iklanLandscape" v-if="iklan" alt="Slot Iklan" />
+			<a href="javascript:void(0)" target="_blank" @click="goTo">
+				<img
+					:src="iklan"
+					class="iklanLandscape"
+					v-if="iklan"
+					alt="Slot Iklan"
+				/>
+			</a>
 		</div>
 		<div class="box-slice">
 			<div class="box-detail-single">
 				<h1>Arti Kata {{ kata }}</h1>
 			</div>
 			<div class="cardIklan box-slice p-0">
-				<img
-					:src="iklan1"
-					class="iklanLandscape"
-					v-if="iklan1"
-					alt="Slot Iklan"
-				/>
+				<InFeedAdsense
+					data-ad-client="ca-pub-9333981154484827"
+					data-ad-slot="5537158012"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></InFeedAdsense>
 			</div>
 			<p>
 				Arti Istilah {{ kata }}, maksud, definisi, pengertian dan makna kata
@@ -36,12 +43,12 @@
 			</div>
 
 			<div class="cardIklan box-slice p-0">
-				<img
-					:src="iklan2"
-					class="iklanLandscape"
-					v-if="iklan2"
-					alt="Slot Iklan"
-				/>
+				<InFeedAdsense
+					data-ad-client="ca-pub-9333981154484827"
+					data-ad-slot="5537158012"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></InFeedAdsense>
 			</div>
 
 			<div class="box-detail-single">
@@ -57,12 +64,12 @@
 				>
 				</b-table>
 				<div class="cardIklan box-slice p-0">
-					<img
-						:src="iklan3"
-						class="iklanLandscape"
-						v-if="iklan3"
-						alt="Slot Iklan"
-					/>
+					<InFeedAdsense
+						data-ad-client="ca-pub-9333981154484827"
+						data-ad-slot="5537158012"
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					></InFeedAdsense>
 				</div>
 			</div>
 
@@ -80,12 +87,14 @@
 					>
 					</b-table>
 					<div class="cardIklan box-slice p-0">
-						<img
-							:src="iklan4"
-							class="iklanLandscape"
-							v-if="iklan4"
-							alt="Slot Iklan"
-						/>
+						<InFeedAdsense
+							class="adsbygoogle"
+							style="display: block"
+							data-ad-client="ca-pub-9333981154484827"
+							data-ad-slot="5683973304"
+							data-ad-format="auto"
+							data-full-width-responsive="true"
+						></InFeedAdsense>
 					</div>
 				</div>
 			</div>
@@ -143,6 +152,7 @@ export default {
 			mainUrl: "",
 			iklan: "",
 			iklan1: "",
+			url1: "",
 			iklan2: "",
 			iklan3: "",
 			iklan4: "",
@@ -166,6 +176,13 @@ export default {
 		this.iklan2 = getImg + this.dataIklan.atasRelated[0].images;
 		this.iklan3 = getImg + this.dataIklan.atasLainnya[0].images;
 		this.iklan4 = getImg + this.dataIklan.atasShared[0].images;
+		this.url1 = this.dataIklan.atasJudul[0].url;
+	},
+
+	methods: {
+		goTo() {
+			window.open(this.url1, "_blank");
+		},
 	},
 };
 </script>

@@ -9,6 +9,7 @@ export default {
 		return {
 			// mainUrl: "http://localhost:3002",
 			mainUrl: "https://server.kamuskbbi.id",
+			// aD0^ozqi
 		};
 	},
 	mounted() {

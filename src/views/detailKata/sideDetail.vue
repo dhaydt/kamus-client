@@ -12,12 +12,14 @@
 			</ul>
 		</div>
 		<div class="cardIklan box-slice p-0">
-			<img
-				:src="iklan1"
-				class="iklanLandscape"
-				v-if="iklan1"
-				alt="Slot Iklan"
-			/>
+			<InFeedAdsense
+				class="adsbygoogle"
+				style="display: block"
+				data-ad-client="ca-pub-9333981154484827"
+				data-ad-slot="5683973304"
+				data-ad-format="auto"
+				data-full-width-responsive="true"
+			></InFeedAdsense>
 		</div>
 		<div class="kartu-kata light-box p-4">
 			<h4>Kamus KBBI Populer</h4>
@@ -31,12 +33,14 @@
 			</ul>
 		</div>
 		<div class="cardIklan box-slice p-0">
-			<img
-				:src="iklan2"
-				class="iklanLandscape"
-				v-if="iklan2"
-				alt="Slot Iklan"
-			/>
+			<InFeedAdsense
+				class="adsbygoogle"
+				style="display: block"
+				data-ad-client="ca-pub-9333981154484827"
+				data-ad-slot="5683973304"
+				data-ad-format="auto"
+				data-full-width-responsive="true"
+			></InFeedAdsense>
 		</div>
 	</div>
 </template>

@@ -112,7 +112,7 @@
 									required
 									class="form-control input-30"
 									id="url"
-									placeholder="URL iklan"
+									placeholder="Ex: https://www.example.com"
 								/>
 							</div>
 						</div>

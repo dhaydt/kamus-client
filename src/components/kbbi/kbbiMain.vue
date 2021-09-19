@@ -1,12 +1,14 @@
 <template>
 	<div class="box-detail">
 		<div class="cardIklan box-slice p-0">
-			<img
-				:src="iklan1"
-				class="iklanLandscape"
-				v-if="iklan1"
-				alt="Slot Iklan"
-			/>
+			<a href="javascript:void(0)" target="_blank" @click="goTo">
+				<img
+					:src="iklan1"
+					class="iklanLandscape"
+					v-if="iklan1"
+					alt="Slot Iklan"
+				/>
+			</a>
 		</div>
 		<div class="box-slice">
 			<div class="box-detail-single">
@@ -215,6 +217,7 @@ export default {
 		return {
 			iklan1: "",
 			iklan2: "",
+			url1: "",
 		};
 	},
 
@@ -222,7 +225,14 @@ export default {
 		const mainUrl = localStorage.mainUrl;
 		const getImg = mainUrl + "/images/client/";
 		this.iklan1 = getImg + this.dataIklan.atasJudul[0].images;
+		this.url1 = this.dataIklan.atasJudul[0].url;
 		this.iklan2 = getImg + this.dataIklan.atasShared[0].images;
+	},
+
+	methods: {
+		goTo() {
+			window.open(this.url1, "_blank");
+		},
 	},
 };
 </script>
