@@ -111,11 +111,14 @@
 				<!-- Single Item -->
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<div class="box-kamus">
-						<div class="">
-							<div class="mx-4">
-								<img :src="iklan1" alt="Slot Iklan" class="iklanBox" />
-							</div>
-						</div>
+						<InFeedAdsense
+							class="adsbygoogle"
+							style="display: block"
+							data-ad-client="ca-pub-9333981154484827"
+							data-ad-slot="5683973304"
+							data-ad-format="auto"
+							data-full-width-responsive="true"
+						></InFeedAdsense>
 					</div>
 				</div>
 				<!-- Single Item -->

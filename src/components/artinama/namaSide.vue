@@ -10,12 +10,14 @@
 		</div>
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
-				<img
-					class="iklanLandscape"
-					:src="iklan1"
-					v-if="iklan1"
-					alt="Slot Iklan"
-				/>
+				<InFeedAdsense
+					lass="adsbygoogle"
+					style="display: block"
+					data-ad-client="ca-pub-9333981154484827"
+					data-ad-slot="5683973304"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></InFeedAdsense>
 			</div>
 		</div>
 		<div class="kartu-kata light-box p-4">
@@ -28,12 +30,14 @@
 		</div>
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
-				<img
-					class="iklanLandscape"
-					:src="iklan2"
-					v-if="iklan2"
-					alt="Slot Iklan"
-				/>
+				<InFeedAdsense
+					class="adsbygoogle"
+					style="display: block"
+					data-ad-client="ca-pub-9333981154484827"
+					data-ad-slot="5683973304"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></InFeedAdsense>
 			</div>
 		</div>
 		<div class="kartu-kata light-box p-4">
@@ -46,12 +50,14 @@
 		</div>
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
-				<img
-					class="iklanLandscape"
-					:src="iklan3"
-					v-if="iklan3"
-					alt="Slot Iklan"
-				/>
+				<InFeedAdsense
+					class="adsbygoogle"
+					style="display: block"
+					data-ad-client="ca-pub-9333981154484827"
+					data-ad-slot="5683973304"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+				></InFeedAdsense>
 			</div>
 		</div>
 	</div>

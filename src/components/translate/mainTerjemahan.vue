@@ -11,7 +11,14 @@
 		<div class="box-slice">
 			<div class="box-detail-single">
 				<h2>Tentang Terjemahan Bahasa</h2>
-
+				<div class="ad-container">
+					<InFeedAdsense
+						data-ad-client="ca-pub-9333981154484827"
+						data-ad-slot="5537158012"
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					></InFeedAdsense>
+				</div>
 				<p>
 					Aplikasi Kamus Besar Bahasa Indonesia (KBBI) ini merupakan KBBI Daring
 					(Dalam Jaringan / Online tidak resmi) yang dibuat untuk memudahkan
@@ -149,12 +156,12 @@
 
 			<div class="box-detail-single">
 				<div class="cardIklan">
-					<img
-						class="iklanLandscape"
-						:src="iklan2"
-						v-if="iklan2"
-						alt="Slot Iklan"
-					/>
+					<InFeedAdsense
+						data-ad-client="ca-pub-9333981154484827"
+						data-ad-slot="5537158012"
+						data-ad-format="auto"
+						data-full-width-responsive="true"
+					></InFeedAdsense>
 				</div>
 			</div>
 
