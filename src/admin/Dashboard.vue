@@ -116,6 +116,26 @@ export default {
 	left: 45%;
 }
 
+.notif {
+	position: absolute !important;
+	margin-top: 60px !important;
+	left: 25%;
+	z-index: 5;
+	width: 50%;
+}
+
+#sidebar-menu .has-arrow:after {
+	content: "";
+	font-family: "Material Design Icons";
+	display: block;
+	float: right;
+	transition: transform 0.2s;
+	font-size: 1rem;
+}
+#sidebar-menu .mm-active > .has-arrow:after {
+	transform: rotate(-135deg);
+}
+
 #search,
 .input-30 {
 	height: 30px !important;

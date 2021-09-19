@@ -37,31 +37,23 @@
 										<b-form-input
 											type="search"
 											id="search"
-											v-model="filter"
-											lazy
+											v-model="search"
+											placeholder="Tekan enter untuk mencari"
+											@keydown.enter="findKata"
 											class="form-control form-control-sm ml-2"
 										></b-form-input>
 									</label>
 								</div>
-
-								<!-- Search -->
-								<!-- <div class="col-sm-12 col-md-4">
-					<div
-						id="tickets-table_filter"
-						class="dataTables_filter text-md-right"
-					>
-						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
-						</label>
-					</div>
-				</div> -->
-								<!-- End search -->
 							</div>
 						</div>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-2 notif"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
 						<EllipsisLoader :loading="loading"></EllipsisLoader>
 						<div class="table-responsive">
 							<b-table
@@ -73,10 +65,8 @@
 								:current-page="currentPage"
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
-								:filter="filter"
 								primary-key="id_glos"
 								:filter-included-fields="filterOn"
-								@filtered="onFiltered"
 							>
 								<template v-slot:cell(view)="data">
 									<td v-html="data.item.view / 2"></td>
@@ -143,6 +133,10 @@ export default {
 			title: "Istilah Management",
 			dataKata: [],
 			jumlahData: null,
+			error: "",
+			showDismissibleAlert: false,
+			search: "",
+			findUrl: "",
 			loading: "",
 			totalRows: 1,
 			currentPage: 1,
@@ -173,6 +167,7 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		this.getUrl = mainUrl + "/glossarium";
+		this.findUrl = mainUrl + "/filGlos/";
 		this.getGloss();
 		this.loading = true;
 	},
@@ -181,6 +176,27 @@ export default {
 		this.totalRows = this.dataKata.length;
 	},
 	methods: {
+		async findKata() {
+			this.loading = true;
+			try {
+				const response = await axios.get(this.findUrl + this.search);
+				// this.dataHtml = response.data;
+				this.jumlahData = response.data.length;
+
+				if (this.jumlahData === 0) {
+					this.error = "Data tidak ditemukan!";
+					this.showDismissibleAlert = true;
+					this.loading = false;
+
+					console.log("row", this.jumlahData);
+				} else {
+					this.loading = false;
+					this.dataKata = response.data;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
 		/**
 		 * Search the table data with search input
 		 */

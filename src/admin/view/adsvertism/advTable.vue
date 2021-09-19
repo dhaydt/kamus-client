@@ -34,28 +34,11 @@
 										<b-form-input
 											type="search"
 											id="search"
+											v-model="filter"
 											class="form-control form-control-sm ml-2 input-30"
 										></b-form-input>
 									</label>
 								</div>
-								<!-- End search -->
-
-								<!-- Search -->
-								<!-- <div class="col-sm-12 col-md-4">
-					<div
-						id="tickets-table_filter"
-						class="dataTables_filter text-md-right"
-					>
-						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
-						</label>
-					</div>
-				</div> -->
-								<!-- End search -->
 							</div>
 						</div>
 						<EllipsisLoader :loading="loading"></EllipsisLoader>
@@ -67,16 +50,11 @@
 								:per-page="perPage"
 								class="text-left"
 								:current-page="currentPage"
+								:filter="filter"
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
 								:filter-included-fields="filterOn"
 							>
-								<!-- <template v-slot:cell(images)="data">
-									<b-avatar
-										:src="getImg + data.item.images"
-										size="6rem"
-									></b-avatar>
-								</template> -->
 								<template v-slot:cell(start_date)="data">
 									<td class="no-border">{{ data.item.start_date | moment }}</td>
 								</template>
@@ -84,7 +62,7 @@
 									<td class="no-border">{{ data.item.end_date | moment }}</td>
 								</template>
 								<template v-slot:cell(action)="data">
-									<a
+									<!-- <a
 										href="javascript:void(0);"
 										class="mr-3 text-primary"
 										v-b-tooltip.hover
@@ -92,7 +70,7 @@
 										title="Edit"
 									>
 										<i class="mdi mdi-pencil font-size-18"></i>
-									</a>
+									</a> -->
 									<a
 										href="javascript:void(0);"
 										class="text-danger"

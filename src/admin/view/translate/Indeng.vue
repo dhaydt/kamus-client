@@ -37,32 +37,24 @@
 										Search:
 										<b-form-input
 											type="search"
-											v-model="filter"
-											lazy
+											v-model="search"
 											id="search"
+											@keydown.enter="findKata"
+											placeholder="Tekan enter untuk mencari"
 											class="form-control form-control-sm ml-2"
 										></b-form-input>
 									</label>
 								</div>
-
-								<!-- Search -->
-								<!-- <div class="col-sm-12 col-md-4">
-					<div
-						id="tickets-table_filter"
-						class="dataTables_filter text-md-right"
-					>
-						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
-						</label>
-					</div>
-				</div> -->
-								<!-- End search -->
 							</div>
 						</div>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-2 notif"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
 						<EllipsisLoader :loading="loading"></EllipsisLoader>
 						<div class="table-responsive">
 							<b-table
@@ -74,10 +66,8 @@
 								:current-page="currentPage"
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
-								:filter="filter"
 								primary-key="id"
 								:filter-included-fields="filterOn"
-								@filtered="onFiltered"
 							>
 								<template v-slot:cell(view)="data">
 									<td v-html="data.item.view / 2" class="no-border"></td>
@@ -144,6 +134,10 @@ export default {
 			getIndUrl: "",
 			jumlahData: null,
 			loading: false,
+			error: "",
+			showDismissibleAlert: false,
+			search: "",
+			findUrl: "",
 			totalRows: 1,
 			currentPage: 1,
 			perPage: 10,
@@ -165,6 +159,7 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		this.getIndUrl = mainUrl + "/kamusEng/";
+		this.findUrl = mainUrl + "/filInd/";
 		this.getKata();
 	},
 
@@ -188,6 +183,27 @@ export default {
 	},
 
 	methods: {
+		async findKata() {
+			this.loading = true;
+			try {
+				const response = await axios.get(this.findUrl + this.search);
+				// this.dataHtml = response.data;
+				this.jumlahData = response.data.length;
+
+				if (this.jumlahData === 0) {
+					this.error = "Data tidak ditemukan!";
+					this.showDismissibleAlert = true;
+					this.loading = false;
+
+					console.log("row", this.jumlahData);
+				} else {
+					this.loading = false;
+					this.dataKata = response.data;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
 		async getKata() {
 			this.loading = true;
 			try {

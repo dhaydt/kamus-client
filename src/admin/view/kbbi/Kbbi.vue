@@ -37,32 +37,25 @@
 										<b-form-input
 											type="search"
 											id="search"
-											v-model="filter"
-											filter-debounce="200"
-											lazy
+											v-model="search"
+											@keydown.enter="findKata"
 											class="form-control form-control-sm ml-2"
+											placeholder="Tekan enter untuk mencari"
 										></b-form-input>
 									</label>
+									<!-- <button type="button" @click="findKata">cari</button> -->
 								</div>
-
-								<!-- Search -->
-								<!-- <div class="col-sm-12 col-md-4">
-					<div
-						id="tickets-table_filter"
-						class="dataTables_filter text-md-right"
-					>
-						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
-						</label>
-					</div>
-				</div> -->
 								<!-- End search -->
 							</div>
 						</div>
+						<b-alert
+							v-model="showDismissibleAlert"
+							class="mt-2 notif"
+							variant="danger"
+							dismissible
+						>
+							{{ error }}
+						</b-alert>
 						<EllipsisLoader :loading="loading"></EllipsisLoader>
 						<div class="table-responsive">
 							<b-table
@@ -74,10 +67,8 @@
 								:current-page="currentPage"
 								:sort-by.sync="sortBy"
 								:sort-desc.sync="sortDesc"
-								:filter="filter"
 								primary-key="_id"
 								:filter-included-fields="filterOn"
-								@filtered="onFiltered"
 							>
 								<!-- @filtered="onFiltered" -->
 								<template v-slot:cell(keterangan)="data">
@@ -89,7 +80,7 @@
 								</template>
 
 								<template v-slot:cell(action)="data" class="d-flex">
-									<a
+									<!-- <a
 										href="javascript:void(0);"
 										class="mr-3 text-primary"
 										v-b-tooltip.hover
@@ -97,7 +88,7 @@
 										title="Edit"
 									>
 										<i class="mdi mdi-pencil font-size-18"></i>
-									</a>
+									</a> -->
 									<a
 										href="javascript:void(0);"
 										class="text-danger"
@@ -153,6 +144,10 @@ export default {
 			loading: false,
 			dataHtml: [],
 			jumlahData: null,
+			error: "",
+			showDismissibleAlert: false,
+			search: "",
+			findUrl: "",
 			dataKata: [],
 			totalRows: 1,
 			currentPage: 1,
@@ -174,6 +169,7 @@ export default {
 	created() {
 		const mainUrl = localStorage.mainUrl;
 		this.getKamusUrl = mainUrl + "/kamus";
+		this.findUrl = mainUrl + "/filKbbi/";
 		this.getKamus();
 		this.loading = true;
 	},
@@ -195,11 +191,43 @@ export default {
 		this.totalRows = this.dataKata.length;
 	},
 	methods: {
-		handleFilter(val) {
-			clearTimeout(this.$_timeout);
-			this.$_timeout = setTimeout(() => {
-				this.criteria = val;
-			}, 3000); // set this value to your preferred debounce timeout
+		async findKata() {
+			this.loading = true;
+			try {
+				const response = await axios.get(this.findUrl + this.search);
+				this.dataHtml = response.data;
+				this.jumlahData = response.data.length;
+
+				if (this.jumlahData === 0) {
+					this.error = "Data tidak ditemukan!";
+					this.showDismissibleAlert = true;
+					this.loading = false;
+
+					console.log("row", this.jumlahData);
+				} else {
+					String.prototype.escapeSpecialChars = function () {
+						return (
+							this.replace(/&lt;\/b&gt;/g, "</b>")
+								/* eslint-disable */
+								.replace(/&lt;b&gt;/g, "<b>")
+								.replace(/&lt;\/sup&gt;/g, "</sup>")
+								.replace(/&lt;sup&gt;/g, "<sup>")
+								.replace(/&lt;\/i&gt;/g, "</i>")
+								.replace(/&lt;i&gt;/g, "<i>")
+								.replace(/&lt;br&gt;/g, "<br>")
+								.replace(/\\b/g, "\\b")
+								.replace(/\\f/g, "\\f")
+						);
+					};
+
+					var myJSONString = JSON.stringify(this.dataHtml);
+					var myEscapedJSONString = myJSONString.escapeSpecialChars();
+					this.loading = false;
+					this.dataKata = JSON.parse(myEscapedJSONString);
+				}
+			} catch (err) {
+				console.log(err);
+			}
 		},
 
 		onFiltered(filteredItems) {
@@ -269,6 +297,14 @@ export default {
 	position: absolute !important;
 	margin-top: 30px;
 	left: 45%;
+}
+
+.notif {
+	position: absolute !important;
+	margin-top: 60px !important;
+	left: 25%;
+	z-index: 5;
+	width: 50%;
 }
 
 .no-border {

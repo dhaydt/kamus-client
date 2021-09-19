@@ -97,9 +97,13 @@
 							<a href="javascript:void(0)" class="share fb">
 								<ShareNetwork
 									network="facebook"
-									url="https://kamuskbbi.id"
-									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
-									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									:url="mainUrl + url + kata"
+									:title="
+										`Makna istilah ` + kata + ` Menurut Kamus Isitlah Asing`
+									"
+									:description="
+										`Makna istilah ` + kata + ` di Kamus Istilah Asing`
+									"
 									tag="a"
 								>
 									<span class="text-white"
@@ -111,8 +115,12 @@
 								<ShareNetwork
 									network="twitter"
 									url="https://kamuskbbi.id"
-									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
-									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									:title="
+										`Makna istilah` + kata + `Menurut Kamus Isitlah Asing`
+									"
+									:description="
+										`Makna istilah` + kata + `di Kamus Istilah Asing`
+									"
 									twitter-user="kamuskbbiID"
 								>
 									<span class="text-white"
@@ -131,6 +139,8 @@ export default {
 	props: ["dataKata", "kata", "dataIklan"],
 	data() {
 		return {
+			url: "/cari/glosarium/",
+			mainUrl: "",
 			iklan: "",
 			iklan1: "",
 			iklan2: "",
@@ -149,8 +159,8 @@ export default {
 	},
 
 	created() {
-		const mainUrl = localStorage.mainUrl;
-		const getImg = mainUrl + "/images/client/";
+		this.mainUrl = localStorage.mainUrl;
+		const getImg = this.mainUrl + "/images/client/";
 		this.iklan = getImg + this.dataIklan.atasJudul[0].images;
 		this.iklan1 = getImg + this.dataIklan.bawahJudul[0].images;
 		this.iklan2 = getImg + this.dataIklan.atasRelated[0].images;
