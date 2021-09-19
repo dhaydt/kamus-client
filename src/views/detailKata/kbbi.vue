@@ -89,7 +89,7 @@
 							<a href="javascript:void(0)" class="share fb">
 								<ShareNetwork
 									network="facebook"
-									:url="mainUrl + url + kata"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="'Arti Kata' + kata + ' - KBBI Kamus Bahasa Indonesia'"
 									description="emukan definisi/arti kata di Kamus KBBI ini dengan cepat dan benar. Kami memiliki 100rb lebih kata yang ada di database kami."
 									tag="a"
@@ -102,7 +102,7 @@
 							<a href="#" class="share tw">
 								<ShareNetwork
 									network="twitter"
-									:url="mainUrl + url + kata"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="
 										'Arti Kata ' + kata + ' - KBBI Kamus Bahasa Indonesia'
 									"

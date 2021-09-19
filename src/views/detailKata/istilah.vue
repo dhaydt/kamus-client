@@ -97,7 +97,7 @@
 							<a href="javascript:void(0)" class="share fb">
 								<ShareNetwork
 									network="facebook"
-									:url="mainUrl + url + kata"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="
 										`Makna istilah ` + kata + ` Menurut Kamus Isitlah Asing`
 									"
@@ -114,7 +114,7 @@
 							<a href="#" class="share tw">
 								<ShareNetwork
 									network="twitter"
-									url="https://kamuskbbi.id"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="
 										`Makna istilah` + kata + `Menurut Kamus Isitlah Asing`
 									"

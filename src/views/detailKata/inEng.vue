@@ -89,7 +89,7 @@
 							<a href="javascript:void(0)" class="share fb">
 								<ShareNetwork
 									network="facebook"
-									:url="mainUrl + url + kata"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="
 										`Arti Kata ` + kata + ` Kamus Terjemahan Indonesia Inggris`
 									"
@@ -106,7 +106,7 @@
 							<a href="#" class="share tw">
 								<ShareNetwork
 									network="twitter"
-									:url="mainUrl + url + kata"
+									:url="`https://kamuskbbi.id` + url + kata"
 									:title="
 										`Arti Kata ` + kata + ` Kamus Terjemahan Indonesia Inggris`
 									"

@@ -89,7 +89,7 @@
 							<a href="javascript:void(0)" class="share fb">
 								<ShareNetwork
 									network="facebook"
-									url="https://kamuskbbi.id"
+									url="https://kamuskbbi.id/terjemahan"
 									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
 									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
 									tag="a"
@@ -102,7 +102,7 @@
 							<a href="#" class="share tw">
 								<ShareNetwork
 									network="twitter"
-									url="https://kamuskbbi.id"
+									url="https://kamuskbbi.id/terjemahan"
 									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
 									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
 									twitter-user="kamuskbbiID"

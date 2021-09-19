@@ -171,13 +171,30 @@
 					<ul class="shares-makna">
 						<li>Bagikan Makna</li>
 						<li>
-							<a href="#" class="share fb"><i class="fa fa-facebook"></i></a>
+							<a href="javascript:void(0)" class="share fb">
+								<ShareNetwork
+									network="facebook"
+									url="https://kamuskbbi.id/kbbi"
+									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
+									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									tag="a"
+								>
+									<span class="text-white"
+										><i class="fa fa-facebook"></i></span></ShareNetwork
+							></a>
 						</li>
 						<li>
-							<a href="#" class="share tw"><i class="fa fa-twitter"></i></a>
-						</li>
-						<li>
-							<a href="#" class="share gp"><i class="fa fa-google"></i></a>
+							<a href="#" class="share tw">
+								<ShareNetwork
+									network="twitter"
+									url="https://kamuskbbi.id/kbbi"
+									title="Kamus KBBI Terjemahan Istilah dan Artinama - KamusKBBI.id"
+									description="Kamus Besar Bahasa Indonesia (KBBI), terjemahan (Eng-Ind/Ind-Eng), makna kata istilah asing (Glosarium) dan artinama dari berbagai negara."
+									twitter-user="kamuskbbiID"
+								>
+									<span class="text-white"
+										><i class="fa fa-twitter"></i></span></ShareNetwork
+							></a>
 						</li>
 					</ul>
 				</div>
