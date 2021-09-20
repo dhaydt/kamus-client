@@ -89,7 +89,6 @@
 				<!-- Single Item -->
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<InFeedAdsense
-						class="adsbygoogle"
 						style="display: block"
 						data-ad-client="ca-pub-9333981154484827"
 						data-ad-slot="5683973304"

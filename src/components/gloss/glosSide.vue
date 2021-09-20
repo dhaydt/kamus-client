@@ -11,7 +11,6 @@
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
 				<InFeedAdsense
-					class="adsbygoogle"
 					style="display: block"
 					data-ad-client="ca-pub-9333981154484827"
 					data-ad-slot="5683973304"
@@ -31,7 +30,6 @@
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
 				<InFeedAdsense
-					class="adsbygoogle"
 					style="display: block"
 					data-ad-client="ca-pub-9333981154484827"
 					data-ad-slot="5683973304"
@@ -51,7 +49,6 @@
 		<div class="kartu-kata light-box p-4">
 			<div class="cardIklan">
 				<InFeedAdsense
-					class="adsbygoogle"
 					style="display: block"
 					data-ad-client="ca-pub-9333981154484827"
 					data-ad-slot="5683973304"
