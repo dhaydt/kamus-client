@@ -79,8 +79,12 @@
 							</template>
 
 							<template v-slot:cell(bid_glos)="data">
-								<td class="no-border">
-									{{ JSON.parse(data.item.bid_glos)[0] }}
+								<td
+									class="no-border"
+									v-for="ind in JSON.parse(data.item.bid_glos)"
+									:key="ind"
+								>
+									{{ ind }}
 								</td>
 							</template>
 
@@ -133,9 +137,9 @@
 		</b-tabs>
 		<div
 			class="modal fade"
-			id="modalmuncul"
+			id="modals"
 			tabindex="-1"
-			aria-labelledby="modalmuncul1"
+			aria-labelledby="modals"
 			aria-hidden="true"
 		>
 			<div class="modal-dialog">
@@ -187,7 +191,13 @@
 									v-model="data.bid_glos"
 									class="form-control input-30"
 									id="kata"
+									readonly
 								/>
+								<b-form-checkbox-group
+									v-model="data.bid_glos"
+									:options="options"
+									required
+								></b-form-checkbox-group>
 							</div>
 							<div class="form-group">
 								<label for="makna" class="col-form-label">Makna:</label>
@@ -299,10 +309,10 @@ export default {
 		showModalEdit(val) {
 			// this.statusmodal = true;
 			// this.form.reset();
-			window.$("#modalmuncul").modal("show");
+			window.$("#modals").modal("show");
 			this.data.id_glos = val.id_glos;
 			this.data.judul_glos = val.judul_glos;
-			this.data.bid_glos = val.bid_glos;
+			this.data.bid_glos = JSON.parse(val.bid_glos);
 			this.data.bahasa = val.bahasa;
 			this.data.isi_glos = val.isi_glos;
 		},
@@ -317,7 +327,7 @@ export default {
 			});
 			this.loading = false;
 			const data = JSON.parse(resp.config.data);
-			window.$("#modalmuncul").modal("hide");
+			window.$("#modals").modal("hide");
 			Swal.fire({
 				icon: "success",
 				title: "Update Berhasil",

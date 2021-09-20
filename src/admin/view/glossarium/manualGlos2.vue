@@ -71,8 +71,12 @@
 				>
 					<!-- @filtered="onFiltered" -->
 					<template v-slot:cell(bid_glos)="data">
-						<td class="no-border">
-							{{ JSON.parse(data.item.bid_glos)[0] }}
+						<td
+							class="no-border d-flex flex-column"
+							v-for="ind in JSON.parse(data.item.bid_glos)"
+							:key="ind"
+						>
+							{{ ind }}
 						</td>
 					</template>
 					<template v-slot:cell(isi_eng_glos)="data">
@@ -183,7 +187,13 @@
 											v-model="data.bid_glos"
 											class="form-control input-30"
 											id="kata"
+											readonly
 										/>
+										<b-form-checkbox-group
+											v-model="data.bid_glos"
+											:options="options"
+											required
+										></b-form-checkbox-group>
 									</div>
 									<div class="form-group">
 										<label for="makna" class="col-form-label"
@@ -318,7 +328,7 @@ export default {
 			this.data.id_glos = val.id_glos;
 			this.data.judul_eng_glos = val.judul_eng_glos;
 			this.data.judul_ind_glos = val.judul_ind_glos;
-			this.data.bid_glos = val.bid_glos;
+			this.data.bid_glos = JSON.parse(val.bid_glos);
 			this.data.isi_eng_glos = val.isi_eng_glos;
 			this.data.isi_ind_glos = val.isi_ind_glos;
 		},
@@ -335,6 +345,7 @@ export default {
 			this.loading = false;
 			const data = JSON.parse(resp.config.data);
 			window.$("#modalmuncul").modal("hide");
+			// console.log(data);
 			Swal.fire({
 				icon: "success",
 				title: "Update Berhasil",
