@@ -80,7 +80,7 @@
 
 							<template v-slot:cell(bid_glos)="data">
 								<td
-									class="no-border"
+									class="no-border d-flex flex-column"
 									v-for="ind in JSON.parse(data.item.bid_glos)"
 									:key="ind"
 								>
