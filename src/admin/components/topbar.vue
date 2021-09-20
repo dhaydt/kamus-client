@@ -18,7 +18,7 @@
 							<img src="@/assets/assets/img/icon-kbbi.png" alt height="22" />
 						</span>
 						<span class="logo-lg">
-							<img src="@/assets/assets/img/logo-kbbi.png" alt height="28" />
+							<img src="@/assets/assets/img/logo-kbbi2.png" alt height="28" />
 						</span>
 					</router-link>
 				</div>
