@@ -181,7 +181,7 @@ export default {
 						});
 					} else {
 						// console.log("data found");
-						window.location.href = "/cari/kbbi/" + this.keyword;
+						window.location.href = "/kbbi/" + this.keyword;
 					}
 				} catch (err) {
 					console.log("kbbi", err);
@@ -204,7 +204,7 @@ export default {
 							bidang: "Istilah",
 						});
 					} else {
-						window.location.href = "/cari/glosarium/" + this.keyword;
+						window.location.href = "/glosarium/" + this.keyword;
 					}
 				} catch (err) {
 					console.log("istilah", err);
@@ -228,7 +228,7 @@ export default {
 							bidang: "Arti Nama",
 						});
 					} else {
-						window.location.href = "/cari/artiNama/" + this.keyword;
+						window.location.href = "/artiNama/" + this.keyword;
 					}
 				} catch (err) {
 					console.log("nama", err);
@@ -251,7 +251,7 @@ export default {
 							bidang: "ENG - IND",
 						});
 					} else {
-						window.location.href = "/cari/engInd/" + this.keyword;
+						window.location.href = "/engInd/" + this.keyword;
 					}
 				} catch (err) {
 					console.log("EngIn", err);
@@ -274,7 +274,7 @@ export default {
 							bidang: "IND - ENG",
 						});
 					} else {
-						window.location.href = "/cari/indEng/" + this.keyword;
+						window.location.href = "/indEng/" + this.keyword;
 					}
 				} catch (err) {
 					console.log("inEng", err);

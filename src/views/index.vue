@@ -138,11 +138,11 @@ export default {
 	methods: {
 		findUrl() {
 			const find = {
-				kbbi: "/cari/kbbi/",
-				istilah: "/cari/glosarium/",
-				eng: "/cari/engInd/",
-				ind: "/cari/indEng/",
-				nama: "/cari/artiNama/",
+				kbbi: "/kbbi/",
+				istilah: "/glosarium/",
+				eng: "/engInd/",
+				ind: "/indEng/",
+				nama: "/artiNama/",
 			};
 
 			const cari = JSON.stringify(find);

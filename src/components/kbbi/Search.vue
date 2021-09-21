@@ -115,7 +115,7 @@ export default {
 						bidang: "KBBI",
 					});
 				} else {
-					window.location.href = "/cari/kbbi/" + this.keyword;
+					window.location.href = "/kbbi/" + this.keyword;
 				}
 			} catch (err) {
 				console.log(err);

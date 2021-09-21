@@ -153,7 +153,7 @@ export default {
 							bidang: "IND - ENG",
 						});
 					} else {
-						window.location.href = "/cari/indEng/" + this.keyword;
+						window.location.href = "/indEng/" + this.keyword;
 					}
 				} catch (err) {
 					console.log(err);

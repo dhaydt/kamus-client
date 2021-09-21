@@ -21,7 +21,7 @@ const routes = [
         component: () => import("../views/Home.vue"),
       },
       {
-        path: `/cari/:bidang/:kata`,
+        path: `/:bidang/:kata`,
         name: "KataDetail",
         component: () => import("../views/detailKata/detailKata.vue"),
       },
@@ -95,59 +95,59 @@ const routes = [
         component: () => import("../admin/view/Dash.vue"),
       },
       {
-        path: "/admin/user",
+        path: "/admin/kamus/user",
         component: () => import("../admin/view/users/userMain.vue"),
       },
       {
-        path: "/admin/addUser",
+        path: "/admin/kamus/addUser",
         component: () => import("../admin/view/users/addUser.vue"),
       },
       {
-        path: "/admin/addword",
+        path: "/admin/kamus/addword",
         component: () => import("../admin/view/kbbi/addWord.vue"),
       },
       {
-        path: "/admin/addMultiple",
+        path: "/admin/kamus/addMultiple",
         component: () => import("../admin/view/kbbi/addMultiple.vue"),
       },
       {
-        path: "/admin/kbbi",
+        path: "/admin/kamus/kbbi",
         component: () => import("../admin/view/kbbi/Kbbi.vue"),
       },
       {
-        path: "/admin/eng-ind",
+        path: "/admin/kamus/eng-ind",
         component: () => import("../admin/view/translate/Engind.vue"),
       },
       {
-        path: "/admin/ind-eng",
+        path: "/admin/kamus/ind-eng",
         component: () => import("../admin/view/translate/Indeng.vue"),
       },
       {
-        path: "/admin/artinama",
+        path: "/admin/kamus/artinama",
         component: () => import("../admin/view/artiNama/Artinama.vue"),
       },
       {
-        path: "/admin/addNama",
+        path: "/admin/kamus/addNama",
         component: () => import("../admin/view/artiNama/namaAdd.vue"),
       },
       {
-        path: "/admin/glossary",
+        path: "/admin/kamus/glossary",
         component: () => import("../admin/view/glossarium/Glossary.vue"),
       },
       {
-        path: "/admin/addGloss",
+        path: "/admin/kamus/addGloss",
         component: () => import("../admin/view/glossarium/glossAdd.vue"),
       },
       {
-        path: "/admin/report",
+        path: "/admin/kamus/report",
         component: () => import("../admin/view/report/Report.vue"),
       },
       {
-        path: "/admin/adv",
+        path: "/admin/kamus/adv",
         component: () => import("../admin/view/adsvertism/advTable.vue"),
       },
       {
-        path: "/admin/addAdv",
+        path: "/admin/kamus/addAdv",
         component: () => import("../admin/view/adsvertism/addImage.vue"),
       },
 

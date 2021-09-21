@@ -115,7 +115,7 @@ export default {
 						bidang: "Nama",
 					});
 				} else {
-					window.location.href = "/cari/artiNama/" + this.keyword;
+					window.location.href = "/artiNama/" + this.keyword;
 				}
 			} catch (err) {
 				console.log(err);

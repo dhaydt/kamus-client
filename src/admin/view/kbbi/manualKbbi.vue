@@ -24,31 +24,23 @@
 						<b-form-input
 							type="search"
 							id="search"
-							v-model="filter"
-							filter-debounce="200"
+							v-model="search"
+							@keydown.enter="findKata"
 							class="form-control form-control-sm ml-2"
+							placeholder="Tekan enter untuk mencari"
 						></b-form-input>
 					</label>
 				</div>
-
-				<!-- Search -->
-				<!-- <div class="col-sm-12 col-md-4">
-					<div
-						id="tickets-table_filter"
-						class="dataTables_filter text-md-right"
-					>
-						<label class="d-inline-flex align-items-center">
-							Search:
-							<b-form-input
-								type="search"
-								class="form-control form-control-sm ml-2"
-							></b-form-input>
-						</label>
-					</div>
-				</div> -->
-				<!-- End search -->
 			</div>
 		</div>
+		<b-alert
+			v-model="showDismissibleAlert"
+			class="mt-2 notif"
+			variant="danger"
+			dismissible
+		>
+			{{ error }}
+		</b-alert>
 		<EllipsisLoader :loading="loading"></EllipsisLoader>
 		<div class="table-responsive">
 			<b-table
@@ -61,9 +53,7 @@
 				:sort-by.sync="sortBy"
 				:sort-desc.sync="sortDesc"
 				primary-key="_id"
-				:filter="filter"
 				:filter-included-fields="filterOn"
-				@filtered="onFiltered"
 			>
 				<!-- @filtered="onFiltered" -->
 				<template v-slot:cell(keterangan)="data">
@@ -207,6 +197,10 @@ export default {
 			loading: false,
 			dataKata: [],
 			jumlahData: null,
+			error: "",
+			showDismissibleAlert: false,
+			search: "",
+			findUrl: "",
 			totalRows: 1,
 			currentPage: 1,
 			perPage: 10,
@@ -240,6 +234,7 @@ export default {
 		const mainUrl = localStorage.mainUrl;
 		this.getKamusUrl = mainUrl + "/kamusCadangan";
 		this.getKamus();
+		this.findUrl = mainUrl + "/filKbbiManual/";
 		this.loading = true;
 	},
 	components: {
@@ -261,6 +256,45 @@ export default {
 		this.$root.$on("getKamus", this.getKamus);
 	},
 	methods: {
+		async findKata() {
+			this.loading = true;
+			try {
+				const response = await axios.get(this.findUrl + this.search);
+				this.dataHtml = response.data;
+				this.jumlahData = response.data.length;
+
+				if (this.jumlahData === 0) {
+					this.error = "Data tidak ditemukan!";
+					this.showDismissibleAlert = true;
+					this.loading = false;
+
+					console.log("row", this.jumlahData);
+				} else {
+					String.prototype.escapeSpecialChars = function () {
+						return (
+							this.replace(/&lt;\/b&gt;/g, "</b>")
+								/* eslint-disable */
+								.replace(/&lt;b&gt;/g, "<b>")
+								.replace(/&lt;\/sup&gt;/g, "</sup>")
+								.replace(/&lt;sup&gt;/g, "<sup>")
+								.replace(/&lt;\/i&gt;/g, "</i>")
+								.replace(/&lt;i&gt;/g, "<i>")
+								.replace(/&lt;br&gt;/g, "<br>")
+								.replace(/\\b/g, "\\b")
+								.replace(/\\f/g, "\\f")
+						);
+					};
+
+					var myJSONString = JSON.stringify(this.dataHtml);
+					var myEscapedJSONString = myJSONString.escapeSpecialChars();
+					this.loading = false;
+					this.dataKata = JSON.parse(myEscapedJSONString);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		},
+
 		showModalEdit(val) {
 			// this.statusmodal = true;
 			// this.form.reset();
@@ -278,9 +312,11 @@ export default {
 		},
 
 		onFiltered(filteredItems) {
+			this.loading = true;
 			// Trigger pagination to upkata the number of buttons/pages due to filtering
 			this.totalRows = filteredItems.length;
 			this.currentPage = 1;
+			this.loading = false;
 		},
 
 		async updateData() {

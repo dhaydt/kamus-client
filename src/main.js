@@ -36,13 +36,13 @@ Vue.use(Ads.InFeedAdsense);
 Vue.use(BootstrapVue);
 Vue.use(VueMeta);
 Vue.use(vco);
-Vue.use(axios);
 Vue.use(VueSweetalert2);
 
 new Vue({
   router,
   store,
   jQuery,
+  axios,
   render: function(h) {
     return h(App);
   },

@@ -129,7 +129,7 @@
 				</div>
 			</div>
 
-			<div class="box-detail-single flexeo">
+			<!-- <div class="box-detail-single flexeo">
 				<div class="box-detail-single-flex">
 					<ul class="shares-makna">
 						<li>Bagikan Makna</li>
@@ -161,7 +161,7 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>

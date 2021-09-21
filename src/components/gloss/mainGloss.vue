@@ -114,7 +114,7 @@ export default {
 						bidang: "Istilah",
 					});
 				} else {
-					window.location.href = "/cari/glosarium/" + this.keyword;
+					window.location.href = "/glosarium/" + this.keyword;
 				}
 			} catch (err) {
 				console.log(err);
