@@ -2,7 +2,11 @@
 	<footer class="dark-footer skin-dark-footer">
 		<div class="container">
 			<b-row>
-				<b-col lg="6" md="6" class="text-left"></b-col>
+				<b-col lg="6" md="6" class="text-left mt-3">
+					<div class="footer-bottom-social m-0">
+						<div v-append="html" @appended="appended"></div>
+					</div>
+				</b-col>
 				<b-col lg="6" md="6" class="text-right mt-4 mb-2">
 					<ul class="footer-bottom-social m-0">
 						<li><router-link to="/about">About Us</router-link></li>
@@ -41,15 +45,34 @@
 		</div>
 	</footer>
 </template>
-
 <script>
-export default {};
+import { html } from "./histats";
+export default {
+	data() {
+		return {
+			html: html,
+		};
+	},
+
+	created() {
+		this.appended();
+	},
+
+	methods: {
+		appended() {
+			// console.log("appended!");
+			// could use jQuery 😊
+			// alert(window.jQuery);
+		},
+	},
+};
 </script>
 
 <style lang="scss" scoped>
 footer {
 	z-index: 99;
-	position: relative;
+	position: absolute;
+	width: 100%;
 }
 .skin-dark-footer {
 	color: rgb(129, 141, 165);

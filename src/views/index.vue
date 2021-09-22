@@ -104,11 +104,11 @@
 												>Terjemahan<span class="submenu-indicator"></span
 											></router-link>
 										</li>
-										<li class="ml-auto nav-item">
+										<!-- <li class="ml-auto nav-item">
 											<router-link to="/admin" class="nav-link txt-black"
 												>Admin<span class="submenu-indicator"></span
 											></router-link>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 							</nav>

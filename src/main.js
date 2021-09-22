@@ -5,7 +5,7 @@ import VueSweetalert2 from "vue-sweetalert2";
 import jQuery from "jquery";
 import VueMeta from "vue-meta";
 import VueSocialSharing from "vue-social-sharing";
-
+import VueAppend from "vue-append";
 // If you don't need the styles, do not connect
 import "sweetalert2/dist/sweetalert2.min.css";
 // import * as VueSpinner from "vue-spinners-css";
@@ -23,6 +23,7 @@ import Ads from "vue-google-adsense";
 library.add(faUserSecret);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.use(VueAppend);
 Vue.config.productionTip = false;
 Vue.use(VueSocialSharing, {
   networks: {
